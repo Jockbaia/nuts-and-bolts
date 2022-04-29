@@ -5,6 +5,7 @@ using UnityEngine;
 public class BasicMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public float stepSize = 1f;
     public Transform movePoint;
 
     void Start()
@@ -18,19 +19,30 @@ public class BasicMovement : MonoBehaviour
 
         if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
         {
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) >= 0.1f && Mathf.Abs(Input.GetAxisRaw("Vertical")) >= 0.1f)
-            {
-                return;
-            }
 
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) >= 0.1f)
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
+                Vector3 vec = new Vector3(0, 0, stepSize);
+                transform.rotation = Quaternion.LookRotation(vec);
+                movePoint.position += vec;
             }
-
-            if (Mathf.Abs(Input.GetAxisRaw("Vertical")) >= 0.1f)
+            else if (Input.GetKeyDown(KeyCode.A))
             {
-                movePoint.position += new Vector3(0f, 0f, Input.GetAxisRaw("Vertical"));
+                Vector3 vec = new Vector3(-stepSize, 0, 0);
+                transform.rotation = Quaternion.LookRotation(vec);
+                movePoint.position += vec;
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                Vector3 vec = new Vector3(0, 0, -stepSize);
+                transform.rotation = Quaternion.LookRotation(vec);
+                movePoint.position += vec;
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                Vector3 vec = new Vector3(stepSize, 0, 0);
+                transform.rotation = Quaternion.LookRotation(vec);
+                movePoint.position += vec;
             }
         }
     }
