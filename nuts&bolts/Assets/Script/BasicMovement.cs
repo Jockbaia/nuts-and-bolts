@@ -7,10 +7,12 @@ public class BasicMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public float stepSize = 1f;
     public Transform movePoint;
+    public Transform mainCamera;
 
     void Start()
     {
         movePoint.parent = null;
+        mainCamera.parent = null;
     }
 
     void Update()

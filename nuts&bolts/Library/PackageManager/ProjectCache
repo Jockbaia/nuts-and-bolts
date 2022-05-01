@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637861546218076448
-    m_Hash: 591798746
+      ticks: 637870192910487071
+    m_Hash: 2649009015
   m_LockFileStatus:
     m_FilePath: C:/Users/QUEST/Documents/POLITO/Game Design/Project/nuts-and-bolts/nuts&bolts/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637861546218076448
-    m_Hash: 1868736404
+      ticks: 637870192913598862
+    m_Hash: 737861715
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -499,12 +499,14 @@ m_PackageAssets:
         - 1.1.29
         - 1.1.30
         - 1.1.31
+        - 2.0.1-exp.1
         - 2.0.1-pre.12
         - 2.0.1-pre.18
         compatible:
         - 1.1.29
         - 1.1.30
         - 1.1.31
+        - 2.0.1-exp.1
         - 2.0.1-pre.12
         - 2.0.1-pre.18
         verified: 1.1.31
