@@ -12,9 +12,27 @@ public class MapGenerator : MonoBehaviour
     [Range(0, 1)]
     public float outlinePercent;
 
+    void Awake()
+    {
+        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+    }
+
     void Start()
     {
-        GenerateMap();
+        
+    } 
+
+    private void GameManagerOnGameStateChanged(GameState obj)
+    {
+        if (obj == GameState.Level0)
+        {
+            GenerateMap();
+        }
     }
 
     public void GenerateMap()
@@ -28,11 +46,9 @@ public class MapGenerator : MonoBehaviour
         Transform mapHolder = new GameObject(holderName).transform;
         mapHolder.parent = transform;
 
-        List<List<char>> room = ReadLevelFile();
-
-        for (int z = room.Count-1; z >= 0; z--)
+        for (int z = GameManager.instance.room.Count-1; z >= 0; z--)
         {
-            for (int x = 0; x < room[0].Count; x++)
+            for (int x = 0; x < GameManager.instance.room[0].Count; x++)
             {
                 Vector3 tilePosition = new Vector3(x, 0, z);
 
@@ -40,33 +56,20 @@ public class MapGenerator : MonoBehaviour
                 newTile.localScale = Vector3.one * (1 - outlinePercent);
                 newTile.parent = mapHolder;
 
-                if (room[z][x] == '1')
+                if (GameManager.instance.room[z][x] == '1') // TallBox
                 {
                     Vector3 tallboxPosition = new Vector3(x, 1, z);
                     Transform newTallbox = Instantiate(tallboxPrefab, tallboxPosition, Quaternion.Euler(Vector3.zero)) as Transform;
                     newTallbox.parent = mapHolder;
+                    // Scripts
+                    newTallbox.gameObject.AddComponent<PushBox>();
+                    newTallbox.gameObject.AddComponent<DragBox>();
+                    // Move point
+                    Transform newTallboxMovePoint = new GameObject("Box Move Point").transform;
+                    newTallboxMovePoint.transform.position = newTallbox.transform.position;
+                    newTallboxMovePoint.parent = newTallbox;
                 }
             }
         }
-    }
-
-    List<List<char>> ReadLevelFile()
-    {
-        List<List<char>> room = new List<List<char>>();
-
-        string[] rows = level.text.Split('\n');
-
-        foreach (string row in rows)
-        {
-            string[] cols = row.Split(',');
-            List<char> tmp = new List<char>();
-            foreach (string c in cols)
-            {
-                tmp.Add(c.ToCharArray()[0]);
-            }
-            room.Add(tmp);
-        }
-        room.Reverse();
-        return room;
     }
 }
