@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,10 +13,14 @@ public class BasicMovement : MonoBehaviour
     public static Vector3 playerMovePointPos;
     public static Vector3 playerPos;
 
+    public static event Action<bool> OnDragKeyPressed;
+
     void Start()
     {
         movePoint.parent = null;
         mainCamera.parent = null;
+
+        OnDragKeyPressed?.Invoke(false);
     }
 
     void Update()
@@ -33,7 +38,7 @@ public class BasicMovement : MonoBehaviour
         }
         
 
-        if (Vector3.Distance(transform.position, movePoint.position) <= 0.10f)
+        if (Vector3.Distance(transform.position, movePoint.position) == 0f)
         {
             int xPos = (int) transform.position.x;
             int zPos = (int) transform.position.z;
@@ -62,6 +67,15 @@ public class BasicMovement : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(vec);
                 movePoint.position += vec;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            OnDragKeyPressed?.Invoke(true);
+        }
+        else if (Input.GetKeyUp(KeyCode.E))
+        {
+            OnDragKeyPressed?.Invoke(false);
         }
     }
 

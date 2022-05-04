@@ -63,7 +63,7 @@ public class MapGenerator : MonoBehaviour
                     newTallbox.parent = mapHolder;
                     // Scripts
                     newTallbox.gameObject.AddComponent<PushBox>();
-                    newTallbox.gameObject.AddComponent<DragBox>();
+                    //newTallbox.gameObject.AddComponent<DragBox>();
                     // Move point
                     Transform newTallboxMovePoint = new GameObject("Box Move Point").transform;
                     newTallboxMovePoint.transform.position = newTallbox.transform.position;
