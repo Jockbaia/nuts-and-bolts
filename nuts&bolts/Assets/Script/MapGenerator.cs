@@ -4,35 +4,21 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public TextAsset level;
+    public TextAsset levelFile;
 
     public Transform tilePrefab;
     public Transform tallboxPrefab;
 
-    [Range(0, 1)]
-    public float outlinePercent;
+    public List<List<char>> room;
 
     void Awake()
     {
-        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
-    }
-
-    void OnDestroy()
-    {
-        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+        ReadLevelFile();
     }
 
     void Start()
     {
-        
-    } 
-
-    private void GameManagerOnGameStateChanged(GameState obj)
-    {
-        if (obj == GameState.Level0)
-        {
-            GenerateMap();
-        }
+        GenerateMap();
     }
 
     public void GenerateMap()
@@ -53,7 +39,6 @@ public class MapGenerator : MonoBehaviour
                 Vector3 tilePosition = new Vector3(x, 0, z);
 
                 Transform newTile = Instantiate(tilePrefab, tilePosition, Quaternion.Euler(Vector3.right * 90)) as Transform;
-                newTile.localScale = Vector3.one * (1 - outlinePercent);
                 newTile.parent = mapHolder;
 
                 if (GameManager.instance.room[z][x] == '1') // TallBox
@@ -71,5 +56,25 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+    }
+
+    List<List<char>> ReadLevelFile()
+    {
+        List<List<char>> room = new List<List<char>>();
+
+        string[] rows = levelFile.text.Split('\n');
+
+        foreach (string row in rows)
+        {
+            string[] cols = row.Split(',');
+            List<char> tmp = new List<char>();
+            foreach (string c in cols)
+            {
+                tmp.Add(c.ToCharArray()[0]);
+            }
+            room.Add(tmp);
+        }
+        room.Reverse();
+        return room;
     }
 }
