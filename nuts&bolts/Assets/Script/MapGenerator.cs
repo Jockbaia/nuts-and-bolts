@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
+    public int XOffset = 0;
+
     public TextAsset levelFile;
 
     public Transform tilePrefab;
@@ -13,7 +15,7 @@ public class MapGenerator : MonoBehaviour
 
     void Awake()
     {
-        ReadLevelFile();
+        room = ReadLevelFile();
     }
 
     void Start()
@@ -32,22 +34,24 @@ public class MapGenerator : MonoBehaviour
         Transform mapHolder = new GameObject(holderName).transform;
         mapHolder.parent = transform;
 
-        for (int z = GameManager.instance.room.Count-1; z >= 0; z--)
+        (int zLen, int xLen) = MapLength();
+
+        for (int z = zLen-1; z >= 0; z--)
         {
-            for (int x = 0; x < GameManager.instance.room[0].Count; x++)
+            for (int x = 0; x < xLen; x++)
             {
-                Vector3 tilePosition = new Vector3(x, 0, z);
+                Vector3 tilePosition = new Vector3(x + XOffset, 0, z);
 
                 Transform newTile = Instantiate(tilePrefab, tilePosition, Quaternion.Euler(Vector3.right * 90)) as Transform;
                 newTile.parent = mapHolder;
 
-                if (GameManager.instance.room[z][x] == '1') // TallBox
+                if (room[z][x] == '1') // TallBox
                 {
-                    Vector3 tallboxPosition = new Vector3(x, 1, z);
+                    Vector3 tallboxPosition = new Vector3(x + XOffset, 1, z);
                     Transform newTallbox = Instantiate(tallboxPrefab, tallboxPosition, Quaternion.Euler(Vector3.zero)) as Transform;
                     newTallbox.parent = mapHolder;
                     // Scripts
-                    newTallbox.gameObject.AddComponent<PushBox>();
+                    //newTallbox.gameObject.AddComponent<PushBox>();
                     //newTallbox.gameObject.AddComponent<DragBox>();
                     // Move point
                     Transform newTallboxMovePoint = new GameObject("Box Move Point").transform;
@@ -56,6 +60,12 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+    }
+
+    public (int, int) MapLength()
+    {
+        // zLen, xLen
+        return (room.Count, room[0].Count);
     }
 
     List<List<char>> ReadLevelFile()
