@@ -17,21 +17,11 @@ public class PlayerLogic : MonoBehaviour
     private int mapXlen = 0;
     private int mapXoffset = 0;
 
-    public bool draggingBox = false;
-
     public enum PowerSelector
     {
         PushPullBox
     }
     public PowerSelector selectedPower = PowerSelector.PushPullBox;
-
-    enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right
-    }
 
     private void Start()
     {
@@ -64,7 +54,7 @@ public class PlayerLogic : MonoBehaviour
             { // Move Up
                 Vector3 vec = new Vector3(0f, 0f, 1f);
 
-                if (!specialAction) transform.rotation = Quaternion.LookRotation(vec);
+                if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
                 if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
                     && transform.position.z < mapZlen - 1)
@@ -76,7 +66,7 @@ public class PlayerLogic : MonoBehaviour
             { // Move Down
                 Vector3 vec = new Vector3(0f, 0f, -1f);
 
-                if (!specialAction) transform.rotation = Quaternion.LookRotation(vec);
+                if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
                 if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
                     && transform.position.z > 0)
@@ -88,7 +78,7 @@ public class PlayerLogic : MonoBehaviour
             { // Move Right
                 Vector3 vec = new Vector3(1f, 0f, 0f);
 
-                if (!specialAction) transform.rotation = Quaternion.LookRotation(vec);
+                if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
                 if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
                     && transform.position.x < mapXlen + mapXoffset - 1)
@@ -100,7 +90,7 @@ public class PlayerLogic : MonoBehaviour
             { // Move Left
                 Vector3 vec = new Vector3(-1f, 0f, 0f);
 
-                if (!specialAction) transform.rotation = Quaternion.LookRotation(vec);
+                if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
                 if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
                      && transform.position.x > mapXoffset)
@@ -111,52 +101,42 @@ public class PlayerLogic : MonoBehaviour
         }
     }
 
-    bool IsGrabbingBox(Direction direction) // Position w.r.t. box
+    bool IsGrabbing() // Checks if player is grabbing a box
     {
         if (selectedPower == PowerSelector.PushPullBox && specialAction)
         {
-            if (direction == Direction.Up)
+            float rotation = transform.rotation.eulerAngles.y;
+
+            if (rotation == 0f)
             {
-                Collider[] collider = Physics.OverlapSphere(transform.position + new Vector3(0, 0, 1), 0.01f);
-                foreach (Collider obj in collider)
+                Collider[] coll = Physics.OverlapSphere(transform.position + new Vector3(0, 0, 1), 0.01f);
+                if (coll.Length == 1 && coll[0].name.StartsWith("TallBox") && movementInput.y < -0.9f)
                 {
-                    if (obj.name.StartsWith("TallBox"))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
-            else if (direction == Direction.Down)
+            else if (rotation == 90f)
             {
-                Collider[] collider = Physics.OverlapSphere(transform.position + new Vector3(0, 0, -1), 0.01f);
-                foreach (Collider obj in collider)
+                Collider[] coll = Physics.OverlapSphere(transform.position + new Vector3(1, 0, 0), 0.01f);
+                if (coll.Length == 1 && coll[0].name.StartsWith("TallBox") && movementInput.x < -0.9f)
                 {
-                    if (obj.name.StartsWith("TallBox"))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
-            else if (direction == Direction.Left)
+            else if (rotation == 180f)
             {
-                Collider[] collider = Physics.OverlapSphere(transform.position + new Vector3(-1, 0, 0), 0.01f);
-                foreach (Collider obj in collider)
+                Collider[] coll = Physics.OverlapSphere(transform.position + new Vector3(0, 0, -1), 0.01f);
+                if (coll.Length == 1 && coll[0].name.StartsWith("TallBox") && movementInput.y > 0.9f)
                 {
-                    if (obj.name.StartsWith("TallBox"))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
-            else if (direction == Direction.Right)
+            else if (rotation == 270f)
             {
-                Collider[] collider = Physics.OverlapSphere(transform.position + new Vector3(1, 0, 0), 0.01f);
-                foreach (Collider obj in collider)
+                Collider[] coll = Physics.OverlapSphere(transform.position + new Vector3(-1, 0, 0), 0.01f);
+                if (coll.Length == 1 && coll[0].name.StartsWith("TallBox") && movementInput.x > 0.9f)
                 {
-                    if (obj.name.StartsWith("TallBox"))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }

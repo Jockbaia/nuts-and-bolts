@@ -8,8 +8,6 @@ public class BoxLogic : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 5f;
 
-    public Action<bool> OnGrab;
-
     private Transform movePoint;
 
     private enum Position
@@ -109,7 +107,6 @@ public class BoxLogic : MonoBehaviour
                     && transform.position.x > mapXoffset + 1)
                 { // Pull -> Left
                     movePoint.position += new Vector3(-1, 0, 0);
-                    playerLogic.draggingBox = true;
                 }
                 else if (playerPos == Position.Right && playerLogic.movementInput.x > 0.9f && rightTileFreex2
                     && playerLogic.transform.rotation.eulerAngles.y == 270f
