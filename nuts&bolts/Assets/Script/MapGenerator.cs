@@ -51,8 +51,7 @@ public class MapGenerator : MonoBehaviour
                     Transform newTallbox = Instantiate(tallboxPrefab, tallboxPosition, Quaternion.Euler(Vector3.zero)) as Transform;
                     newTallbox.parent = mapHolder;
                     // Scripts
-                    //newTallbox.gameObject.AddComponent<PushBox>();
-                    //newTallbox.gameObject.AddComponent<DragBox>();
+                    newTallbox.gameObject.AddComponent<BoxLogic>();
                     // Move point
                     Transform newTallboxMovePoint = new GameObject("Box Move Point").transform;
                     newTallboxMovePoint.transform.position = newTallbox.transform.position;
