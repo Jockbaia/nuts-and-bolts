@@ -13,7 +13,25 @@ public class PlayerLogic : MonoBehaviour
 
     public Transform movePoint;
 
-    private bool draggingBox = false;
+    private int mapZlen = 0;
+    private int mapXlen = 0;
+    private int mapXoffset = 0;
+
+    public bool draggingBox = false;
+
+    public enum PowerSelector
+    {
+        PushPullBox
+    }
+    public PowerSelector selectedPower = PowerSelector.PushPullBox;
+
+    enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
 
     private void Start()
     {
@@ -22,6 +40,8 @@ public class PlayerLogic : MonoBehaviour
 
         var cam = transform.Find("Player Camera");
         cam.parent = null;
+
+        (mapZlen, mapXlen, mapXoffset) = GetMapBounds();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -38,56 +58,132 @@ public class PlayerLogic : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
 
-        if (Vector3.Distance(movePoint.position, transform.position) == 0f) //TODO: prevent out-of-bounds
+        if (Vector3.Distance(movePoint.position, transform.position) == 0f)
         {
-            CheckCollisions();
-
             if (movementInput.y > 0.9f)
-            {
+            { // Move Up
                 Vector3 vec = new Vector3(0f, 0f, 1f);
-                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0)
-                {
-                    movePoint.position += vec;
-                }
-                
-                if (!specialAction) transform.rotation = Quaternion.LookRotation(vec);
-            }
-            else if (movementInput.y < -0.9f)
-            {
-                Vector3 vec = new Vector3(0f, 0f, -1f);
-                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0)
-                {
-                    movePoint.position += vec;
-                }
 
                 if (!specialAction) transform.rotation = Quaternion.LookRotation(vec);
+
+                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
+                    && transform.position.z < mapZlen - 1)
+                {
+                    movePoint.position += vec;
+                }
+            }
+            else if (movementInput.y < -0.9)
+            { // Move Down
+                Vector3 vec = new Vector3(0f, 0f, -1f);
+
+                if (!specialAction) transform.rotation = Quaternion.LookRotation(vec);
+
+                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
+                    && transform.position.z > 0)
+                {
+                    movePoint.position += vec;
+                }
             }
             else if (movementInput.x > 0.9f)
-            {
+            { // Move Right
                 Vector3 vec = new Vector3(1f, 0f, 0f);
-                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0)
-                {
-                    movePoint.position += vec;
-                }
 
                 if (!specialAction) transform.rotation = Quaternion.LookRotation(vec);
-            }
-            else if (movementInput.x < -0.9f)
-            {
-                Vector3 vec = new Vector3(-1f, 0f, 0f);
-                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0)
+
+                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
+                    && transform.position.x < mapXlen + mapXoffset - 1)
                 {
                     movePoint.position += vec;
                 }
-                
+            }
+            else if (movementInput.x < -0.9f)
+            { // Move Left
+                Vector3 vec = new Vector3(-1f, 0f, 0f);
+
                 if (!specialAction) transform.rotation = Quaternion.LookRotation(vec);
-                // TODO: change here instead of !specialAction to "grab state"
+
+                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
+                     && transform.position.x > mapXoffset)
+                {
+                    movePoint.position += vec;
+                }
             }
         }
     }
 
-    void CheckCollisions()
+    bool IsGrabbingBox(Direction direction) // Position w.r.t. box
     {
-        //TODO: implement collisions to check if in "grab state"
+        if (selectedPower == PowerSelector.PushPullBox && specialAction)
+        {
+            if (direction == Direction.Up)
+            {
+                Collider[] collider = Physics.OverlapSphere(transform.position + new Vector3(0, 0, 1), 0.01f);
+                foreach (Collider obj in collider)
+                {
+                    if (obj.name.StartsWith("TallBox"))
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (direction == Direction.Down)
+            {
+                Collider[] collider = Physics.OverlapSphere(transform.position + new Vector3(0, 0, -1), 0.01f);
+                foreach (Collider obj in collider)
+                {
+                    if (obj.name.StartsWith("TallBox"))
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (direction == Direction.Left)
+            {
+                Collider[] collider = Physics.OverlapSphere(transform.position + new Vector3(-1, 0, 0), 0.01f);
+                foreach (Collider obj in collider)
+                {
+                    if (obj.name.StartsWith("TallBox"))
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (direction == Direction.Right)
+            {
+                Collider[] collider = Physics.OverlapSphere(transform.position + new Vector3(1, 0, 0), 0.01f);
+                foreach (Collider obj in collider)
+                {
+                    if (obj.name.StartsWith("TallBox"))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    (int, int, int) GetMapBounds()
+    {
+        GameObject map;
+        string mapName;
+
+        // Since P1Map and P2Map have 50 Xoffset
+        if (transform.position.x < 25) // Belongs to P1Map
+        {
+            mapName = "P1Map";
+        }
+        else // Belongs to P2Map
+        {
+            mapName = "P2Map";
+        }
+
+        map = GameObject.Find(mapName);
+        MapGenerator mapGenerator = map.GetComponent<MapGenerator>();
+        int zLen = mapGenerator.room.Count;
+        int xLen = mapGenerator.room[0].Count;
+        int xOff = mapGenerator.XOffset;
+
+        return (zLen, xLen, xOff);
     }
 }

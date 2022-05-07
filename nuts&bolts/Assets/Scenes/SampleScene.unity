@@ -449,6 +449,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b8bf7a1d7e8fb0419f171ea84155c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1StartingPos: {x: 6, y: 1, z: 0}
+  player2StartingPos: {x: 56, y: 1, z: 0}
+  playerPrefab: {fileID: 7608206887762183670, guid: 0401623b6ec743e4296017bf0ab9d1a4, type: 3}
 --- !u!1 &1931879865
 GameObject:
   m_ObjectHideFlags: 0

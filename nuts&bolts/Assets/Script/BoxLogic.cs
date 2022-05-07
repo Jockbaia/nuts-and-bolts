@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ public class BoxLogic : MonoBehaviour
 {
     [SerializeField]
     private float moveSpeed = 5f;
+
+    public Action<bool> OnGrab;
 
     private Transform movePoint;
 
@@ -36,10 +39,16 @@ public class BoxLogic : MonoBehaviour
     // Check if special action button is pressed
     private PlayerLogic playerLogic = null;
 
+    private int mapZlen = 0;
+    private int mapXlen = 0;
+    private int mapXoffset = 0;
+
     void Start()
     {
         movePoint = transform.Find("Box Move Point");
         movePoint.parent = transform.parent;
+
+        (mapZlen, mapXlen, mapXoffset) = GetMapBounds();
     }
 
     void Update()
@@ -50,50 +59,90 @@ public class BoxLogic : MonoBehaviour
         {
             CheckCollisions();
 
-            if (playerLogic != null && playerLogic.specialAction) //TODO: prevent out-of-bounds
+            if (playerLogic != null && playerLogic.specialAction)
             {
                 // Detect Push
                 if (playerPos == Position.Down && playerLogic.movementInput.y > 0.9f && upTileFree 
-                    && playerLogic.transform.rotation.eulerAngles.y == 0f) //TODO: check also facing direction
-                {
+                    && playerLogic.transform.rotation.eulerAngles.y == 0f
+                    && transform.position.z < mapZlen - 1)
+                { // Push -> Up
                     movePoint.position += new Vector3(0, 0, 1);
                     playerLogic.movePoint.position += new Vector3(0, 0, 1);
                 }
-                else if (playerPos == Position.Right && playerLogic.movementInput.x < -0.9f && leftTileFree)
-                {
+                else if (playerPos == Position.Right && playerLogic.movementInput.x < -0.9f && leftTileFree
+                    && playerLogic.transform.rotation.eulerAngles.y == 270f
+                    && transform.position.x > mapXoffset)
+                { // Push -> Left
                     movePoint.position += new Vector3(-1, 0, 0);
                     playerLogic.movePoint.position += new Vector3(-1, 0, 0);
                 }
-                else if (playerPos == Position.Left && playerLogic.movementInput.x > 0.9f && rightTileFree)
-                {
+                else if (playerPos == Position.Left && playerLogic.movementInput.x > 0.9f && rightTileFree
+                    && playerLogic.transform.rotation.eulerAngles.y == 90f
+                    && transform.position.x < mapXlen + mapXoffset - 1)
+                { // Push -> Right
                     movePoint.position += new Vector3(1, 0, 0);
                     playerLogic.movePoint.position += new Vector3(1, 0, 0);
                 }
-                else if (playerPos == Position.Up && playerLogic.movementInput.y < -0.9f && downTileFree)
-                {
+                else if (playerPos == Position.Up && playerLogic.movementInput.y < -0.9f && downTileFree
+                    && playerLogic.transform.rotation.eulerAngles.y == 180f
+                    && transform.position.z > 0)
+                { // Push -> Down
                     movePoint.position += new Vector3(0, 0, -1);
                     playerLogic.movePoint.position += new Vector3(0, 0, -1);
                 }
 
-                // Detect Drag //TODO: implement for all directions
-                else if (playerPos == Position.Down && playerLogic.movementInput.y < -0.9f && downTileFreex2)
-                {
+                // Detect Drag
+                else if (playerPos == Position.Down && playerLogic.movementInput.y < -0.9f && downTileFreex2
+                    && playerLogic.transform.rotation.eulerAngles.y == 0f
+                    && transform.position.z > 1)
+                { // Pull -> Down
                     movePoint.position += new Vector3(0, 0, -1);
                 }
-                else if (playerPos == Position.Right && playerLogic.movementInput.x < -0.9f && leftTileFree)
-                {
+                else if (playerPos == Position.Up && playerLogic.movementInput.y > 0.9f && upTileFreex2
+                    && playerLogic.transform.rotation.eulerAngles.y == 180f
+                    && transform.position.z < mapZlen - 2)
+                { // Pull -> Up
+                    movePoint.position += new Vector3(0, 0, 1);
+                }
+                else if (playerPos == Position.Left && playerLogic.movementInput.x < -0.9f && leftTileFreex2
+                    && playerLogic.transform.rotation.eulerAngles.y == 90f
+                    && transform.position.x > mapXoffset + 1)
+                { // Pull -> Left
                     movePoint.position += new Vector3(-1, 0, 0);
+                    playerLogic.draggingBox = true;
                 }
-                else if (playerPos == Position.Left && playerLogic.movementInput.x > 0.9f && rightTileFree)
-                {
+                else if (playerPos == Position.Right && playerLogic.movementInput.x > 0.9f && rightTileFreex2
+                    && playerLogic.transform.rotation.eulerAngles.y == 270f
+                    && transform.position.x < mapXoffset + mapXlen - 2)
+                { // Pull -> Right
                     movePoint.position += new Vector3(1, 0, 0);
-                }
-                else if (playerPos == Position.Up && playerLogic.movementInput.y < -0.9f && downTileFree)
-                {
-                    movePoint.position += new Vector3(0, 0, -1);
                 }
             }
         }
+    }
+
+    (int, int, int) GetMapBounds()
+    {
+        GameObject map;
+        string mapName;
+
+        // Since P1Map and P2Map have 50 Xoffset
+        if (transform.position.x < 25) // Belongs to P1Map
+        {
+            mapName = "P1Map";
+        }
+        else // Belongs to P2Map
+        {
+            mapName = "P2Map";
+        }
+
+        map = GameObject.Find(mapName);
+        MapGenerator mapGenerator = map.GetComponent<MapGenerator>();
+        int zLen = mapGenerator.room.Count;
+        int xLen = mapGenerator.room[0].Count;
+        int xOff = mapGenerator.XOffset;
+
+        return (zLen, xLen, xOff);
     }
 
     void CheckCollisions()

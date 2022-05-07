@@ -36,6 +36,17 @@
                 },
                 {
                     "name": "",
+                    "id": "3fd059ee-36b8-4031-92d8-c79a49119015",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardRight",
+                    "action": "SpecialAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "90ab4098-04f3-4f70-be17-bd2581051dc7",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
@@ -121,6 +132,61 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "IJKL",
+                    "id": "180dd46c-f532-4a77-abab-917ade598fe6",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "725263cd-14df-4f71-9ead-f9559fe89f6f",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardRight",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "7a542ab5-9792-4fe4-9f50-bd1a810a6321",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardRight",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "eeff7533-3e2b-43b6-99d6-bea4f38fa3e1",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardRight",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "baf7df3b-62a6-40dc-8ee4-a5965c721516",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardRight",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
@@ -143,6 +209,17 @@
             "devices": [
                 {
                     "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "KeyboardRight",
+            "bindingGroup": "KeyboardRight",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
                     "isOptional": false,
                     "isOR": false
                 }

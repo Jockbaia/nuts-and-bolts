@@ -100,8 +100,8 @@ GameObject:
   - component: {fileID: 7608206887762183659}
   - component: {fileID: 7608206887762183656}
   - component: {fileID: 7608206887762183657}
-  - component: {fileID: 7608206887762183660}
   - component: {fileID: 7608206887762183661}
+  - component: {fileID: -6510698224084617436}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -188,7 +188,25 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7608206887762183660
+--- !u!114 &7608206887762183661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7608206887762183670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4932bf20903164b80e53b392f42113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  movementInput: {x: 0, y: 0}
+  specialAction: 0
+  movePoint: {fileID: 0}
+  draggingBox: 0
+  selectedPower: 0
+--- !u!114 &-6510698224084617436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,7 +246,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 949588f3-dc74-4202-a6c1-d47cc3cd581c
-    m_ActionName: Gameplay/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
+    m_ActionName: Gameplay/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick,/XInputControllerWindows/leftStick,/XInputControllerWindows/dpad,/XInputControllerWindows/dpad,/Keyboard/i,/Keyboard/k,/Keyboard/j,/Keyboard/l]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7608206887762183661}
@@ -244,24 +262,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 7d47aca9-ea6d-43db-ad10-41f100633ad8
-    m_ActionName: Gameplay/SpecialAction[/Keyboard/leftShift,/XInputControllerWindows/buttonWest]
-  m_NeverAutoSwitchControlSchemes: 1
+    m_ActionName: Gameplay/SpecialAction[/Keyboard/leftShift,/Keyboard/rightShift,/XInputControllerWindows/buttonWest,/XInputControllerWindows/buttonWest]
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 7608206887306186794}
---- !u!114 &7608206887762183661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7608206887762183670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a4932bf20903164b80e53b392f42113, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7608206888492980901
 GameObject:
   m_ObjectHideFlags: 0
