@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 7608206887762183657}
   - component: {fileID: 7608206887762183661}
   - component: {fileID: -6510698224084617436}
+  - component: {fileID: 5753356823665349346}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -204,7 +205,6 @@ MonoBehaviour:
   movementInput: {x: 0, y: 0}
   specialAction: 0
   movePoint: {fileID: 0}
-  selectedPower: 0
 --- !u!114 &-6510698224084617436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,11 +262,40 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7d47aca9-ea6d-43db-ad10-41f100633ad8
     m_ActionName: Gameplay/SpecialAction[/Keyboard/leftShift,/Keyboard/rightShift,/XInputControllerWindows/buttonWest,/XInputControllerWindows/buttonWest]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5753356823665349346}
+        m_TargetAssemblyTypeName: RobotPowers, Assembly-CSharp
+        m_MethodName: OnSwitchPower
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 50502eba-2245-44ac-9c94-4d7ef1ba570d
+    m_ActionName: Gameplay/SwitchPower[/Keyboard/tab,/Keyboard/numpadPlus]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 7608206887306186794}
+--- !u!114 &5753356823665349346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7608206887762183670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb2c404b8f6d0374b82b8090d665666a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedPower: 0
 --- !u!1 &7608206888492980901
 GameObject:
   m_ObjectHideFlags: 0

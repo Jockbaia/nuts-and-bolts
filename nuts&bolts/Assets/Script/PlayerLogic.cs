@@ -17,12 +17,6 @@ public class PlayerLogic : MonoBehaviour
     private int mapXlen = 0;
     private int mapXoffset = 0;
 
-    public enum PowerSelector
-    {
-        PushPullBox
-    }
-    public PowerSelector selectedPower = PowerSelector.PushPullBox;
-
     private void Start()
     {
         movePoint = transform.Find("Player Move Point");
@@ -103,7 +97,7 @@ public class PlayerLogic : MonoBehaviour
 
     bool IsGrabbing() // Checks if player is grabbing a box
     {
-        if (selectedPower == PowerSelector.PushPullBox && specialAction)
+        if (transform.GetComponent<RobotPowers>().selectedPower == RobotPowers.PowerSelector.PushPull && specialAction)
         {
             float rotation = transform.rotation.eulerAngles.y;
 

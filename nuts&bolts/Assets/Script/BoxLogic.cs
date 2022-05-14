@@ -57,7 +57,7 @@ public class BoxLogic : MonoBehaviour
         {
             CheckCollisions();
 
-            if (playerLogic != null && playerLogic.specialAction)
+            if (playerLogic != null && playerLogic.specialAction && playerLogic.GetComponent<RobotPowers>().selectedPower == RobotPowers.PowerSelector.PushPull)
             {
                 // Detect Push
                 if (playerPos == Position.Down && playerLogic.movementInput.y > 0.9f && upTileFree 
