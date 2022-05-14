@@ -14,6 +14,7 @@ public class RobotPowers : MonoBehaviour
         public int view; // 0: miope, 1-2: normal, 3: x-ray 
         public int legs; //0: normal, 1-2: up (not movements), 3-4: down with movements, 5: up and movements
         public int rocket; //0,1,2: no, 3: yes
+        public int bolts;
 
         /* 8
          * 0: push/pull
@@ -88,6 +89,7 @@ public class RobotPowers : MonoBehaviour
         _components.legs = 0;
         _components.view = 0;
         _components.rocket = 0;
+        _components.bolts = 0;
 
         powers.Add(PowerSelector.PushPull, true);
         powers.Add(PowerSelector.ArmExtend, _components.Larm > 0);     
