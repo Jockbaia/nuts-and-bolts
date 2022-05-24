@@ -23,6 +23,21 @@ public class BeforeLevelUI : MonoBehaviour
     int viewP2;
     int legsP2;
     int backP2;
+    
+    // Backup for "Reset" call
+    int bk_boltsP1;
+    int bk_leftArmP1;
+    int bk_rightArmP1;
+    int bk_viewP1;
+    int bk_legsP1;
+    int bk_backP1;    
+    
+    int bk_boltsP2;
+    int bk_leftArmP2;
+    int bk_rightArmP2;
+    int bk_viewP2;
+    int bk_legsP2;
+    int bk_backP2;
 
     private int NavIdxP1 = 0;
     private int NavIdxP2 = 0;
@@ -30,8 +45,22 @@ public class BeforeLevelUI : MonoBehaviour
     private float cooldownP1 = 0f;
     private float cooldownP2 = 0f;
 
+    private bool readyModalOpenP1 = false;
+    private bool readyModalOpenP2 = false;
+
+    private bool resetModalOpenP1 = false;
+    private bool resetModalOpenP2 = false;
+
+    private int NavIdxModalP1 = 0;
+    private int NavIdxModalP2 = 0;
+
+    private bool P1ready = false;
+    private bool P2ready = false;
+
     public void OnWASD(InputAction.CallbackContext context)
     {
+        if (P1ready) return; 
+        
         if (cooldownP1 < 0.005)
         {
             cooldownP1 += Time.deltaTime;
@@ -41,33 +70,72 @@ public class BeforeLevelUI : MonoBehaviour
 
         Vector2 WASD = context.ReadValue<Vector2>();
 
-        if (WASD.y == 1)
+        if (!(readyModalOpenP1 || resetModalOpenP1)) 
         {
-            if (NavIdxP1 == 0) return;
-            NavIdxP1--;
-            UpdateButtonHighlight();
+            if (WASD.y == 1)
+            {
+                if (NavIdxP1 == 0 || NavIdxP1 > 5) return;
+                NavIdxP1--;
+                UpdateButtonHighlight();
 
+            }
+            else if (WASD.y == -1)
+            {
+                if (NavIdxP1 >= 5) return;
+                NavIdxP1++;
+                UpdateButtonHighlight();
+            }
+            else if (WASD.x > 0 && NavIdxP1 == 5)
+            {
+                NavIdxP1++;
+                UpdateButtonHighlight();
+            }
+            else if (WASD.x < 0 && NavIdxP1 == 6)
+            {
+                NavIdxP1--;
+                UpdateButtonHighlight();
+            }
         }
-        else if (WASD.y == -1)
+        else if (readyModalOpenP1)
         {
-            if (NavIdxP1 == 5) return;
-            NavIdxP1++;
-            UpdateButtonHighlight();
-        }
-        else if (WASD.x > 0 && NavIdxP1 == 5)
+            if (WASD.x > 0)
+            {
+                if (NavIdxModalP1 == 1) return;
+                NavIdxModalP1++;
+                P1_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = true;
+                P1_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = false;
+            }
+            else if (WASD.x < 0)
+            {
+                if (NavIdxModalP1 == 0) return;
+                NavIdxModalP1--;
+                P1_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = false;
+                P1_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = true;
+            }
+        }        
+        else if (resetModalOpenP1)
         {
-            NavIdxP1++;
-            UpdateButtonHighlight();
-        }
-        else if (WASD.x < 0 && NavIdxP1 == 6)
-        {
-            NavIdxP1--;
-            UpdateButtonHighlight();
+            if (WASD.x > 0)
+            {
+                if (NavIdxModalP1 == 1) return;
+                NavIdxModalP1++;
+                P1_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = true;
+                P1_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = false;
+            }
+            else if (WASD.x < 0)
+            {
+                if (NavIdxModalP1 == 0) return;
+                NavIdxModalP1--;
+                P1_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = false;
+                P1_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = true;
+            }
         }
     }    
     
     public void OnIJKL(InputAction.CallbackContext context)
     {
+        if (P2ready) return;
+
         if (cooldownP2 < 0.005)
         {
             cooldownP2 += Time.deltaTime;
@@ -77,33 +145,72 @@ public class BeforeLevelUI : MonoBehaviour
 
         Vector2 IJKL = context.ReadValue<Vector2>();
 
-        if (IJKL.y == 1)
+        if (!(readyModalOpenP2 || resetModalOpenP2))
         {
-            if (NavIdxP2 == 0) return;
-            NavIdxP2--;
-            UpdateButtonHighlight();
+            if (IJKL.y == 1)
+            {
+                if (NavIdxP2 == 0 || NavIdxP2 > 5) return;
+                NavIdxP2--;
+                UpdateButtonHighlight();
 
+            }
+            else if (IJKL.y == -1)
+            {
+                if (NavIdxP2 >= 5) return;
+                NavIdxP2++;
+                UpdateButtonHighlight();
+            }
+            else if (IJKL.x < 0 && NavIdxP2 == 5)
+            {
+                NavIdxP2++;
+                UpdateButtonHighlight();
+            }
+            else if (IJKL.x > 0 && NavIdxP2 == 6)
+            {
+                NavIdxP2--;
+                UpdateButtonHighlight();
+            }
         }
-        else if (IJKL.y == -1)
+        else if (readyModalOpenP2)
         {
-            if (NavIdxP2 == 5) return;
-            NavIdxP2++;
-            UpdateButtonHighlight();
+            if (IJKL.x > 0)
+            {
+                if (NavIdxModalP2 == 1) return;
+                NavIdxModalP2++;
+                P2_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = true;
+                P2_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = false;
+            }
+            else if (IJKL.x < 0)
+            {
+                if (NavIdxModalP2 == 0) return;
+                NavIdxModalP2--;
+                P2_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = false;
+                P2_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = true;
+            }
         }
-        else if (IJKL.x < 0 && NavIdxP2 == 5)
+        else if (resetModalOpenP2)
         {
-            NavIdxP2++;
-            UpdateButtonHighlight();
-        }
-        else if (IJKL.x > 0 && NavIdxP2 == 6)
-        {
-            NavIdxP2--;
-            UpdateButtonHighlight();
+            if (IJKL.x > 0)
+            {
+                if (NavIdxModalP2 == 1) return;
+                NavIdxModalP2++;
+                P2_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = true;
+                P2_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = false;
+            }
+            else if (IJKL.x < 0)
+            {
+                if (NavIdxModalP2 == 0) return;
+                NavIdxModalP2--;
+                P2_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = false;
+                P2_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = true;
+            }
         }
     }
 
     public void OnLShift(InputAction.CallbackContext context)
     {
+        if (P1ready) return;
+
         bool pressed = context.action.triggered;
 
         if (pressed)
@@ -112,11 +219,82 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 AssignBolt(1, NavIdxP1);
             }
+            else if (NavIdxP1 == 5 && !readyModalOpenP1)
+            {
+                readyModalOpenP1 = true;
+                P1_UI.Find("ModalReady").gameObject.SetActive(true);
+                P1_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = false;
+                P1_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = true;
+                NavIdxModalP1 = 0;
+            }
+            else if (NavIdxP1 == 6 && !resetModalOpenP1)
+            {
+                resetModalOpenP1 = true;
+                P1_UI.Find("ModalReset").gameObject.SetActive(true);
+                P1_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = false;
+                P1_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = true;
+                NavIdxModalP1 = 0;
+            }
+            else if (readyModalOpenP1)
+            {
+                if (NavIdxModalP1 == 0) // Ready -> Yes
+                {
+                    P1ready = true;
+                    readyModalOpenP1 = false;
+                    P1_UI.Find("ModalReady").gameObject.SetActive(false);
+                    P1_UI.Find("ReadyLogo").gameObject.SetActive(true);
+
+                    if (P1ready && P2ready)
+                    {
+                        AllPlayersReady();
+                    }
+                }
+                else if (NavIdxModalP1 == 1) // Ready -> No
+                {
+                    readyModalOpenP1 = false;
+                    P1_UI.Find("ModalReady").gameObject.SetActive(false);
+                }
+            }
+            else if (resetModalOpenP1)
+            {
+                if (NavIdxModalP1 == 0) // Reset -> Yes
+                {
+                    boltsP1 = bk_boltsP1;
+                    leftArmP1 = bk_leftArmP1;
+                    rightArmP1 = bk_rightArmP1;
+                    viewP1 = bk_viewP1;
+                    legsP1 = bk_legsP1;
+                    backP1 = bk_backP1;
+
+                    // Set current Bolts P1
+                    P1_UI.Find("Bolts").Find("Text").GetComponent<TMP_Text>().SetText("BOLTS: " + boltsP1.ToString());
+                    P1_UI.Find("LeftArm").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("LEFT ARM: " + leftArmP1.ToString());
+                    P1_UI.Find("RightArm").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("RIGHT ARM: " + rightArmP1.ToString());
+                    P1_UI.Find("View").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("VIEW: " + viewP1.ToString());
+                    P1_UI.Find("Legs").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("LEGS: " + legsP1.ToString());
+                    P1_UI.Find("Back").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("BACK: " + backP1.ToString());
+
+                    NavIdxP1 = 0;
+
+                    UpdateUnlockedHighlight();
+                    UpdateButtonHighlight();
+
+                    resetModalOpenP1 = false;
+                    P1_UI.Find("ModalReset").gameObject.SetActive(false);
+                }
+                else if (NavIdxModalP1 == 1) // Reset -> No
+                {
+                    resetModalOpenP1 = false;
+                    P1_UI.Find("ModalReset").gameObject.SetActive(false);
+                }
+            }
         }
     }    
     
     public void OnRShift(InputAction.CallbackContext context)
     {
+        if (P2ready) return;
+
         bool pressed = context.action.triggered;
 
         if (pressed)
@@ -125,14 +303,105 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 AssignBolt(2, NavIdxP2);
             }
+            else if (NavIdxP2 == 5 && !readyModalOpenP2)
+            {
+                readyModalOpenP2 = true;
+                P2_UI.Find("ModalReady").gameObject.SetActive(true);
+                P2_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = false;
+                P2_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = true;
+                NavIdxModalP2 = 0;
+            }
+            else if (NavIdxP2 == 6 && !resetModalOpenP2)
+            {
+                resetModalOpenP2 = true;
+                P2_UI.Find("ModalReset").gameObject.SetActive(true);
+                P2_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = false;
+                P2_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = true;
+                NavIdxModalP2 = 0;
+            }
+            else if (readyModalOpenP2)
+            {
+                if (NavIdxModalP2 == 0) // Ready -> Yes
+                {
+                    P2ready = true;
+                    readyModalOpenP2 = false;
+                    P2_UI.Find("ModalReady").gameObject.SetActive(false);
+                    P2_UI.Find("ReadyLogo").gameObject.SetActive(true);
+
+                    if (P1ready && P2ready)
+                    {
+                        AllPlayersReady();
+                    }
+                }
+                else if (NavIdxModalP2 == 1) // Ready -> No
+                {
+                    readyModalOpenP2 = false;
+                    P2_UI.Find("ModalReady").gameObject.SetActive(false);
+                }
+            }
+            else if (resetModalOpenP2)
+            {
+                if (NavIdxModalP2 == 0) // Reset -> Yes
+                {
+                    boltsP2 = bk_boltsP2;
+                    leftArmP2 = bk_leftArmP2;
+                    rightArmP2 = bk_rightArmP2;
+                    viewP2 = bk_viewP2;
+                    legsP2 = bk_legsP2;
+                    backP2 = bk_backP2;
+
+                    // Set current Bolts P2
+                    P2_UI.Find("Bolts").Find("Text").GetComponent<TMP_Text>().SetText("BOLTS: " + boltsP2.ToString());
+                    P2_UI.Find("LeftArm").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("LEFT ARM: " + leftArmP2.ToString());
+                    P2_UI.Find("RightArm").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("RIGHT ARM: " + rightArmP2.ToString());
+                    P2_UI.Find("View").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("VIEW: " + viewP2.ToString());
+                    P2_UI.Find("Legs").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("LEGS: " + legsP2.ToString());
+                    P2_UI.Find("Back").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("BACK: " + backP2.ToString());
+
+                    NavIdxP2 = 0;
+
+                    UpdateUnlockedHighlight();
+                    UpdateButtonHighlight();
+
+                    resetModalOpenP2 = false;
+                    P2_UI.Find("ModalReset").gameObject.SetActive(false);
+                }
+                else if (NavIdxModalP2 == 1) // Reset -> No
+                {
+                    resetModalOpenP2 = false;
+                    P2_UI.Find("ModalReset").gameObject.SetActive(false);
+                }
+            }
         }
+    }
+
+    void AllPlayersReady()
+    {
+        //TODO: pass bolts state to next scene and transition to next level...
+        Debug.Log("All players are ready! TODO!!");
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        ResetBolts();
+        //TODO: obtain it from StateManager script (RobotPowers for P1 and P2)
+        Debug.Log("Bolts acquired! TODO!!");
+        boltsP1 = 5;
+        leftArmP1 = 2;
+        rightArmP1 = 1;
+        viewP1 = 0;
+        legsP1 = 4;
+        backP1 = 0;
 
+        boltsP2 = 3;
+        leftArmP2 = 0;
+        rightArmP2 = 2;
+        viewP2 = 3;
+        legsP2 = 5;
+        backP2 = 0;
+        ////
+
+        ResetBolts();
         // Set First Highlighted button
         UpdateButtonHighlight();
     }
@@ -167,23 +436,19 @@ public class BeforeLevelUI : MonoBehaviour
 
     void ResetBolts()
     {
-        //TODO: obtain it from StateManager script (RobotPowers for P1 and P2)
-        boltsP1 = 5;
-        leftArmP1 = 2;
-        rightArmP1 = 1;
-        viewP1 = 0;
-        legsP1 = 4;
-        backP1 = 0;
+        bk_boltsP1 = boltsP1;
+        bk_leftArmP1 = leftArmP1;
+        bk_rightArmP1 = rightArmP1;
+        bk_viewP1 = viewP1;
+        bk_legsP1 = legsP1;
+        bk_backP1 = backP1;
 
-        boltsP2 = 3;
-        leftArmP2 = 0;
-        rightArmP2 = 2;
-        viewP2 = 3;
-        legsP2 = 5;
-        backP2 = 0;
-
-        // TODO: save this initial state when pushing "Reset"
-        ////
+        bk_boltsP2 = boltsP2;
+        bk_leftArmP2 = leftArmP2;
+        bk_rightArmP2 = rightArmP2;
+        bk_viewP2 = viewP2;
+        bk_legsP2 = legsP2;
+        bk_backP2 = backP2;
 
         // Set current Bolts P1
         P1_UI.Find("Bolts").Find("Text").GetComponent<TMP_Text>().SetText("BOLTS: " + boltsP1.ToString());
@@ -193,6 +458,8 @@ public class BeforeLevelUI : MonoBehaviour
         P1_UI.Find("Legs").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("LEGS: " + legsP1.ToString());
         P1_UI.Find("Back").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("BACK: " + backP1.ToString());
 
+        NavIdxP1 = 0;
+
         // Set current Bolts P2
         P2_UI.Find("Bolts").Find("Text").GetComponent<TMP_Text>().SetText("BOLTS: " + boltsP2.ToString());
         P2_UI.Find("LeftArm").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("LEFT ARM: " + leftArmP2.ToString());
@@ -201,12 +468,13 @@ public class BeforeLevelUI : MonoBehaviour
         P2_UI.Find("Legs").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("LEGS: " + legsP2.ToString());
         P2_UI.Find("Back").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("BACK: " + backP2.ToString());
 
+        NavIdxP2 = 0;
+
         UpdateUnlockedHighlight();
     }
 
     void UpdateUnlockedHighlight()
     {
-        // TODO: obtain from RobotPowers.cs for P1 and P2
         /* P1 */
         EnableUIElem(P1_UI, "LeftArm", 2, leftArmP1 >= 1);
         EnableUIElem(P1_UI, "LeftArm", 3, leftArmP1 >= 3);
