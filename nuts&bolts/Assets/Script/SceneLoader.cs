@@ -22,7 +22,7 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator LoadScene (string sceneName)
     {
-        float step = 0.001f;
+        float step = 0.01f;
 
         yield return StartCoroutine(LoadingScreenFadeIn(step));
 
@@ -45,7 +45,7 @@ public class SceneLoader : MonoBehaviour
     
     IEnumerator LoadingScreenFadeOut(float step)
     {
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
         
         for (float alpha = canvasGroup.alpha; alpha >= -1.0f; alpha -= step)
         {

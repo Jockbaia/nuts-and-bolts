@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerLogic : MonoBehaviour
 {
+    // In-game Menù logic
+    public static bool menuOpen = false;
+    public static GameObject menuCanvas;
+
     [SerializeField]
     private float moveSpeed = 5f;
 
@@ -17,6 +21,11 @@ public class PlayerLogic : MonoBehaviour
     private int mapXlen = 0;
     private int mapXoffset = 0;
 
+    private void Awake()
+    {
+        menuCanvas = GameObject.Find("MenuCanvas");
+    }
+
     private void Start()
     {
         movePoint = transform.Find("Player Move Point");
@@ -26,15 +35,39 @@ public class PlayerLogic : MonoBehaviour
         cam.parent = null;
 
         (mapZlen, mapXlen, mapXoffset) = GetMapBounds();
+
+        menuCanvas.SetActive(false);
+    }
+
+    public void OnESC(InputAction.CallbackContext context)
+    {
+        bool escPressed = context.action.triggered;
+
+        if (escPressed)
+        {
+            if (menuOpen)
+            {
+                menuOpen = false;
+            }
+            else
+            {
+                menuOpen = true;
+            }
+            menuCanvas.SetActive(menuOpen);
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (menuOpen) return;
+
         movementInput = context.ReadValue<Vector2>();
     }
 
     public void OnSpecialAction(InputAction.CallbackContext context)
     {
+        if (menuOpen) return;
+
         specialAction = context.action.triggered;
     }
 
