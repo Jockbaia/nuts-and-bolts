@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine.InputSystem;
 
 public class RobotPowers : MonoBehaviour
 {
+    // UI Power-swap logic
+    public static event EventHandler PowerSwitched;
+
     public IDictionary<PowerSelector, bool> powers = new Dictionary<PowerSelector, bool>(); //string = name = key, bool = 1 available 0 not available
 
     public struct components
@@ -40,8 +44,17 @@ public class RobotPowers : MonoBehaviour
 
     public void OnSwitchPower(InputAction.CallbackContext context)
     {
-        checkPowers();
-        switchPower();
+        if (PlayerLogic.menuOpen) return;
+
+        bool tabPressed = context.action.triggered;
+
+        if (tabPressed)
+        {
+            checkPowers();
+            switchPower();
+
+            PowerSwitched?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     // Start is called before the first frame update
