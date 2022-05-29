@@ -10,6 +10,8 @@ public class MapGenerator : MonoBehaviour
 
     public Transform tilePrefab;
     public Transform tallboxPrefab;
+    public Transform wallPrefab;
+    public Transform wallCornerPrefab;
 
     public List<List<char>> room;
 
@@ -58,6 +60,33 @@ public class MapGenerator : MonoBehaviour
                     Transform newTallboxMovePoint = new GameObject("Box Move Point").transform;
                     newTallboxMovePoint.transform.position = newTallbox.transform.position;
                     newTallboxMovePoint.parent = newTallbox;
+                }
+                
+                if (room[z][x] == 'w') // WallVertical
+                {
+                    Vector3 position = new Vector3(x + XOffset, 2, z);
+                    Transform newObj = Instantiate(wallPrefab, position, Quaternion.Euler(Vector3.zero)) as Transform;
+                    newObj.parent = mapHolder;
+                    // Scripts
+                    //newObj.gameObject.AddComponent<BoxLogic>();
+                }                
+                
+                if (room[z][x] == 'W') // WallCorner
+                {
+                    Vector3 position = new Vector3(x + XOffset, 2, z);
+                    Transform newObj = Instantiate(wallCornerPrefab, position, Quaternion.Euler(Vector3.zero)) as Transform;
+                    newObj.parent = mapHolder;
+                    // Scripts
+                    //newObj.gameObject.AddComponent<BoxLogic>();
+                }
+                
+                if (room[z][x] == '^') // WallHorizontal
+                {
+                    Vector3 position = new Vector3(x + XOffset, 2, z);
+                    Transform newObj = Instantiate(wallPrefab, position, Quaternion.Euler(new Vector3(0, 90, 0))) as Transform;
+                    newObj.parent = mapHolder;
+                    // Scripts
+                    //newObj.gameObject.AddComponent<BoxLogic>();
                 }
             }
         }

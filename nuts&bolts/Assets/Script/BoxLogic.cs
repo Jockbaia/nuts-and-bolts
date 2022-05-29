@@ -62,21 +62,21 @@ public class BoxLogic : MonoBehaviour
                 // Detect Push
                 if (playerPos == Position.Down && playerLogic.movementInput.y > 0.9f && upTileFree 
                     && playerLogic.transform.rotation.eulerAngles.y == 0f
-                    && transform.position.z < mapZlen - 1)
+                    && transform.position.z < mapZlen - 2)
                 { // Push -> Up
                     movePoint.position += new Vector3(0, 0, 1);
                     playerLogic.movePoint.position += new Vector3(0, 0, 1);
                 }
                 else if (playerPos == Position.Right && playerLogic.movementInput.x < -0.9f && leftTileFree
                     && playerLogic.transform.rotation.eulerAngles.y == 270f
-                    && transform.position.x > mapXoffset)
+                    && transform.position.x > mapXoffset + 1)
                 { // Push -> Left
                     movePoint.position += new Vector3(-1, 0, 0);
                     playerLogic.movePoint.position += new Vector3(-1, 0, 0);
                 }
                 else if (playerPos == Position.Left && playerLogic.movementInput.x > 0.9f && rightTileFree
                     && playerLogic.transform.rotation.eulerAngles.y == 90f
-                    && transform.position.x < mapXlen + mapXoffset - 1)
+                    && transform.position.x < mapXlen + mapXoffset - 2)
                 { // Push -> Right
                     movePoint.position += new Vector3(1, 0, 0);
                     playerLogic.movePoint.position += new Vector3(1, 0, 0);
@@ -98,19 +98,19 @@ public class BoxLogic : MonoBehaviour
                 }
                 else if (playerPos == Position.Up && playerLogic.movementInput.y > 0.9f && upTileFreex2
                     && playerLogic.transform.rotation.eulerAngles.y == 180f
-                    && transform.position.z < mapZlen - 2)
+                    && transform.position.z < mapZlen - 3)
                 { // Pull -> Up
                     movePoint.position += new Vector3(0, 0, 1);
                 }
                 else if (playerPos == Position.Left && playerLogic.movementInput.x < -0.9f && leftTileFreex2
                     && playerLogic.transform.rotation.eulerAngles.y == 90f
-                    && transform.position.x > mapXoffset + 1)
+                    && transform.position.x > mapXoffset + 2)
                 { // Pull -> Left
                     movePoint.position += new Vector3(-1, 0, 0);
                 }
                 else if (playerPos == Position.Right && playerLogic.movementInput.x > 0.9f && rightTileFreex2
                     && playerLogic.transform.rotation.eulerAngles.y == 270f
-                    && transform.position.x < mapXoffset + mapXlen - 2)
+                    && transform.position.x < mapXoffset + mapXlen - 3)
                 { // Pull -> Right
                     movePoint.position += new Vector3(1, 0, 0);
                 }

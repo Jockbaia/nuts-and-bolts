@@ -125,7 +125,7 @@ public class PlayerLogic : MonoBehaviour
                 if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
                 if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
-                     && transform.position.x > mapXoffset)
+                     && transform.position.x > mapXoffset + 1)
                 {
                     movePoint.position += vec;
                 }
@@ -192,8 +192,8 @@ public class PlayerLogic : MonoBehaviour
 
         map = GameObject.Find(mapName);
         MapGenerator mapGenerator = map.GetComponent<MapGenerator>();
-        int zLen = mapGenerator.room.Count;
-        int xLen = mapGenerator.room[0].Count;
+        int zLen = mapGenerator.room.Count-1;
+        int xLen = mapGenerator.room[0].Count-1;
         int xOff = mapGenerator.XOffset;
 
         return (zLen, xLen, xOff);
