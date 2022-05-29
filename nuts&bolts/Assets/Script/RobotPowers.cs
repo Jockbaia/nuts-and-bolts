@@ -66,6 +66,12 @@ public class RobotPowers : MonoBehaviour
     void Update()
     {
         checkPowers(); //check and update powers
+
+        if (!powers[selectedPower])
+        {
+            switchPower();
+            PowerSwitched?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public void checkPowers()
@@ -99,7 +105,7 @@ public class RobotPowers : MonoBehaviour
         _components.Larm = 0;
         _components.Rarm = 0;
         _components.legs = 0;
-        _components.view = 0;
+        _components.view = 3;
         _components.rocket = 0;
         _components.bolts = 0;
 
