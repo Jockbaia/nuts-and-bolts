@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 7608206887762183661}
   - component: {fileID: -6510698224084617436}
   - component: {fileID: 5753356823665349346}
+  - component: {fileID: 6215920392470399304}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -244,6 +245,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6215920392470399304}
+        m_TargetAssemblyTypeName: HandleNumpadNav, Assembly-CSharp
+        m_MethodName: OnNavigation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 949588f3-dc74-4202-a6c1-d47cc3cd581c
     m_ActionName: Gameplay/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick,/XInputControllerWindows/leftStick,/XInputControllerWindows/dpad,/XInputControllerWindows/dpad,/Keyboard/i,/Keyboard/k,/Keyboard/j,/Keyboard/l]
   - m_PersistentCalls:
@@ -251,6 +264,18 @@ MonoBehaviour:
       - m_Target: {fileID: 7608206887762183661}
         m_TargetAssemblyTypeName: PlayerLogic, Assembly-CSharp
         m_MethodName: OnSpecialAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6215920392470399304}
+        m_TargetAssemblyTypeName: HandleNumpadNav, Assembly-CSharp
+        m_MethodName: OnEnterNum
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -310,6 +335,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e4fb4a58-05ad-41d5-9c04-9afa7bf4f1e3
     m_ActionName: Gameplay/OpenMenu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6215920392470399304}
+        m_TargetAssemblyTypeName: HandleNumpadNav, Assembly-CSharp
+        m_MethodName: OnInteractNumpad
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7d61d0e6-e935-4cf1-bb70-e409757b156e
+    m_ActionName: Gameplay/Interact[/Keyboard/q,/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -328,6 +369,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedPower: 0
+--- !u!114 &6215920392470399304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7608206887762183670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eefd6a5f47efaf743972bf90cad6230e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  padOpen: 0
 --- !u!1 &7608206888492980901
 GameObject:
   m_ObjectHideFlags: 0

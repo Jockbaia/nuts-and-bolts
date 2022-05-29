@@ -8,5 +8,6 @@ public class InGameMenu : MonoBehaviour
     {
         PlayerLogic.menuOpen = false;
         PlayerLogic.menuCanvas.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

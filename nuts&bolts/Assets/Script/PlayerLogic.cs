@@ -49,10 +49,12 @@ public class PlayerLogic : MonoBehaviour
             if (menuOpen)
             {
                 menuOpen = false;
+                Time.timeScale = 1f;
             }
             else
             {
                 menuOpen = true;
+                Time.timeScale = 0f;
             }
             menuCanvas.SetActive(menuOpen);
         }
@@ -61,6 +63,7 @@ public class PlayerLogic : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         if (menuOpen) return;
+        if (this.GetComponent<HandleNumpadNav>().padOpen) return;
 
         movementInput = context.ReadValue<Vector2>();
     }
@@ -68,6 +71,7 @@ public class PlayerLogic : MonoBehaviour
     public void OnSpecialAction(InputAction.CallbackContext context)
     {
         if (menuOpen) return;
+        if (this.GetComponent<HandleNumpadNav>().padOpen) return;
 
         specialAction = context.action.triggered;
     }

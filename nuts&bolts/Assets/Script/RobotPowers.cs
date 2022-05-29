@@ -45,10 +45,9 @@ public class RobotPowers : MonoBehaviour
     public void OnSwitchPower(InputAction.CallbackContext context)
     {
         if (PlayerLogic.menuOpen) return;
+        if (this.GetComponent<HandleNumpadNav>().padOpen) return;
 
-        bool tabPressed = context.action.triggered;
-
-        if (tabPressed)
+        if (context.action.triggered)
         {
             checkPowers();
             switchPower();
@@ -97,12 +96,12 @@ public class RobotPowers : MonoBehaviour
 
     private void initialize()
     {
-        _components.Larm = 5;
-        _components.Rarm = 5;
-        _components.legs = 5;
-        _components.view = 5;
-        _components.rocket = 5;
-        _components.bolts = 5;
+        _components.Larm = 0;
+        _components.Rarm = 0;
+        _components.legs = 0;
+        _components.view = 0;
+        _components.rocket = 0;
+        _components.bolts = 0;
 
         powers.Add(PowerSelector.PushPull, true);
         powers.Add(PowerSelector.ArmExtend, _components.Larm > 0);     
