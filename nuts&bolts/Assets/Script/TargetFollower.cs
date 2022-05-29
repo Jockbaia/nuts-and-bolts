@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class TargetFollower : MonoBehaviour
 {
-    public GameObject Target, pointA, pointB;
+    public GameObject Target;
+    public Vector3 pointA, pointB;
     private float RotationSpeed = 10f;
     public float speedTarget;
     public Transform laserOrigin, shotOrigin;
 
-    public GameObject player;
+    private GameObject player;
     private bool hitit;
     private LineRenderer laserLine;
     private LineRenderer shotLine;
@@ -18,7 +19,13 @@ public class TargetFollower : MonoBehaviour
 
     void Awake()
     {
-        player.tag = "player";
+        GameObject p1 = GameObject.Find("Player1");
+        GameObject p2 = GameObject.Find("Player2");
+        float distP1 = Vector3.Distance(transform.position, p1.transform.position);
+        float distP2 = Vector3.Distance(transform.position, p2.transform.position);
+        player = distP1 < distP2 ? p1 : p2;
+
+        player.tag = "Player";
         hitit = false;
 
         laserLine = this.laserOrigin.GetComponent<LineRenderer>();
@@ -63,13 +70,13 @@ public class TargetFollower : MonoBehaviour
         }
     }
 
-    bool MoveTowards(GameObject targetPoint) //move "Target" between 2 point A and B
+    bool MoveTowards(Vector3 targetPoint) //move "Target" between 2 point A and B
     {
         Target.transform.position = Vector3.MoveTowards(
             Target.transform.position,
-            targetPoint.transform.position,
+            targetPoint,
             speedTarget * Time.deltaTime);
-        return Target.transform.position != targetPoint.transform.position;
+        return Target.transform.position != targetPoint;
     }
 
     private void checkIntersection() //check if the raycast intersect tha player tagged "player"
@@ -79,7 +86,7 @@ public class TargetFollower : MonoBehaviour
        
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity) && hit.collider.tag == "player" && !hitit)
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity) && hit.collider.tag == "Player" && !hitit)
         {
             //Shot
             shotLine.SetPosition(1, hit.point);
@@ -90,7 +97,7 @@ public class TargetFollower : MonoBehaviour
             hitit = true;                    
             StartCoroutine(ShootLaser());           
         }
-        else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity) && hit.collider.tag != "player")
+        else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity) && hit.collider.tag != "Player")
         {
             //laserLine.SetPosition(1, Target.transform.position);
             laserLine.SetPosition(1, hit.point);
@@ -134,15 +141,13 @@ public class TargetFollower : MonoBehaviour
         }
         else
         {
-           Debug.Log("GAME OVER");
-           Time.timeScale = 0;
+            player.GetComponent<RobotPowers>()._components.Larm--;
         }
-
     }
 
     private void checkGameOver()
     {
-        if(player.GetComponent<RobotPowers>()._components.Larm == 0 && player.GetComponent<RobotPowers>()._components.Rarm == 0 
+        if(player.GetComponent<RobotPowers>()._components.Larm < 0 && player.GetComponent<RobotPowers>()._components.Rarm == 0 
             && player.GetComponent<RobotPowers>()._components.view == 0 && player.GetComponent<RobotPowers>()._components.legs == 0 
             && player.GetComponent<RobotPowers>()._components.rocket == 0)
         {
