@@ -25,6 +25,8 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateMap()
     {
+        room = ReadLevelFile();
+
         string holderName = "Generated Map";
         if (transform.Find(holderName))
         {
