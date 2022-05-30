@@ -37,6 +37,7 @@ public class BoxLogic : MonoBehaviour
     // Check if special action button is pressed
     private PlayerLogic playerLogic = null;
 
+    MapGenerator mapGenerator;
     private int mapZlen = 0;
     private int mapXlen = 0;
     private int mapXoffset = 0;
@@ -62,21 +63,21 @@ public class BoxLogic : MonoBehaviour
                 // Detect Push
                 if (playerPos == Position.Down && playerLogic.movementInput.y > 0.9f && upTileFree 
                     && playerLogic.transform.rotation.eulerAngles.y == 0f
-                    && transform.position.z < mapZlen - 2)
+                    && transform.position.z < mapZlen - 1)
                 { // Push -> Up
                     movePoint.position += new Vector3(0, 0, 1);
                     playerLogic.movePoint.position += new Vector3(0, 0, 1);
                 }
                 else if (playerPos == Position.Right && playerLogic.movementInput.x < -0.9f && leftTileFree
                     && playerLogic.transform.rotation.eulerAngles.y == 270f
-                    && transform.position.x > mapXoffset + 1)
+                    && transform.position.x > mapXoffset)
                 { // Push -> Left
                     movePoint.position += new Vector3(-1, 0, 0);
                     playerLogic.movePoint.position += new Vector3(-1, 0, 0);
                 }
                 else if (playerPos == Position.Left && playerLogic.movementInput.x > 0.9f && rightTileFree
                     && playerLogic.transform.rotation.eulerAngles.y == 90f
-                    && transform.position.x < mapXlen + mapXoffset - 2)
+                    && transform.position.x < mapXlen + mapXoffset - 1)
                 { // Push -> Right
                     movePoint.position += new Vector3(1, 0, 0);
                     playerLogic.movePoint.position += new Vector3(1, 0, 0);
@@ -98,19 +99,19 @@ public class BoxLogic : MonoBehaviour
                 }
                 else if (playerPos == Position.Up && playerLogic.movementInput.y > 0.9f && upTileFreex2
                     && playerLogic.transform.rotation.eulerAngles.y == 180f
-                    && transform.position.z < mapZlen - 3)
+                    && transform.position.z < mapZlen - 2)
                 { // Pull -> Up
                     movePoint.position += new Vector3(0, 0, 1);
                 }
                 else if (playerPos == Position.Left && playerLogic.movementInput.x < -0.9f && leftTileFreex2
                     && playerLogic.transform.rotation.eulerAngles.y == 90f
-                    && transform.position.x > mapXoffset + 2)
+                    && transform.position.x > mapXoffset + 1)
                 { // Pull -> Left
                     movePoint.position += new Vector3(-1, 0, 0);
                 }
                 else if (playerPos == Position.Right && playerLogic.movementInput.x > 0.9f && rightTileFreex2
                     && playerLogic.transform.rotation.eulerAngles.y == 270f
-                    && transform.position.x < mapXoffset + mapXlen - 3)
+                    && transform.position.x < mapXoffset + mapXlen - 2)
                 { // Pull -> Right
                     movePoint.position += new Vector3(1, 0, 0);
                 }
@@ -134,12 +135,22 @@ public class BoxLogic : MonoBehaviour
         }
 
         map = GameObject.Find(mapName);
-        MapGenerator mapGenerator = map.GetComponent<MapGenerator>();
+        mapGenerator = map.GetComponent<MapGenerator>();
         int zLen = mapGenerator.room.Count;
         int xLen = mapGenerator.room[0].Count;
         int xOff = mapGenerator.XOffset;
 
         return (zLen, xLen, xOff);
+    }
+
+    bool checkCollision(Collider collider)
+    {
+        if (collider.name.StartsWith("TallBox") || collider.name.StartsWith("Wall"))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     void CheckCollisions()
@@ -171,7 +182,7 @@ public class BoxLogic : MonoBehaviour
                 playerPos = Position.Up;
                 playerLogic = collider.GetComponent("PlayerLogic") as PlayerLogic;
             }
-            else if (collider.name.StartsWith("TallBox"))
+            else if (checkCollision(collider))
             {
                 upTileFree = false;
             }
@@ -184,7 +195,7 @@ public class BoxLogic : MonoBehaviour
                 playerPos = Position.Down;
                 playerLogic = collider.GetComponent("PlayerLogic") as PlayerLogic;
             }
-            else if (collider.name.StartsWith("TallBox"))
+            else if (checkCollision(collider))
             {
                 downTileFree = false;
             }
@@ -197,7 +208,7 @@ public class BoxLogic : MonoBehaviour
                 playerPos = Position.Left;
                 playerLogic = collider.GetComponent("PlayerLogic") as PlayerLogic;
             }
-            else if (collider.name.StartsWith("TallBox"))
+            else if (checkCollision(collider))
             {
                 leftTileFree = false;
             }
@@ -210,7 +221,7 @@ public class BoxLogic : MonoBehaviour
                 playerPos = Position.Right;
                 playerLogic = collider.GetComponent("PlayerLogic") as PlayerLogic;
             }
-            else if (collider.name.StartsWith("TallBox"))
+            else if (checkCollision(collider))
             {
                 rightTileFree = false;
             }
@@ -218,7 +229,7 @@ public class BoxLogic : MonoBehaviour
         
         foreach (Collider collider in upx2)
         {
-            if (collider.name.StartsWith("TallBox"))
+            if (checkCollision(collider))
             {
                 upTileFreex2 = false;
             }
@@ -226,7 +237,7 @@ public class BoxLogic : MonoBehaviour
 
         foreach (Collider collider in dwx2)
         {
-            if (collider.name.StartsWith("TallBox"))
+            if (checkCollision(collider))
             {
                 downTileFreex2 = false;
             }
@@ -234,7 +245,7 @@ public class BoxLogic : MonoBehaviour
 
         foreach (Collider collider in sxx2)
         {
-            if (collider.name.StartsWith("TallBox"))
+            if (checkCollision(collider))
             {
                 leftTileFreex2 = false;
             }
@@ -242,7 +253,7 @@ public class BoxLogic : MonoBehaviour
 
         foreach (Collider collider in rxx2)
         {
-            if (collider.name.StartsWith("TallBox"))
+            if (checkCollision(collider))
             {
                 rightTileFreex2 = false;
             }

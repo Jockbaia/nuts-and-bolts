@@ -18,6 +18,7 @@ public class PlayerLogic : MonoBehaviour
 
     public Transform movePoint;
 
+    MapGenerator mapGenerator;
     private int mapZlen = 0;
     private int mapXlen = 0;
     private int mapXoffset = 0;
@@ -78,6 +79,8 @@ public class PlayerLogic : MonoBehaviour
 
     void Update()
     {
+        GetMapBounds();
+
         transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
 
         if (Vector3.Distance(movePoint.position, transform.position) == 0f)
@@ -89,7 +92,8 @@ public class PlayerLogic : MonoBehaviour
                 if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
                 if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
-                    && transform.position.z < mapZlen - 1)
+                    && transform.position.z < mapZlen - 1
+                    && !isWall(transform.position.z + vec.z, transform.position.x + vec.x))
                 {
                     movePoint.position += vec;
                 }
@@ -101,7 +105,8 @@ public class PlayerLogic : MonoBehaviour
                 if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
                 if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
-                    && transform.position.z > 0)
+                    && transform.position.z > 0
+                    && !isWall(transform.position.z + vec.z, transform.position.x + vec.x))
                 {
                     movePoint.position += vec;
                 }
@@ -113,7 +118,8 @@ public class PlayerLogic : MonoBehaviour
                 if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
                 if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
-                    && transform.position.x < mapXlen + mapXoffset - 1)
+                    && transform.position.x < mapXlen + mapXoffset - 1
+                    && !isWall(transform.position.z + vec.z, transform.position.x + vec.x))
                 {
                     movePoint.position += vec;
                 }
@@ -125,12 +131,25 @@ public class PlayerLogic : MonoBehaviour
                 if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
                 if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
-                     && transform.position.x > mapXoffset + 1)
+                     && transform.position.x > mapXoffset
+                     && !isWall(transform.position.z + vec.z, transform.position.x + vec.x))
                 {
                     movePoint.position += vec;
                 }
             }
         }
+    }
+
+    bool isWall(float z, float x)
+    {
+        if (Map(z, x) == 'W' || Map(z, x) == 'w' || Map(z, x) == '^')
+            return true;
+        return false;
+    }
+
+    char Map(float z, float x)
+    {
+        return mapGenerator.room[(int)z][(int)x - mapXoffset];
     }
 
     bool IsGrabbing() // Checks if player is grabbing a box
@@ -177,7 +196,7 @@ public class PlayerLogic : MonoBehaviour
 
     (int, int, int) GetMapBounds()
     {
-        GameObject map;
+        
         string mapName;
 
         // Since P1Map and P2Map have 50 Xoffset
@@ -190,10 +209,11 @@ public class PlayerLogic : MonoBehaviour
             mapName = "P2Map";
         }
 
+        GameObject map;
         map = GameObject.Find(mapName);
-        MapGenerator mapGenerator = map.GetComponent<MapGenerator>();
-        int zLen = mapGenerator.room.Count-1;
-        int xLen = mapGenerator.room[0].Count-1;
+        mapGenerator = map.GetComponent<MapGenerator>();
+        int zLen = mapGenerator.room.Count;
+        int xLen = mapGenerator.room[0].Count;
         int xOff = mapGenerator.XOffset;
 
         return (zLen, xLen, xOff);
