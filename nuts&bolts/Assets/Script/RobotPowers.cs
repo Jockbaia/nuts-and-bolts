@@ -35,7 +35,7 @@ public class RobotPowers : MonoBehaviour
 
     public enum PowerSelector
     {
-        PushPull, ArmExtend, Magnetic, DestroyPad, Xray, Up, Down, Rocket
+        PushPull, ArmExtend, PushPullHeavy, Magnetic, DestroyPad, Xray, Up, Down, UpDownMove, Rocket
     }
 
     public PowerSelector selectedPower;
@@ -77,11 +77,13 @@ public class RobotPowers : MonoBehaviour
     public void checkPowers()
     {
         powers[PowerSelector.ArmExtend] = _components.Larm > 0;       
+        powers[PowerSelector.PushPullHeavy] = _components.Larm > 4;       
         powers[PowerSelector.Magnetic] = _components.Rarm > 0;
         powers[PowerSelector.DestroyPad] = _components.Rarm > 3;
         powers[PowerSelector.Xray] = _components.view > 2;
         powers[PowerSelector.Up] = _components.legs > 0;
         powers[PowerSelector.Down] = _components.legs > 2;
+        powers[PowerSelector.UpDownMove] = _components.legs > 4;
         powers[PowerSelector.Rocket] = _components.rocket > 2;
     }
 
@@ -94,7 +96,18 @@ public class RobotPowers : MonoBehaviour
             powersIndex = (powersIndex + 1) % keys.Count;
             if (powers[keys[powersIndex]] == true)
             {
-                selectedPower = keys[powersIndex];
+                if (keys[powersIndex] == PowerSelector.PushPull && powers[PowerSelector.PushPullHeavy])
+                {
+                    selectedPower = PowerSelector.PushPullHeavy;
+                }
+                else if ((keys[powersIndex] == PowerSelector.Up || keys[powersIndex] == PowerSelector.Down) && powers[PowerSelector.UpDownMove])
+                {
+                    selectedPower = PowerSelector.UpDownMove;
+                }
+                else
+                {
+                    selectedPower = keys[powersIndex];
+                }
                 return;
             }
         }
@@ -102,7 +115,7 @@ public class RobotPowers : MonoBehaviour
 
     private void initialize()
     {
-        _components.Larm = 0;
+        _components.Larm = 5;
         _components.Rarm = 0;
         _components.legs = 0;
         _components.view = 3;
@@ -111,13 +124,19 @@ public class RobotPowers : MonoBehaviour
 
         powers.Add(PowerSelector.PushPull, true);
         powers.Add(PowerSelector.ArmExtend, _components.Larm > 0);     
+        powers.Add(PowerSelector.PushPullHeavy, _components.Larm > 4);     
         powers.Add(PowerSelector.Magnetic, _components.Rarm > 0);     
         powers.Add(PowerSelector.DestroyPad, _components.Rarm > 3);     
         powers.Add(PowerSelector.Xray, _components.view > 2);
         powers.Add(PowerSelector.Up, _components.legs > 0);
         powers.Add(PowerSelector.Down, _components.legs > 2);
+        powers.Add(PowerSelector.UpDownMove, _components.legs > 4);
         powers.Add(PowerSelector.Rocket, _components.rocket > 2);
 
-        selectedPower = PowerSelector.PushPull;
+        if (powers[PowerSelector.PushPullHeavy])
+            selectedPower = PowerSelector.PushPullHeavy;
+        else
+            selectedPower = PowerSelector.PushPull;
+        PowerSwitched?.Invoke(this, EventArgs.Empty);
     }
 }

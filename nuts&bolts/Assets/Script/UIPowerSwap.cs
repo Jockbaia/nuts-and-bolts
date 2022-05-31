@@ -52,11 +52,13 @@ public class UIPowerSwap : MonoBehaviour
 
         powerContainer.Find("PushPull").gameObject.SetActive(false);
         powerContainer.Find("ArmExtend").gameObject.SetActive(false);
+        powerContainer.Find("PushPullHeavy").gameObject.SetActive(false);
         powerContainer.Find("Magnetic").gameObject.SetActive(false);
         powerContainer.Find("DestroyPad").gameObject.SetActive(false);
         powerContainer.Find("Xray").gameObject.SetActive(false);
         powerContainer.Find("Up").gameObject.SetActive(false);
         powerContainer.Find("Down").gameObject.SetActive(false);
+        powerContainer.Find("UpDownMove").gameObject.SetActive(false);
         powerContainer.Find("Rocket").gameObject.SetActive(false);
 
         powerContainer.Find(selectedPower.ToString()).gameObject.SetActive(true);

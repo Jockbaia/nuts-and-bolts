@@ -154,7 +154,8 @@ public class PlayerLogic : MonoBehaviour
 
     bool IsGrabbing() // Checks if player is grabbing a box
     {
-        if (transform.GetComponent<RobotPowers>().selectedPower == RobotPowers.PowerSelector.PushPull && specialAction)
+        var selectedPower = transform.GetComponent<RobotPowers>().selectedPower;
+        if ((selectedPower == RobotPowers.PowerSelector.PushPull || selectedPower == RobotPowers.PowerSelector.PushPullHeavy) && specialAction)
         {
             float rotation = transform.rotation.eulerAngles.y;
 

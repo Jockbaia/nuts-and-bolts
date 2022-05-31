@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BoxLogic : MonoBehaviour
 {
+    public bool isHeavy = false;
+
     [SerializeField]
     private float moveSpeed = 5f;
 
@@ -58,8 +60,15 @@ public class BoxLogic : MonoBehaviour
         {
             CheckCollisions();
 
-            if (playerLogic != null && playerLogic.specialAction && playerLogic.GetComponent<RobotPowers>().selectedPower == RobotPowers.PowerSelector.PushPull)
+            if (playerLogic != null && playerLogic.specialAction)
             {
+                var selectedPower = playerLogic.GetComponent<RobotPowers>().selectedPower;
+                
+                if (isHeavy && selectedPower != RobotPowers.PowerSelector.PushPullHeavy)
+                    return;
+                if (!isHeavy && selectedPower != RobotPowers.PowerSelector.PushPull && selectedPower != RobotPowers.PowerSelector.PushPullHeavy) 
+                    return;
+
                 // Detect Push
                 if (playerPos == Position.Down && playerLogic.movementInput.y > 0.9f && upTileFree 
                     && playerLogic.transform.rotation.eulerAngles.y == 0f

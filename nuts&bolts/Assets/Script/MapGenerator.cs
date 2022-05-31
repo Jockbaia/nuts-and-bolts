@@ -10,6 +10,7 @@ public class MapGenerator : MonoBehaviour
 
     public Transform tilePrefab;
     public Transform tallboxPrefab;
+    public Transform tallboxHeavyPrefab;
     public Transform wallPrefab;
     public Transform wallCornerPrefab;
 
@@ -56,6 +57,21 @@ public class MapGenerator : MonoBehaviour
                     newTallbox.parent = mapHolder;
                     // Scripts
                     newTallbox.gameObject.AddComponent<BoxLogic>();
+                    newTallbox.GetComponent<BoxLogic>().isHeavy = false;
+                    // Move point
+                    Transform newTallboxMovePoint = new GameObject("Box Move Point").transform;
+                    newTallboxMovePoint.transform.position = newTallbox.transform.position;
+                    newTallboxMovePoint.parent = newTallbox;
+                }
+                
+                if (room[z][x] == 'h') // TallBoxHeavy
+                {
+                    Vector3 tallboxPosition = new Vector3(x + XOffset, 1, z);
+                    Transform newTallbox = Instantiate(tallboxHeavyPrefab, tallboxPosition, Quaternion.Euler(Vector3.zero)) as Transform;
+                    newTallbox.parent = mapHolder;
+                    // Scripts
+                    newTallbox.gameObject.AddComponent<BoxLogic>();
+                    newTallbox.GetComponent<BoxLogic>().isHeavy = true;
                     // Move point
                     Transform newTallboxMovePoint = new GameObject("Box Move Point").transform;
                     newTallboxMovePoint.transform.position = newTallbox.transform.position;
