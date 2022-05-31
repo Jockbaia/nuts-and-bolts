@@ -96,6 +96,10 @@ public class RobotPowers : MonoBehaviour
             powersIndex = (powersIndex + 1) % keys.Count;
             if (powers[keys[powersIndex]] == true)
             {
+                if (keys[powersIndex] == PowerSelector.PushPullHeavy) continue;
+                if (keys[powersIndex] == PowerSelector.UpDownMove) continue;
+                if (keys[powersIndex] == PowerSelector.Down && powers[PowerSelector.UpDownMove]) continue;
+
                 if (keys[powersIndex] == PowerSelector.PushPull && powers[PowerSelector.PushPullHeavy])
                 {
                     selectedPower = PowerSelector.PushPullHeavy;
