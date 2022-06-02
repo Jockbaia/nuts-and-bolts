@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7608206887306186797}
   - component: {fileID: 7608206887306186794}
   - component: {fileID: 2213158437829437682}
+  - component: {fileID: 8156396342735066689}
   m_Layer: 0
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -88,6 +89,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7608206887762183670}
+--- !u!114 &8156396342735066689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7608206887306186792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &7608206887762183670
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +138,7 @@ GameObject:
   - component: {fileID: 5753356823665349346}
   - component: {fileID: 6215920392470399304}
   - component: {fileID: 1086220726815776570}
+  - component: {fileID: 1910893675852207609}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -155,7 +189,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 339af7c5b96be794b831788d628d50be, type: 2}
+  - {fileID: 2100000, guid: be4b0d1458d9c644d915b989e32e2d65, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -397,6 +431,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xray1: {fileID: -1738702215315291243, guid: 094cbb67ca2653048b34476d33a4125d, type: 2}
   xray2: {fileID: -7312202493852170773, guid: 094cbb67ca2653048b34476d33a4125d, type: 2}
+--- !u!114 &1910893675852207609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7608206887762183670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f32823cbf2d764486049708423beb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 7608206887306186794}
 --- !u!1 &7608206888492980901
 GameObject:
   m_ObjectHideFlags: 0
