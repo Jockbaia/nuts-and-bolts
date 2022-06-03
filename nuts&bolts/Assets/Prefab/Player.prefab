@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 6215920392470399304}
   - component: {fileID: 1086220726815776570}
   - component: {fileID: 1910893675852207609}
+  - component: {fileID: 1334155399030564078}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -444,6 +445,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 7608206887306186794}
+--- !u!114 &1334155399030564078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7608206887762183670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ae63d1d946d0a40a038744d209c04f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7608206888492980901
 GameObject:
   m_ObjectHideFlags: 0

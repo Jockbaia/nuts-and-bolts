@@ -120,7 +120,7 @@ public class RobotPowers : MonoBehaviour
     private void initialize()
     {
         _components.Larm = 5;
-        _components.Rarm = 0;
+        _components.Rarm = 1;
         _components.legs = 0;
         _components.view = 3;
         _components.rocket = 0;

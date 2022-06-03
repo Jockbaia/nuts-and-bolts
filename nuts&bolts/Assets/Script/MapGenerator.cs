@@ -13,6 +13,7 @@ public class MapGenerator : MonoBehaviour
     public Transform tallboxHeavyPrefab;
     public Transform wallPrefab;
     public Transform wallCornerPrefab;
+    public Transform magneticBoxPrefab;
 
     public List<List<char>> room;
 
@@ -103,6 +104,13 @@ public class MapGenerator : MonoBehaviour
                     newObj.parent = mapHolder;
                     // Scripts
                     //newObj.gameObject.AddComponent<BoxLogic>();
+                }
+                
+                if (room[z][x] == 'm') // MagneticBox
+                {
+                    Vector3 position = new Vector3(x + XOffset, 0.5f, z);
+                    Transform newObj = Instantiate(magneticBoxPrefab, position, Quaternion.Euler(new Vector3(0, 90, 0))) as Transform;
+                    newObj.parent = mapHolder;
                 }
             }
         }

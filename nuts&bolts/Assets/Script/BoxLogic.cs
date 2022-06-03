@@ -154,7 +154,7 @@ public class BoxLogic : MonoBehaviour
 
     bool checkCollision(Collider collider)
     {
-        if (collider.name.StartsWith("TallBox") || collider.name.StartsWith("Wall"))
+        if (collider.name.StartsWith("TallBox") || collider.name.StartsWith("Wall") || collider.name.StartsWith("MagneticBox"))
         {
             return true;
         }
