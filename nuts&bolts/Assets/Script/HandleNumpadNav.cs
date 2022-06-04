@@ -23,7 +23,7 @@ public class HandleNumpadNav : MonoBehaviour
     {
         if (PlayerLogic.menuOpen) return;
 
-        if (context.action.triggered) // TODO: add logic to check if player in Numpad cell --> otherwise: false
+        if (context.action.triggered && false) // TODO: add logic to check if player in Numpad cell --> otherwise: false
         {
             if (padOpen)
             {

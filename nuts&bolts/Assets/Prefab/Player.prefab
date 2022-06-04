@@ -241,6 +241,7 @@ MonoBehaviour:
   moveSpeed: 5
   movementInput: {x: 0, y: 0}
   specialAction: 0
+  interactBtn: 0
   movePoint: {fileID: 0}
 --- !u!114 &-6510698224084617436
 MonoBehaviour:
@@ -376,6 +377,18 @@ MonoBehaviour:
       - m_Target: {fileID: 6215920392470399304}
         m_TargetAssemblyTypeName: HandleNumpadNav, Assembly-CSharp
         m_MethodName: OnInteractNumpad
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7608206887762183661}
+        m_TargetAssemblyTypeName: PlayerLogic, Assembly-CSharp
+        m_MethodName: OnInteractBtn
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

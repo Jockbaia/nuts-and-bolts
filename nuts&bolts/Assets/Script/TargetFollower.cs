@@ -32,8 +32,12 @@ public class TargetFollower : MonoBehaviour
         laserLine = this.laserOrigin.GetComponent<LineRenderer>();
         shotLine = this.shotOrigin.GetComponent<LineRenderer>();
 
-        this.laserLine.SetWidth(0.02f, 0.02f);
-        this.shotLine.SetWidth(0.05f, 0.05f);
+        //this.laserLine.SetWidth(0.02f, 0.02f);
+        this.laserLine.startWidth = 0.02f;
+        this.laserLine.endWidth = 0.02f;
+        //this.shotLine.SetWidth(0.05f, 0.05f);
+        this.shotLine.startWidth = 0.05f;
+        this.shotLine.endWidth = 0.05f;
 
         this.laserLine.material.color = Color.red;
         this.shotLine.material.color = Color.blue;

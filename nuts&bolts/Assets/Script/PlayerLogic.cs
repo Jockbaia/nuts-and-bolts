@@ -15,6 +15,7 @@ public class PlayerLogic : MonoBehaviour
 
     public Vector2 movementInput = Vector2.zero;
     public bool specialAction = false;
+    public bool interactBtn = false;
 
     public Transform movePoint;
 
@@ -75,6 +76,14 @@ public class PlayerLogic : MonoBehaviour
         if (this.GetComponent<HandleNumpadNav>().padOpen) return;
 
         specialAction = context.action.triggered;
+    }
+    
+    public void OnInteractBtn(InputAction.CallbackContext context)
+    {
+        if (menuOpen) return;
+        if (this.GetComponent<HandleNumpadNav>().padOpen) return;
+
+        interactBtn = context.action.triggered;
     }
 
     void Update()
