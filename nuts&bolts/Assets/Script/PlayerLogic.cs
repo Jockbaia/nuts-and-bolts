@@ -100,7 +100,7 @@ public class PlayerLogic : MonoBehaviour
 
                 if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
-                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
+                if (checkIfFreeOrBolt(transform.position + vec)
                     && transform.position.z < mapZlen - 1
                     && !isWall(transform.position.z + vec.z, transform.position.x + vec.x))
                 {
@@ -113,7 +113,7 @@ public class PlayerLogic : MonoBehaviour
 
                 if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
-                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
+                if (checkIfFreeOrBolt(transform.position + vec)
                     && transform.position.z > 0
                     && !isWall(transform.position.z + vec.z, transform.position.x + vec.x))
                 {
@@ -126,7 +126,7 @@ public class PlayerLogic : MonoBehaviour
 
                 if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
-                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
+                if (checkIfFreeOrBolt(transform.position + vec)
                     && transform.position.x < mapXlen + mapXoffset - 1
                     && !isWall(transform.position.z + vec.z, transform.position.x + vec.x))
                 {
@@ -139,7 +139,7 @@ public class PlayerLogic : MonoBehaviour
 
                 if (!IsGrabbing()) transform.rotation = Quaternion.LookRotation(vec);
 
-                if (Physics.OverlapSphere(transform.position + vec, 0.01f).Length == 0
+                if (checkIfFreeOrBolt(transform.position + vec)
                      && transform.position.x > mapXoffset
                      && !isWall(transform.position.z + vec.z, transform.position.x + vec.x))
                 {
@@ -147,6 +147,20 @@ public class PlayerLogic : MonoBehaviour
                 }
             }
         }
+    }
+
+    bool checkIfFreeOrBolt(Vector3 vec)
+    {
+        Collider[] colliders = Physics.OverlapSphere(vec, 0.01f);
+        if (colliders.Length == 0)
+        {
+            return true; // Free
+        }
+        else if (colliders.Length == 1 && colliders[0].gameObject.name.StartsWith("Bolt"))
+        {
+            return true;
+        }
+        return false;
     }
 
     bool isWall(float z, float x)

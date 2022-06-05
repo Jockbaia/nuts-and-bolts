@@ -14,6 +14,7 @@ public class MapGenerator : MonoBehaviour
     public Transform wallPrefab;
     public Transform wallCornerPrefab;
     public Transform magneticBoxPrefab;
+    public Transform boltPrefab;
 
     public List<List<char>> room;
 
@@ -109,7 +110,14 @@ public class MapGenerator : MonoBehaviour
                 if (room[z][x] == 'm') // MagneticBox
                 {
                     Vector3 position = new Vector3(x + XOffset, 0.5f, z);
-                    Transform newObj = Instantiate(magneticBoxPrefab, position, Quaternion.Euler(new Vector3(0, 90, 0))) as Transform;
+                    Transform newObj = Instantiate(magneticBoxPrefab, position, Quaternion.Euler(Vector3.zero)) as Transform;
+                    newObj.parent = mapHolder;
+                }
+                
+                if (room[z][x] == 'b') // Bolt
+                {
+                    Vector3 position = new Vector3(x + XOffset, 0.36f, z);
+                    Transform newObj = Instantiate(boltPrefab, position, Quaternion.Euler(Vector3.zero)) as Transform;
                     newObj.parent = mapHolder;
                 }
             }
