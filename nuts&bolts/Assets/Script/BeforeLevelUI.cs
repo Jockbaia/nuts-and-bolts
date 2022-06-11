@@ -39,8 +39,8 @@ public class BeforeLevelUI : MonoBehaviour
     int bk_legsP2;
     int bk_backP2;
 
-    private int NavIdxP1 = 0;
-    private int NavIdxP2 = 0;
+    private Vector2Int NavIdxP1 = new Vector2Int(0, 0);
+    private Vector2Int NavIdxP2 = new Vector2Int(0, 0);
 
     private float cooldownP1 = 0f;
     private float cooldownP2 = 0f;
@@ -50,6 +50,9 @@ public class BeforeLevelUI : MonoBehaviour
 
     private bool resetModalOpenP1 = false;
     private bool resetModalOpenP2 = false;
+
+    private bool hintModalOpenP1 = false;
+    private bool hintModalOpenP2 = false;
 
     private int NavIdxModalP1 = 0;
     private int NavIdxModalP2 = 0;
@@ -70,29 +73,53 @@ public class BeforeLevelUI : MonoBehaviour
 
         Vector2 WASD = context.ReadValue<Vector2>();
 
-        if (!(readyModalOpenP1 || resetModalOpenP1)) 
+        if (!(readyModalOpenP1 || resetModalOpenP1 || hintModalOpenP1)) 
         {
             if (WASD.y == 1)
             {
-                if (NavIdxP1 == 0 || NavIdxP1 > 5) return;
-                NavIdxP1--;
+                if (NavIdxP1.x == 0) return;
+                else if (NavIdxP1.x == 3 && NavIdxP1.y == 2) NavIdxP1.x = 1;
+                else if (NavIdxP1.x == 3 && NavIdxP1.y == 3) NavIdxP1.x = 0;
+                else
+                {
+                    NavIdxP1.x--;
+                }
                 UpdateButtonHighlight();
 
             }
             else if (WASD.y == -1)
             {
-                if (NavIdxP1 >= 5) return;
-                NavIdxP1++;
+                if (NavIdxP1.x == 5) return;
+                else if (NavIdxP1.x == 1 && NavIdxP1.y == 2) NavIdxP1.x = 3;
+                else if (NavIdxP1.x == 0 && NavIdxP1.y == 3) NavIdxP1.x = 3;
+                else if (NavIdxP1.x == 3 && NavIdxP1.y > 1) return;
+                else
+                {
+                    NavIdxP1.x++;
+                }
                 UpdateButtonHighlight();
             }
-            else if (WASD.x > 0 && NavIdxP1 == 5)
+            else if (WASD.x > 0)
             {
-                NavIdxP1++;
+                if (NavIdxP1.x == 0 && NavIdxP1.y == 3) return;
+                else if (NavIdxP1.x == 1 && NavIdxP1.y == 2) return;
+                else if (NavIdxP1.x == 2 && NavIdxP1.y == 1) return;
+                else if (NavIdxP1.x == 3 && NavIdxP1.y == 3) return;
+                else if (NavIdxP1.x == 4 && NavIdxP1.y == 1) return;
+                else if (NavIdxP1.x == 5 && NavIdxP1.y == 1) return;
+                else
+                {
+                    NavIdxP1.y++;
+                }
                 UpdateButtonHighlight();
             }
-            else if (WASD.x < 0 && NavIdxP1 == 6)
+            else if (WASD.x < 0)
             {
-                NavIdxP1--;
+                if (NavIdxP1.y == 0) return;
+                else
+                {
+                    NavIdxP1.y--;
+                }
                 UpdateButtonHighlight();
             }
         }
@@ -145,29 +172,53 @@ public class BeforeLevelUI : MonoBehaviour
 
         Vector2 IJKL = context.ReadValue<Vector2>();
 
-        if (!(readyModalOpenP2 || resetModalOpenP2))
+        if (!(readyModalOpenP2 || hintModalOpenP2 || resetModalOpenP2))
         {
             if (IJKL.y == 1)
             {
-                if (NavIdxP2 == 0 || NavIdxP2 > 5) return;
-                NavIdxP2--;
+                if (NavIdxP2.x == 0) return;
+                else if (NavIdxP2.x == 3 && NavIdxP2.y == 2) NavIdxP2.x = 1;
+                else if (NavIdxP2.x == 3 && NavIdxP2.y == 3) NavIdxP2.x = 0;
+                else
+                {
+                    NavIdxP2.x--;
+                }
                 UpdateButtonHighlight();
 
             }
             else if (IJKL.y == -1)
             {
-                if (NavIdxP2 >= 5) return;
-                NavIdxP2++;
+                if (NavIdxP2.x == 5) return;
+                else if (NavIdxP2.x == 1 && NavIdxP2.y == 2) NavIdxP2.x = 3;
+                else if (NavIdxP2.x == 0 && NavIdxP2.y == 3) NavIdxP2.x = 3;
+                else if (NavIdxP2.x == 3 && NavIdxP2.y > 1) return;
+                else
+                {
+                    NavIdxP2.x++;
+                }
                 UpdateButtonHighlight();
             }
-            else if (IJKL.x < 0 && NavIdxP2 == 5)
+            else if (IJKL.x > 0)
             {
-                NavIdxP2++;
+                if (NavIdxP2.y == 0) return;
+                else
+                {
+                    NavIdxP2.y--;
+                }
                 UpdateButtonHighlight();
             }
-            else if (IJKL.x > 0 && NavIdxP2 == 6)
+            else if (IJKL.x < 0)
             {
-                NavIdxP2--;
+                if (NavIdxP2.x == 0 && NavIdxP2.y == 3) return;
+                else if (NavIdxP2.x == 1 && NavIdxP2.y == 2) return;
+                else if (NavIdxP2.x == 2 && NavIdxP2.y == 1) return;
+                else if (NavIdxP2.x == 3 && NavIdxP2.y == 3) return;
+                else if (NavIdxP2.x == 4 && NavIdxP2.y == 1) return;
+                else if (NavIdxP2.x == 5 && NavIdxP2.y == 1) return;
+                else
+                {
+                    NavIdxP2.y++;
+                }
                 UpdateButtonHighlight();
             }
         }
@@ -215,11 +266,11 @@ public class BeforeLevelUI : MonoBehaviour
 
         if (pressed)
         {
-            if (NavIdxP1 >= 0 && NavIdxP1 <= 4)
+            if ((NavIdxP1.x >= 0 && NavIdxP1.y == 0) && (NavIdxP1.x < 5 && NavIdxP1.y == 0))
             {
-                AssignBolt(1, NavIdxP1);
+                AssignBolt(1, NavIdxP1.x);
             }
-            else if (NavIdxP1 == 5 && !readyModalOpenP1)
+            else if (NavIdxP1.x == 5 && NavIdxP1.y == 0 && !readyModalOpenP1)
             {
                 readyModalOpenP1 = true;
                 P1_UI.Find("ModalReady").gameObject.SetActive(true);
@@ -227,7 +278,7 @@ public class BeforeLevelUI : MonoBehaviour
                 P1_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = true;
                 NavIdxModalP1 = 0;
             }
-            else if (NavIdxP1 == 6 && !resetModalOpenP1)
+            else if (NavIdxP1.x == 5 && NavIdxP1.y == 1 && !resetModalOpenP1)
             {
                 resetModalOpenP1 = true;
                 P1_UI.Find("ModalReset").gameObject.SetActive(true);
@@ -274,7 +325,7 @@ public class BeforeLevelUI : MonoBehaviour
                     P1_UI.Find("Legs").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("LEGS: " + legsP1.ToString());
                     P1_UI.Find("Back").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("BACK: " + backP1.ToString());
 
-                    NavIdxP1 = 0;
+                    NavIdxP1 = new Vector2Int(0, 0);
 
                     UpdateUnlockedHighlight();
                     UpdateButtonHighlight();
@@ -288,6 +339,19 @@ public class BeforeLevelUI : MonoBehaviour
                     P1_UI.Find("ModalReset").gameObject.SetActive(false);
                 }
             }
+            else if (hintModalOpenP1)
+            {
+                hintModalOpenP1 = false;
+                P1_UI.Find("ModalHint").gameObject.SetActive(false);
+            }
+            else // Cursor is on a power-up
+            {
+                hintModalOpenP1 = true;
+                Transform modalHint = P1_UI.Find("ModalHint");
+                modalHint.gameObject.SetActive(true);
+                // Hint Logic
+                DisplayHint(modalHint, NavIdxP1);
+            }
         }
     }    
     
@@ -299,11 +363,11 @@ public class BeforeLevelUI : MonoBehaviour
 
         if (pressed)
         {
-            if (NavIdxP2 >= 0 && NavIdxP2 <= 4)
+            if ((NavIdxP2.x >= 0 && NavIdxP2.y == 0) && (NavIdxP2.x < 5 && NavIdxP2.y == 0))
             {
-                AssignBolt(2, NavIdxP2);
+                AssignBolt(2, NavIdxP2.x);
             }
-            else if (NavIdxP2 == 5 && !readyModalOpenP2)
+            else if (NavIdxP2.x == 5 && NavIdxP2.y == 0 && !readyModalOpenP2)
             {
                 readyModalOpenP2 = true;
                 P2_UI.Find("ModalReady").gameObject.SetActive(true);
@@ -311,7 +375,7 @@ public class BeforeLevelUI : MonoBehaviour
                 P2_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = true;
                 NavIdxModalP2 = 0;
             }
-            else if (NavIdxP2 == 6 && !resetModalOpenP2)
+            else if (NavIdxP2.x == 5 && NavIdxP2.y == 1 && !resetModalOpenP2)
             {
                 resetModalOpenP2 = true;
                 P2_UI.Find("ModalReset").gameObject.SetActive(true);
@@ -358,7 +422,7 @@ public class BeforeLevelUI : MonoBehaviour
                     P2_UI.Find("Legs").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("LEGS: " + legsP2.ToString());
                     P2_UI.Find("Back").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("BACK: " + backP2.ToString());
 
-                    NavIdxP2 = 0;
+                    NavIdxP2 = new Vector2Int(0, 0);
 
                     UpdateUnlockedHighlight();
                     UpdateButtonHighlight();
@@ -371,6 +435,19 @@ public class BeforeLevelUI : MonoBehaviour
                     resetModalOpenP2 = false;
                     P2_UI.Find("ModalReset").gameObject.SetActive(false);
                 }
+            }
+            else if (hintModalOpenP2)
+            {
+                hintModalOpenP2 = false;
+                P2_UI.Find("ModalHint").gameObject.SetActive(false);
+            }
+            else // Cursor is on a power-up
+            {
+                hintModalOpenP2 = true;
+                Transform modalHint = P2_UI.Find("ModalHint");
+                modalHint.gameObject.SetActive(true);
+                // Hint Logic
+                DisplayHint(modalHint, NavIdxP2);
             }
         }
     }
@@ -409,29 +486,141 @@ public class BeforeLevelUI : MonoBehaviour
     void UpdateButtonHighlight()
     {
         // P1
-        SetButtonHighlight(P1_UI, "LeftArm", NavIdxP1 == 0);
-        SetButtonHighlight(P1_UI, "RightArm", NavIdxP1 == 1);
-        SetButtonHighlight(P1_UI, "View", NavIdxP1 == 2);
-        SetButtonHighlight(P1_UI, "Legs", NavIdxP1 == 3);
-        SetButtonHighlight(P1_UI, "Back", NavIdxP1 == 4);
+        SetButtonHighlight(P1_UI, "LeftArm", NavIdxP1.x == 0 && NavIdxP1.y == 0);
+        SetButtonHighlight(P1_UI, "RightArm", NavIdxP1.x == 1 && NavIdxP1.y == 0);
+        SetButtonHighlight(P1_UI, "View", NavIdxP1.x == 2 && NavIdxP1.y == 0);
+        SetButtonHighlight(P1_UI, "Legs", NavIdxP1.x == 3 && NavIdxP1.y == 0);
+        SetButtonHighlight(P1_UI, "Back", NavIdxP1.x == 4 && NavIdxP1.y == 0);
 
-        P1_UI.Find("Ready").GetComponent<Button>().interactable = !(NavIdxP1 == 5);
-        P1_UI.Find("Reset").GetComponent<Button>().interactable = !(NavIdxP1 == 6);
+        P1_UI.Find("Ready").GetComponent<Button>().interactable = !(NavIdxP1.x == 5 && NavIdxP1.y == 0);
+        P1_UI.Find("Reset").GetComponent<Button>().interactable = !(NavIdxP1.x == 5 && NavIdxP1.y == 1);
+
+        SetHintMarker(P1_UI, "LeftArm", 1, NavIdxP1.x == 0 && NavIdxP1.y == 1);
+        SetHintMarker(P1_UI, "LeftArm", 2, NavIdxP1.x == 0 && NavIdxP1.y == 2);
+        SetHintMarker(P1_UI, "LeftArm", 3, NavIdxP1.x == 0 && NavIdxP1.y == 3);
+        SetHintMarker(P1_UI, "RightArm", 1, NavIdxP1.x == 1 && NavIdxP1.y == 1);
+        SetHintMarker(P1_UI, "RightArm", 2, NavIdxP1.x == 1 && NavIdxP1.y == 2);
+        SetHintMarker(P1_UI, "View", 1, NavIdxP1.x == 2 && NavIdxP1.y == 1);
+        SetHintMarker(P1_UI, "Legs", 1, NavIdxP1.x == 3 && NavIdxP1.y == 1);
+        SetHintMarker(P1_UI, "Legs", 2, NavIdxP1.x == 3 && NavIdxP1.y == 2);
+        SetHintMarker(P1_UI, "Legs", 3, NavIdxP1.x == 3 && NavIdxP1.y == 3);
+        SetHintMarker(P1_UI, "Back", 1, NavIdxP1.x == 4 && NavIdxP1.y == 1);
 
         // P2
-        SetButtonHighlight(P2_UI, "LeftArm", NavIdxP2 == 0);
-        SetButtonHighlight(P2_UI, "RightArm", NavIdxP2 == 1);
-        SetButtonHighlight(P2_UI, "View", NavIdxP2 == 2);
-        SetButtonHighlight(P2_UI, "Legs", NavIdxP2 == 3);
-        SetButtonHighlight(P2_UI, "Back", NavIdxP2 == 4);
+        SetButtonHighlight(P2_UI, "LeftArm", NavIdxP2.x == 0 && NavIdxP2.y == 0);
+        SetButtonHighlight(P2_UI, "RightArm", NavIdxP2.x == 1 && NavIdxP2.y == 0);
+        SetButtonHighlight(P2_UI, "View", NavIdxP2.x == 2 && NavIdxP2.y == 0);
+        SetButtonHighlight(P2_UI, "Legs", NavIdxP2.x == 3 && NavIdxP2.y == 0);
+        SetButtonHighlight(P2_UI, "Back", NavIdxP2.x == 4 && NavIdxP2.y == 0);
 
-        P2_UI.Find("Ready").GetComponent<Button>().interactable = !(NavIdxP2 == 5);
-        P2_UI.Find("Reset").GetComponent<Button>().interactable = !(NavIdxP2 == 6);
+        P2_UI.Find("Ready").GetComponent<Button>().interactable = !(NavIdxP2.x == 5 && NavIdxP2.y == 0);
+        P2_UI.Find("Reset").GetComponent<Button>().interactable = !(NavIdxP2.x == 5 && NavIdxP2.y == 1);
+
+        SetHintMarker(P2_UI, "LeftArm", 1, NavIdxP2.x == 0 && NavIdxP2.y == 1);
+        SetHintMarker(P2_UI, "LeftArm", 2, NavIdxP2.x == 0 && NavIdxP2.y == 2);
+        SetHintMarker(P2_UI, "LeftArm", 3, NavIdxP2.x == 0 && NavIdxP2.y == 3);
+        SetHintMarker(P2_UI, "RightArm", 1, NavIdxP2.x == 1 && NavIdxP2.y == 1);
+        SetHintMarker(P2_UI, "RightArm", 2, NavIdxP2.x == 1 && NavIdxP2.y == 2);
+        SetHintMarker(P2_UI, "View", 1, NavIdxP2.x == 2 && NavIdxP2.y == 1);
+        SetHintMarker(P2_UI, "Legs", 1, NavIdxP2.x == 3 && NavIdxP2.y == 1);
+        SetHintMarker(P2_UI, "Legs", 2, NavIdxP2.x == 3 && NavIdxP2.y == 2);
+        SetHintMarker(P2_UI, "Legs", 3, NavIdxP2.x == 3 && NavIdxP2.y == 3);
+        SetHintMarker(P2_UI, "Back", 1, NavIdxP2.x == 4 && NavIdxP2.y == 1);
     }
 
     void SetButtonHighlight(Transform player, string bodyPart, bool highlighted)
     {
         player.Find(bodyPart).Find("NameBox").GetComponent<Button>().interactable = !highlighted;
+    }
+
+    void SetHintMarker(Transform player, string bodyPart, int yCoord, bool active)
+    {
+        player.Find(bodyPart).Find("Power" + yCoord.ToString()).Find("HintMarker").gameObject.SetActive(active);
+    }
+
+    void DisplayHint(Transform modalHint, Vector2Int navIdx)
+    {
+        string title = "";
+        string descr = "";
+
+        if (navIdx.x == 0) // LeftArm
+        {
+            if (navIdx.y == 1)
+            {
+                title = "PUSH/PULL";
+                descr = "This power-up allows you to move BOXES around the map";
+            }
+            else if (navIdx.y == 2)
+            {
+                title = "TELESCOPIC ARM";
+                descr = "This power-up allows you to extend your arm in a straight " +
+                    "line to reach BUTTONS and BOLTS far away from you";
+            }
+            else if (navIdx.y == 3)
+            {
+                title = "HEAVY PUSH/PULL";
+                descr = "This power-up allows you to move HEAVY BOXES around the map";
+            }
+        }
+        else if (navIdx.x == 1) // RightArm
+        {
+            if (navIdx.y == 1)
+            {
+                title = "MAGNETIC";
+                descr = "This power-up allows you to attract METALLIC BOXES and BOLTS" +
+                    " from any distance in a straight line";
+            }
+            else if (navIdx.y == 2)
+            {
+                title = "DESTROY NUMPAD";
+                descr = "This power-up allows you to unlock the EXIT DOOR by hacking the" +
+                    " NUMPAD. Be careful that using this power-up will damage you, " +
+                    "causing you to lose 3 BOLTS on your RIGHT ARM";
+            }
+        }
+        else if (navIdx.x == 2) // View
+        {
+            if (navIdx.y == 1)
+            {
+                title = "X-RAY";
+                descr = "This power-up allows you to see INTERESTING OBJECTS through WALLS " +
+                    "and obstacles";
+            }
+        }
+        else if (navIdx.x == 3) // Legs
+        {
+            if (navIdx.y == 1)
+            {
+                title = "TELESCOPIC LEGS";
+                descr = "This power-up allows you to toggle the extension of your LEGS to " +
+                    "become taller. When your LEGS are extended, you cannot move";
+            }
+            else if (navIdx.y == 2)
+            {
+                title = "RETRACTABLE LEGS";
+                descr = "This power-up allows you to toggle the retraction of your LEGS " +
+                    "to become shorter. When your LEGS are retracted, you cannot move";
+            }
+            else if (navIdx.y == 3)
+            {
+                title = "UP/DOWN & MOVE";
+                descr = "This power-up allows you to toggle the extension or retraction of " +
+                    "your LEGS to become taller or shorter. In addition, you can move " +
+                    "when your LEGS are extended or retracted";
+            }
+        }
+        else if (navIdx.x == 4) // Back
+        {
+            if (navIdx.y == 1)
+            {
+                title = "ROCKET";
+                descr = "This power-up allows you to rocket jump certain obstacles, " +
+                    "provided that the landing spot is free";
+            }
+        }
+
+        modalHint.Find("TextTitle").GetComponent<TMP_Text>().SetText(title);
+        modalHint.Find("TextDescr").GetComponent<TMP_Text>().SetText(descr);
     }
 
     void ResetBolts()
@@ -458,7 +647,7 @@ public class BeforeLevelUI : MonoBehaviour
         P1_UI.Find("Legs").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("LEGS: " + legsP1.ToString());
         P1_UI.Find("Back").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("BACK: " + backP1.ToString());
 
-        NavIdxP1 = 0;
+        NavIdxP1 = new Vector2Int(0, 0);
 
         // Set current Bolts P2
         P2_UI.Find("Bolts").Find("Text").GetComponent<TMP_Text>().SetText("BOLTS: " + boltsP2.ToString());
@@ -468,7 +657,7 @@ public class BeforeLevelUI : MonoBehaviour
         P2_UI.Find("Legs").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("LEGS: " + legsP2.ToString());
         P2_UI.Find("Back").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("BACK: " + backP2.ToString());
 
-        NavIdxP2 = 0;
+        NavIdxP2 = new Vector2Int(0, 0);
 
         UpdateUnlockedHighlight();
     }
