@@ -10,6 +10,12 @@ public class BeforeLevelUI : MonoBehaviour
     public Transform P1_UI;
     public Transform P2_UI;
 
+    public AudioSource audiosrc;
+    public AudioClip audioClipMove;
+    public AudioClip audioClipAccept;
+    public AudioClip audioClipReject;
+    public AudioClip audioClipAssignBolt;
+
     int boltsP1;
     int leftArmP1;
     int rightArmP1;
@@ -85,7 +91,7 @@ public class BeforeLevelUI : MonoBehaviour
                     NavIdxP1.x--;
                 }
                 UpdateButtonHighlight();
-
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (WASD.y == -1)
             {
@@ -98,6 +104,7 @@ public class BeforeLevelUI : MonoBehaviour
                     NavIdxP1.x++;
                 }
                 UpdateButtonHighlight();
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (WASD.x > 0)
             {
@@ -112,6 +119,7 @@ public class BeforeLevelUI : MonoBehaviour
                     NavIdxP1.y++;
                 }
                 UpdateButtonHighlight();
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (WASD.x < 0)
             {
@@ -121,6 +129,7 @@ public class BeforeLevelUI : MonoBehaviour
                     NavIdxP1.y--;
                 }
                 UpdateButtonHighlight();
+                audiosrc.PlayOneShot(audioClipMove);
             }
         }
         else if (readyModalOpenP1)
@@ -131,6 +140,7 @@ public class BeforeLevelUI : MonoBehaviour
                 NavIdxModalP1++;
                 P1_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = true;
                 P1_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = false;
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (WASD.x < 0)
             {
@@ -138,6 +148,7 @@ public class BeforeLevelUI : MonoBehaviour
                 NavIdxModalP1--;
                 P1_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = false;
                 P1_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = true;
+                audiosrc.PlayOneShot(audioClipMove);
             }
         }        
         else if (resetModalOpenP1)
@@ -148,6 +159,7 @@ public class BeforeLevelUI : MonoBehaviour
                 NavIdxModalP1++;
                 P1_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = true;
                 P1_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = false;
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (WASD.x < 0)
             {
@@ -155,6 +167,7 @@ public class BeforeLevelUI : MonoBehaviour
                 NavIdxModalP1--;
                 P1_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = false;
                 P1_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = true;
+                audiosrc.PlayOneShot(audioClipMove);
             }
         }
     }    
@@ -184,6 +197,7 @@ public class BeforeLevelUI : MonoBehaviour
                     NavIdxP2.x--;
                 }
                 UpdateButtonHighlight();
+                audiosrc.PlayOneShot(audioClipMove);
 
             }
             else if (IJKL.y == -1)
@@ -197,6 +211,7 @@ public class BeforeLevelUI : MonoBehaviour
                     NavIdxP2.x++;
                 }
                 UpdateButtonHighlight();
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (IJKL.x > 0)
             {
@@ -206,6 +221,7 @@ public class BeforeLevelUI : MonoBehaviour
                     NavIdxP2.y--;
                 }
                 UpdateButtonHighlight();
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (IJKL.x < 0)
             {
@@ -220,6 +236,7 @@ public class BeforeLevelUI : MonoBehaviour
                     NavIdxP2.y++;
                 }
                 UpdateButtonHighlight();
+                audiosrc.PlayOneShot(audioClipMove);
             }
         }
         else if (readyModalOpenP2)
@@ -230,6 +247,7 @@ public class BeforeLevelUI : MonoBehaviour
                 NavIdxModalP2++;
                 P2_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = true;
                 P2_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = false;
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (IJKL.x < 0)
             {
@@ -237,6 +255,7 @@ public class BeforeLevelUI : MonoBehaviour
                 NavIdxModalP2--;
                 P2_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = false;
                 P2_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = true;
+                audiosrc.PlayOneShot(audioClipMove);
             }
         }
         else if (resetModalOpenP2)
@@ -247,6 +266,7 @@ public class BeforeLevelUI : MonoBehaviour
                 NavIdxModalP2++;
                 P2_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = true;
                 P2_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = false;
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (IJKL.x < 0)
             {
@@ -254,6 +274,7 @@ public class BeforeLevelUI : MonoBehaviour
                 NavIdxModalP2--;
                 P2_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = false;
                 P2_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = true;
+                audiosrc.PlayOneShot(audioClipMove);
             }
         }
     }
@@ -277,6 +298,7 @@ public class BeforeLevelUI : MonoBehaviour
                 P1_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = false;
                 P1_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = true;
                 NavIdxModalP1 = 0;
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (NavIdxP1.x == 5 && NavIdxP1.y == 1 && !resetModalOpenP1)
             {
@@ -285,6 +307,7 @@ public class BeforeLevelUI : MonoBehaviour
                 P1_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = false;
                 P1_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = true;
                 NavIdxModalP1 = 0;
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (readyModalOpenP1)
             {
@@ -294,6 +317,7 @@ public class BeforeLevelUI : MonoBehaviour
                     readyModalOpenP1 = false;
                     P1_UI.Find("ModalReady").gameObject.SetActive(false);
                     P1_UI.Find("ReadyLogo").gameObject.SetActive(true);
+                    audiosrc.PlayOneShot(audioClipAccept);
 
                     if (P1ready && P2ready)
                     {
@@ -304,6 +328,7 @@ public class BeforeLevelUI : MonoBehaviour
                 {
                     readyModalOpenP1 = false;
                     P1_UI.Find("ModalReady").gameObject.SetActive(false);
+                    audiosrc.PlayOneShot(audioClipReject);
                 }
             }
             else if (resetModalOpenP1)
@@ -332,17 +357,21 @@ public class BeforeLevelUI : MonoBehaviour
 
                     resetModalOpenP1 = false;
                     P1_UI.Find("ModalReset").gameObject.SetActive(false);
+                    audiosrc.PlayOneShot(audioClipAccept);
+
                 }
                 else if (NavIdxModalP1 == 1) // Reset -> No
                 {
                     resetModalOpenP1 = false;
                     P1_UI.Find("ModalReset").gameObject.SetActive(false);
+                    audiosrc.PlayOneShot(audioClipReject);
                 }
             }
             else if (hintModalOpenP1)
             {
                 hintModalOpenP1 = false;
                 P1_UI.Find("ModalHint").gameObject.SetActive(false);
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else // Cursor is on a power-up
             {
@@ -351,6 +380,7 @@ public class BeforeLevelUI : MonoBehaviour
                 modalHint.gameObject.SetActive(true);
                 // Hint Logic
                 DisplayHint(modalHint, NavIdxP1);
+                audiosrc.PlayOneShot(audioClipMove);
             }
         }
     }    
@@ -374,6 +404,7 @@ public class BeforeLevelUI : MonoBehaviour
                 P2_UI.Find("ModalReady").Find("ButtonYes").GetComponent<Button>().interactable = false;
                 P2_UI.Find("ModalReady").Find("ButtonNo").GetComponent<Button>().interactable = true;
                 NavIdxModalP2 = 0;
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (NavIdxP2.x == 5 && NavIdxP2.y == 1 && !resetModalOpenP2)
             {
@@ -382,6 +413,7 @@ public class BeforeLevelUI : MonoBehaviour
                 P2_UI.Find("ModalReset").Find("ButtonYes").GetComponent<Button>().interactable = false;
                 P2_UI.Find("ModalReset").Find("ButtonNo").GetComponent<Button>().interactable = true;
                 NavIdxModalP2 = 0;
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else if (readyModalOpenP2)
             {
@@ -391,6 +423,7 @@ public class BeforeLevelUI : MonoBehaviour
                     readyModalOpenP2 = false;
                     P2_UI.Find("ModalReady").gameObject.SetActive(false);
                     P2_UI.Find("ReadyLogo").gameObject.SetActive(true);
+                    audiosrc.PlayOneShot(audioClipAccept);
 
                     if (P1ready && P2ready)
                     {
@@ -401,6 +434,7 @@ public class BeforeLevelUI : MonoBehaviour
                 {
                     readyModalOpenP2 = false;
                     P2_UI.Find("ModalReady").gameObject.SetActive(false);
+                    audiosrc.PlayOneShot(audioClipReject);
                 }
             }
             else if (resetModalOpenP2)
@@ -429,17 +463,20 @@ public class BeforeLevelUI : MonoBehaviour
 
                     resetModalOpenP2 = false;
                     P2_UI.Find("ModalReset").gameObject.SetActive(false);
+                    audiosrc.PlayOneShot(audioClipAccept);
                 }
                 else if (NavIdxModalP2 == 1) // Reset -> No
                 {
                     resetModalOpenP2 = false;
                     P2_UI.Find("ModalReset").gameObject.SetActive(false);
+                    audiosrc.PlayOneShot(audioClipReject);
                 }
             }
             else if (hintModalOpenP2)
             {
                 hintModalOpenP2 = false;
                 P2_UI.Find("ModalHint").gameObject.SetActive(false);
+                audiosrc.PlayOneShot(audioClipMove);
             }
             else // Cursor is on a power-up
             {
@@ -448,6 +485,7 @@ public class BeforeLevelUI : MonoBehaviour
                 modalHint.gameObject.SetActive(true);
                 // Hint Logic
                 DisplayHint(modalHint, NavIdxP2);
+                audiosrc.PlayOneShot(audioClipMove);
             }
         }
     }
@@ -708,6 +746,7 @@ public class BeforeLevelUI : MonoBehaviour
         {
             if (boltsP1 == 0)
             {
+                audiosrc.PlayOneShot(audioClipReject);
                 return;
             }
 
@@ -715,6 +754,7 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 if (leftArmP1 == 3)
                 {
+                    audiosrc.PlayOneShot(audioClipReject);
                     return;
                 }
 
@@ -728,6 +768,7 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 if (rightArmP1 == 4)
                 {
+                    audiosrc.PlayOneShot(audioClipReject);
                     return;
                 }
 
@@ -741,6 +782,7 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 if (viewP1 == 3)
                 {
+                    audiosrc.PlayOneShot(audioClipReject);
                     return;
                 }
 
@@ -754,6 +796,7 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 if (legsP1 == 5)
                 {
+                    audiosrc.PlayOneShot(audioClipReject);
                     return;
                 }
 
@@ -767,6 +810,7 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 if (backP1 == 3)
                 {
+                    audiosrc.PlayOneShot(audioClipReject);
                     return;
                 }
 
@@ -776,11 +820,13 @@ public class BeforeLevelUI : MonoBehaviour
                 P1_UI.Find("Back").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("BACK: " + backP1.ToString());
                 UpdateUnlockedHighlight();
             }
+            audiosrc.PlayOneShot(audioClipAssignBolt);
         }
         else if (playerId == 2) // P2
         {
             if (boltsP2 == 0)
             {
+                audiosrc.PlayOneShot(audioClipReject);
                 return;
             }
 
@@ -788,6 +834,7 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 if (leftArmP2 == 3)
                 {
+                    audiosrc.PlayOneShot(audioClipReject);
                     return;
                 }
 
@@ -801,6 +848,7 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 if (rightArmP2 == 4)
                 {
+                    audiosrc.PlayOneShot(audioClipReject);
                     return;
                 }
 
@@ -814,6 +862,7 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 if (viewP2 == 3)
                 {
+                    audiosrc.PlayOneShot(audioClipReject);
                     return;
                 }
 
@@ -827,6 +876,7 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 if (legsP2 == 5)
                 {
+                    audiosrc.PlayOneShot(audioClipReject);
                     return;
                 }
 
@@ -840,6 +890,7 @@ public class BeforeLevelUI : MonoBehaviour
             {
                 if (backP2 == 3)
                 {
+                    audiosrc.PlayOneShot(audioClipReject);
                     return;
                 }
 
@@ -849,6 +900,7 @@ public class BeforeLevelUI : MonoBehaviour
                 P2_UI.Find("Back").Find("NameBox").Find("Text").GetComponent<TMP_Text>().SetText("BACK: " + backP2.ToString());
                 UpdateUnlockedHighlight();
             }
+            audiosrc.PlayOneShot(audioClipAssignBolt);
         }
     }
 }
