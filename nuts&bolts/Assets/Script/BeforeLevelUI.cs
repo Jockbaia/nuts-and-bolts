@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 
 public class BeforeLevelUI : MonoBehaviour
 {
+    public GameObject menuCanvas;
+
     public Transform P1_UI;
     public Transform P2_UI;
 
@@ -68,8 +70,9 @@ public class BeforeLevelUI : MonoBehaviour
 
     public void OnWASD(InputAction.CallbackContext context)
     {
-        if (P1ready) return; 
-        
+        if (P1ready) return;
+        if (menuCanvas.activeInHierarchy) return;
+
         if (cooldownP1 < 0.005)
         {
             cooldownP1 += Time.deltaTime;
@@ -175,6 +178,7 @@ public class BeforeLevelUI : MonoBehaviour
     public void OnIJKL(InputAction.CallbackContext context)
     {
         if (P2ready) return;
+        if (menuCanvas.activeInHierarchy) return;
 
         if (cooldownP2 < 0.005)
         {
@@ -282,6 +286,7 @@ public class BeforeLevelUI : MonoBehaviour
     public void OnLShift(InputAction.CallbackContext context)
     {
         if (P1ready) return;
+        if (menuCanvas.activeInHierarchy) return;
 
         bool pressed = context.action.triggered;
 
@@ -388,6 +393,7 @@ public class BeforeLevelUI : MonoBehaviour
     public void OnRShift(InputAction.CallbackContext context)
     {
         if (P2ready) return;
+        if (menuCanvas.activeInHierarchy) return;
 
         bool pressed = context.action.triggered;
 

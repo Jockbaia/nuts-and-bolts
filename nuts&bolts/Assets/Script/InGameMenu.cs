@@ -10,7 +10,7 @@ public class InGameMenu : MonoBehaviour
     {
         transform.GetComponent<AudioSource>().PlayOneShot(resumeSound);
         PlayerLogic.menuOpen = false;
-        PlayerLogic.menuCanvas.SetActive(false);
+        gameObject.SetActive(false);
         Time.timeScale = 1f;
     }
 }
