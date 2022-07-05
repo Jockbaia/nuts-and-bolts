@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerLogic : MonoBehaviour
 {
+    // Audio playback logic
+    AudioSource audioSrc;
+    [SerializeField] AudioClip clipPushPull;
+
     // In-game Menù logic
     public static bool menuOpen = false;
     public static GameObject menuCanvas;
@@ -26,6 +30,7 @@ public class PlayerLogic : MonoBehaviour
 
     private void Awake()
     {
+        audioSrc = GetComponent<AudioSource>();
         menuCanvas = GameObject.Find("MenuCanvas");
     }
 

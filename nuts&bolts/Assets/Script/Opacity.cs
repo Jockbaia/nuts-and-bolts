@@ -7,20 +7,37 @@ public class Opacity : MonoBehaviour
     public GameObject solidObj;
     public GameObject transparentObj;
 
-    private void Awake()
+    private void Start()
     {
         MakeSolid();
+        if (Vector3.Distance(solidObj.transform.position, GameObject.Find("Player1").transform.position) 
+            <
+            Vector3.Distance(solidObj.transform.position, GameObject.Find("Player2").transform.position))
+        {
+            transparentObj.transform.parent = GameObject.Find("P1Map").transform.Find("Generated Map");
+        }
+        else
+        {
+            transparentObj.transform.parent = GameObject.Find("P2Map").transform.Find("Generated Map");
+        }
     }
 
     public void MakeTransparent()
     {
-        transparentObj.SetActive(true);
-        this.gameObject.SetActive(false);
+        if (this.gameObject == solidObj)
+        {
+            transparentObj.SetActive(true);
+            solidObj.SetActive(false);
+        }
+
     }
     
     public void MakeSolid()
     {
-        this.gameObject.SetActive(true);
-        transparentObj.SetActive(false);
+        if (this.gameObject == transparentObj)
+        {
+            solidObj.SetActive(true);
+            transparentObj.SetActive(false);
+        }
     }
 }
