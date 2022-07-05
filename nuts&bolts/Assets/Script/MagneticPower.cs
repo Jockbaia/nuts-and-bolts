@@ -7,6 +7,8 @@ public class MagneticPower : MonoBehaviour
     PlayerLogic player;
     RobotPowers powers;
 
+    float time = 0f;
+
     void Start()
     {
         player = transform.GetComponent<PlayerLogic>();
@@ -45,9 +47,22 @@ public class MagneticPower : MonoBehaviour
                         {
                             boxMP.position += new Vector3(1, 0, 0);
                         }
+
+                        if (time <= 0)
+                        {
+                            time = player.GetComponent<PlayerLogic>().clipMagnetic.length;
+                            player.GetComponent<AudioSource>().PlayOneShot(player.GetComponent<PlayerLogic>().clipMagnetic);
+                        }
+                        time -= Time.deltaTime;
+
+
                     }
                 }
             }
+        }
+        else
+        {
+            time = 0f;
         }
     }
 }

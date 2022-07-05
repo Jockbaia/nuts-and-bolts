@@ -148,6 +148,7 @@ public class TargetFollower : MonoBehaviour
         {
             player.GetComponent<RobotPowers>()._components.Larm--;
         }
+        player.GetComponent<PlayerLogic>().audioSrc.PlayOneShot(player.GetComponent<PlayerLogic>().clipDamage);
     }
 
     private void checkGameOver()

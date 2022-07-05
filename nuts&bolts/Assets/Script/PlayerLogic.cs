@@ -7,8 +7,11 @@ using UnityEngine.InputSystem;
 public class PlayerLogic : MonoBehaviour
 {
     // Audio playback logic
-    AudioSource audioSrc;
-    [SerializeField] AudioClip clipPushPull;
+    public AudioSource audioSrc;
+    public AudioClip clipDamage;
+    public AudioClip clipBoltObtained;
+    public AudioClip clipMagnetic;
+    public AudioClip clipActiveBtn;
 
     // In-game Menù logic
     public static bool menuOpen = false;

@@ -66,6 +66,8 @@ public class BoltsManager : MonoBehaviour
                 yield return null;
             }
             //suono moneta presa o simili
+            var clip = player.GetComponent<PlayerLogic>().clipBoltObtained;
+            player.GetComponent<PlayerLogic>().audioSrc.PlayOneShot(clip);
             Destroy(animatedObj.gameObject);
         }
     }

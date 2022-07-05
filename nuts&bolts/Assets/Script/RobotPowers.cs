@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 public class RobotPowers : MonoBehaviour
 {
+    public AudioSource audioSrc;
+    public AudioClip clipSwitchPower;
+    public AudioClip clipXrayOn;
+
     // UI Power-swap logic
     public static event EventHandler PowerSwitched;
 
@@ -51,7 +55,8 @@ public class RobotPowers : MonoBehaviour
         {
             checkPowers();
             switchPower();
-
+            audioSrc.PlayOneShot(clipSwitchPower);
+            if (selectedPower == PowerSelector.Xray) audioSrc.PlayOneShot(clipXrayOn);
             PowerSwitched?.Invoke(this, EventArgs.Empty);
         }
     }

@@ -9,6 +9,8 @@ public class UIPowerSwap : MonoBehaviour
     public Transform BoltsP1;
     public Transform BoltsP2;
 
+    bool firstRun = true;
+
     void Start()
     {
         RobotPowers.PowerSwitched += HandlePowerSwitched;

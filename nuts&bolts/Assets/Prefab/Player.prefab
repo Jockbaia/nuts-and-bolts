@@ -239,7 +239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4932bf20903164b80e53b392f42113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clipPushPull: {fileID: 8300000, guid: 10f68a8b0172043478c8ec6915454bf2, type: 3}
+  audioSrc: {fileID: 6825285890460055409}
+  clipDamage: {fileID: 8300000, guid: 0f028db0503ce6d4e92929ada96a219f, type: 3}
+  clipBoltObtained: {fileID: 8300000, guid: 63209f1e42a5f954eab42f6f6648d29a, type: 3}
+  clipMagnetic: {fileID: 8300000, guid: c947b6afbbed48d4881477d97ed2c291, type: 3}
+  clipActiveBtn: {fileID: 8300000, guid: 36c41a4f0fe405d46aef33c49798ac57, type: 3}
   moveSpeed: 5
   movementInput: {x: 0, y: 0}
   specialAction: 0
@@ -423,6 +427,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2c404b8f6d0374b82b8090d665666a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSrc: {fileID: 6825285890460055409}
+  clipSwitchPower: {fileID: 8300000, guid: 9c1a26f034582b74aa6627dd58a24519, type: 3}
+  clipXrayOn: {fileID: 8300000, guid: 1cb4acf0bef22374d97c67cd86bccfc9, type: 3}
   selectedPower: 0
 --- !u!114 &6215920392470399304
 MonoBehaviour:
@@ -487,8 +494,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

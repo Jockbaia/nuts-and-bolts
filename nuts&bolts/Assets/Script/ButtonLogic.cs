@@ -8,6 +8,8 @@ public class ButtonLogic : MonoBehaviour
 
     GameObject player;
 
+    bool playOnce = true;
+
     void Awake()
     {
         // Determine if in map1 or map2 to know which player to listen to
@@ -20,10 +22,18 @@ public class ButtonLogic : MonoBehaviour
             && player.transform.position.z == transform.position.z)
         {
             isActive = true;
+
+            if (playOnce)
+            {
+                var clip = player.GetComponent<PlayerLogic>().clipActiveBtn;
+                player.GetComponent<AudioSource>().PlayOneShot(clip);
+                playOnce = false;
+            }
         }
         else
         {
             isActive = false;
+            playOnce = true;
         }
     }
 }
