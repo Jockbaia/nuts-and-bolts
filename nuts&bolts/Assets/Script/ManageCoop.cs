@@ -12,9 +12,9 @@ public class ManageCoop : MonoBehaviour
     //private PlayerInputManager playerInputManager;
 
     [HideInInspector]
-    public PlayerInput player1;
+    public static PlayerInput player1;
     [HideInInspector]
-    public PlayerInput player2;
+    public static PlayerInput player2;
 
     public GameObject playerPrefab;
 

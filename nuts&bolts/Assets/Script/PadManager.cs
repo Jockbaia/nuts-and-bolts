@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,17 +13,20 @@ public class PadManager : MonoBehaviour
     [SerializeField]
     private TMP_Text displayText;
 
+    public Animator animator;
+
+    public event EventHandler OnPassCorrect;
+
     public void takeNumber(string number)
     {
-        
+
         if (number == "cancel")
         {
-            if(displayText.text.Length != 0 && displayText.text != "ERROR" && displayText.text != "CORRECT")
+            if (displayText.text.Length != 0 && displayText.text != "ERROR" && displayText.text != "CORRECT")
             {
                 string c = displayText.text.Remove(displayText.text.Length - 1);
                 displayText.text = c;
             }
-
         }
         else if (number == "enter")
         {
@@ -31,7 +35,8 @@ public class PadManager : MonoBehaviour
                 if (displayText.text == password_1)
                 {
                     displayText.text = "OK";
-                    //fare qualcosa
+                    animator.SetBool("isOpen", true);
+                    StartCoroutine("StopDoor");
                 }
                 else
                 {
@@ -43,7 +48,8 @@ public class PadManager : MonoBehaviour
                 if (displayText.text == password_2)
                 {
                     displayText.text = "OK";
-                    //fare qualcosa
+                    animator.SetBool("isOpen", true);
+                    StartCoroutine("StopDoor");
                 }
                 else
                 {
@@ -51,16 +57,26 @@ public class PadManager : MonoBehaviour
                 }
             }
         }
-        else 
+        else
         {
             if (displayText.text == "ERROR" || displayText.text == "CORRECT")
-            {  
-                displayText.text = number;             
+            {
+                displayText.text = number;
             }
-            else if(displayText.text.Length != 4)
+            else if (displayText.text.Length != 4)
             {
                 displayText.text += number;
             }
         }
+    }
+
+    IEnumerator StopDoor()
+    {
+        OnPassCorrect?.Invoke(this, EventArgs.Empty);
+
+        yield return new WaitForSeconds(0.5f);
+
+        animator.SetBool("isOpen", false);
+
     }
 }

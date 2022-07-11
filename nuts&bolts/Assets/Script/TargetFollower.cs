@@ -148,6 +148,21 @@ public class TargetFollower : MonoBehaviour
         {
             player.GetComponent<RobotPowers>()._components.Larm--;
         }
+
+        // Camera Shake
+        if (player.name == "Player1")
+        {
+            ManageCoop.player1.camera.GetComponent<CameraFollow>().enabled = false;
+            StartCoroutine(Shake(ManageCoop.player1.camera, 0.15f, 0.1f)); //!
+        }
+        else
+        {
+            ManageCoop.player2.camera.GetComponent<CameraFollow>().enabled = false;
+            StartCoroutine(Shake(ManageCoop.player2.camera, 0.15f, 0.1f)); //!
+        }
+        
+
+        // Damage sound
         player.GetComponent<PlayerLogic>().audioSrc.PlayOneShot(player.GetComponent<PlayerLogic>().clipDamage);
     }
 
@@ -173,6 +188,28 @@ public class TargetFollower : MonoBehaviour
 
         shotLine.enabled = false;
         laserLine.enabled = true;
+    }
+
+    public static IEnumerator Shake(Camera cam, float duration, float magnitude)
+    {
+        Vector3 originalPos = cam.transform.position;
+
+        float elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+            float x = UnityEngine.Random.Range(-1f, 1f) * magnitude;
+            float y = UnityEngine.Random.Range(-1f, 1f) * magnitude;
+
+            cam.transform.position = new Vector3(x, originalPos.y, originalPos.z);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        cam.transform.position = originalPos;
+        cam.GetComponent<CameraFollow>().enabled = true;
     }
 
 }

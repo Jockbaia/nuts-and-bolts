@@ -13,7 +13,7 @@ public class PlayerLogic : MonoBehaviour
     public AudioClip clipMagnetic;
     public AudioClip clipActiveBtn;
 
-    // In-game Menù logic
+    // In-game Men? logic
     public static bool menuOpen = false;
     public static GameObject menuCanvas;
 

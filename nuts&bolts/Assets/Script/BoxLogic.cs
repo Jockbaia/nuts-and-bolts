@@ -170,7 +170,8 @@ public class BoxLogic : MonoBehaviour
             || collider.name.StartsWith("Wall") 
             || collider.name.StartsWith("Transparent") 
             || collider.name.StartsWith("MagneticBox")
-            || collider.name.StartsWith("Bolt"))
+            || collider.name.StartsWith("Bolt")
+            || collider.name.StartsWith("Door"))
         {
             return true;
         }

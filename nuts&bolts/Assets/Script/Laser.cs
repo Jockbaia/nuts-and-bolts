@@ -113,6 +113,20 @@ public class Laser : MonoBehaviour
         {
             player.GetComponent<RobotPowers>()._components.Larm--;
         }
+
+        // Camera Shake
+        if (player.name == "Player1")
+        {
+            ManageCoop.player1.camera.GetComponent<CameraFollow>().enabled = false;
+            StartCoroutine(TargetFollower.Shake(ManageCoop.player1.camera, 0.15f, 0.1f)); //!
+        }
+        else
+        {
+            ManageCoop.player2.camera.GetComponent<CameraFollow>().enabled = false;
+            StartCoroutine(TargetFollower.Shake(ManageCoop.player2.camera, 0.15f, 0.1f)); //!
+        }
+
+        // Damage sound
         player.GetComponent<PlayerLogic>().audioSrc.PlayOneShot(player.GetComponent<PlayerLogic>().clipDamage);
     }
 
