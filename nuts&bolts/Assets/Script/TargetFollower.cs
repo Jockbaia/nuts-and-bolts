@@ -153,12 +153,12 @@ public class TargetFollower : MonoBehaviour
         if (player.name == "Player1")
         {
             ManageCoop.player1.camera.GetComponent<CameraFollow>().enabled = false;
-            StartCoroutine(Shake(ManageCoop.player1.camera, 0.15f, 0.1f)); //!
+            StartCoroutine(Shake(ManageCoop.player1.camera, 0.15f, 0.4f)); //!
         }
         else
         {
             ManageCoop.player2.camera.GetComponent<CameraFollow>().enabled = false;
-            StartCoroutine(Shake(ManageCoop.player2.camera, 0.15f, 0.1f)); //!
+            StartCoroutine(Shake(ManageCoop.player2.camera, 0.15f, 0.4f)); //!
         }
         
 
@@ -198,7 +198,7 @@ public class TargetFollower : MonoBehaviour
 
         while (elapsed < duration)
         {
-            float x = UnityEngine.Random.Range(-1f, 1f) * magnitude;
+            float x = originalPos.x + UnityEngine.Random.Range(-1f, 1f) * magnitude;
             float y = UnityEngine.Random.Range(-1f, 1f) * magnitude;
 
             cam.transform.position = new Vector3(x, originalPos.y, originalPos.z);

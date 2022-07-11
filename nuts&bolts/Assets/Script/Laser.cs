@@ -118,12 +118,12 @@ public class Laser : MonoBehaviour
         if (player.name == "Player1")
         {
             ManageCoop.player1.camera.GetComponent<CameraFollow>().enabled = false;
-            StartCoroutine(TargetFollower.Shake(ManageCoop.player1.camera, 0.15f, 0.1f)); //!
+            StartCoroutine(TargetFollower.Shake(ManageCoop.player1.camera, 0.15f, 0.4f)); //!
         }
         else
         {
             ManageCoop.player2.camera.GetComponent<CameraFollow>().enabled = false;
-            StartCoroutine(TargetFollower.Shake(ManageCoop.player2.camera, 0.15f, 0.1f)); //!
+            StartCoroutine(TargetFollower.Shake(ManageCoop.player2.camera, 0.15f, 0.4f)); //!
         }
 
         // Damage sound
