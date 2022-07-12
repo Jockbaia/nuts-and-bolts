@@ -102,7 +102,7 @@ public class BoltExchanger : MonoBehaviour
     {
         //Vector3 startPos = other.position;
         Vector3 endPos = other.position + other.forward;
-        endPos.y = 0.36f;
+        endPos.y = 0f;
 
         GameObject bolt = Instantiate(boltPrefab, endPos, Quaternion.Euler(Vector3.zero));
         bolt.transform.parent = parent;

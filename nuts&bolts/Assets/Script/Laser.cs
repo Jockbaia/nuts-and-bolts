@@ -62,7 +62,7 @@ public class Laser : MonoBehaviour
             shotLine.SetPosition(1, hit.point);
             laserLine.SetPosition(1, hit.point);
             //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
-            Debug.Log("Hit");
+            
             loseBolt();
             hitit = true;
             StartCoroutine(ShootLaser());
@@ -84,30 +84,30 @@ public class Laser : MonoBehaviour
             && player.GetComponent<RobotPowers>()._components.Larm >= player.GetComponent<RobotPowers>()._components.rocket)
         {
             player.GetComponent<RobotPowers>()._components.Larm--;
-            Debug.Log("Larm: " + player.GetComponent<RobotPowers>()._components.Larm);
+            //Debug.Log("Larm: " + player.GetComponent<RobotPowers>()._components.Larm);
         }
         else if (player.GetComponent<RobotPowers>()._components.Rarm > 0 && player.GetComponent<RobotPowers>()._components.Rarm >= player.GetComponent<RobotPowers>()._components.legs
             && player.GetComponent<RobotPowers>()._components.Rarm >= player.GetComponent<RobotPowers>()._components.view && player.GetComponent<RobotPowers>()._components.Rarm >= player.GetComponent<RobotPowers>()._components.rocket)
         {
             player.GetComponent<RobotPowers>()._components.Rarm--;
-            Debug.Log("Rarm: " + player.GetComponent<RobotPowers>()._components.Rarm);
+            //Debug.Log("Rarm: " + player.GetComponent<RobotPowers>()._components.Rarm);
         }
         else if (player.GetComponent<RobotPowers>()._components.view > 0 && player.GetComponent<RobotPowers>()._components.view >= player.GetComponent<RobotPowers>()._components.legs
             && player.GetComponent<RobotPowers>()._components.view >= player.GetComponent<RobotPowers>()._components.rocket)
         {
             player.GetComponent<RobotPowers>()._components.view--;
-            Debug.Log("view: " + player.GetComponent<RobotPowers>()._components.view);
+            //Debug.Log("view: " + player.GetComponent<RobotPowers>()._components.view);
         }
         else if (player.GetComponent<RobotPowers>()._components.legs > 0
             && player.GetComponent<RobotPowers>()._components.legs >= player.GetComponent<RobotPowers>()._components.rocket)
         {
             player.GetComponent<RobotPowers>()._components.legs--;
-            Debug.Log("legs: " + player.GetComponent<RobotPowers>()._components.legs);
+            //Debug.Log("legs: " + player.GetComponent<RobotPowers>()._components.legs);
         }
         else if (player.GetComponent<RobotPowers>()._components.rocket > 0)
         {
             player.GetComponent<RobotPowers>()._components.rocket--;
-            Debug.Log("rocket: " + player.GetComponent<RobotPowers>()._components.rocket);
+            //Debug.Log("rocket: " + player.GetComponent<RobotPowers>()._components.rocket);
         }
         else
         {

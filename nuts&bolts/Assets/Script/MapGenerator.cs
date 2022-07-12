@@ -116,7 +116,7 @@ public class MapGenerator : MonoBehaviour
                 
                 if (room[z][x] == 'b') // Bolt
                 {
-                    Vector3 position = new Vector3(x + XOffset, 0.36f, z);
+                    Vector3 position = new Vector3(x + XOffset, 0f, z);
                     Transform newObj = Instantiate(boltPrefab, position, Quaternion.Euler(Vector3.zero)) as Transform;
                     newObj.parent = mapHolder;
                 }
