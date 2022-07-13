@@ -17,6 +17,34 @@ public class PadManager : MonoBehaviour
 
     public event EventHandler OnPassCorrect;
 
+    private bool isOpen1 = false;
+    private bool isOpen2 = false;
+
+
+    private void Update()
+    {
+
+        if (HandleNumpadNav.destroyNumPad_1 && !isOpen1)
+        {
+            displayText.text = "OK";
+            animator.SetBool("isOpen", true);
+            StartCoroutine("StopDoor");
+            isOpen1 = true;
+        }
+
+        if (HandleNumpadNav.destroyNumPad_2 && !isOpen2)
+        {
+            Debug.Log("ECCOMIIII");
+            displayText.text = "OK";
+            animator.SetBool("isOpen", true);
+            StartCoroutine("StopDoor");
+            isOpen2 = true;
+        }
+
+        Debug.Log(animator.enabled);
+        
+    }
+
     public void takeNumber(string number)
     {
 
@@ -37,6 +65,8 @@ public class PadManager : MonoBehaviour
                     displayText.text = "OK";
                     animator.SetBool("isOpen", true);
                     StartCoroutine("StopDoor");
+                    isOpen1 = true;
+                    
                 }
                 else
                 {
@@ -50,6 +80,7 @@ public class PadManager : MonoBehaviour
                     displayText.text = "OK";
                     animator.SetBool("isOpen", true);
                     StartCoroutine("StopDoor");
+                    isOpen2 = true;
                 }
                 else
                 {
@@ -72,11 +103,12 @@ public class PadManager : MonoBehaviour
 
     IEnumerator StopDoor()
     {
+        Debug.Log("ECCOMIIII");
+
         OnPassCorrect?.Invoke(this, EventArgs.Empty);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
 
         animator.SetBool("isOpen", false);
-
     }
 }

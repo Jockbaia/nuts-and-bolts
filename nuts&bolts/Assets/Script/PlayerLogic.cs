@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerLogic : MonoBehaviour
 {
@@ -30,6 +31,17 @@ public class PlayerLogic : MonoBehaviour
     private int mapZlen = 0;
     private int mapXlen = 0;
     private int mapXoffset = 0;
+
+    //ROCKET
+    private Boolean rocket = true;
+    private float fuelRocketPosition = 2f;
+    private float cooldownP1 = 0f;
+    private Boolean restartRocket = true;
+    private float reachMaxFuel = 10f;
+    private float maxFuel = 10f;
+    public Slider slider;
+
+
 
     private void Awake()
     {
@@ -84,8 +96,9 @@ public class PlayerLogic : MonoBehaviour
         if (this.GetComponent<HandleNumpadNav>().padOpen) return;
 
         specialAction = context.action.triggered;
+
     }
-    
+
     public void OnInteractBtn(InputAction.CallbackContext context)
     {
         if (menuOpen) return;
@@ -99,6 +112,32 @@ public class PlayerLogic : MonoBehaviour
         GetMapBounds();
 
         transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
+
+        if (movePoint.position.y == 1f)
+        {
+            if (fuelRocketPosition < 2f)
+            {
+                if (reachMaxFuel < maxFuel)
+                {
+                    reachMaxFuel += Time.deltaTime;
+                    fuelRocketPosition += Time.deltaTime / 5;
+                    restartRocket = true;
+
+                }
+                else
+                {
+                    fuelRocketPosition = 2f;
+                    reachMaxFuel = 10f;
+                }
+
+            }
+            else
+            {
+                restartRocket = true;
+            }
+        }
+
+        rocketUpdate();
 
         if (Vector3.Distance(movePoint.position, transform.position) == 0f)
         {
@@ -181,6 +220,112 @@ public class PlayerLogic : MonoBehaviour
     char Map(float z, float x)
     {
         return mapGenerator.room[(int)z][(int)x - mapXoffset];
+    }
+
+    void rocketUpdate()
+    {
+
+        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "Rocket")
+        {
+            if (this.gameObject.name == "Player1") 
+            {
+                slider = GameObject.Find("PowerP1/Rocket/Slider").GetComponent<Slider>();
+            }
+            else
+            {
+                slider = GameObject.Find("PowerP2/Rocket/Slider").GetComponent<Slider>();
+            }
+            var x = 0f;
+
+            if (movePoint.position.y == 1)
+            {
+                x = (reachMaxFuel / 10);
+                slider.value = (float)x;
+            }
+            else
+            {
+                x = (fuelRocketPosition * 5 / 10);
+                slider.value = (float)x;
+            }
+        }
+
+        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "Rocket" && specialAction)
+        {
+
+            if (fuelRocketPosition > 0f)
+            {
+                fuelRocketPosition -= Time.deltaTime;
+                reachMaxFuel -= Time.deltaTime * 5;
+            }
+            else
+            {
+                reachMaxFuel = 0f;
+                restartRocket = false;
+                movePoint.position = new Vector3(movePoint.position.x, 1f, movePoint.position.z);
+                rocket = false;
+            }
+
+            if (rocket && restartRocket)
+            {
+                movePoint.position = new Vector3(movePoint.position.x, 3f, movePoint.position.z);
+            }
+            else if (restartRocket)
+            {
+                if (movementInput.y > 0.9f && Physics.OverlapSphere(transform.position + new Vector3(0f, 0f, 1f), 0.01f).Length == 0
+                    && transform.position.z < mapZlen - 1)
+                {
+                    if (cooldownP1 < 0.6)
+                    {
+                        cooldownP1 += Time.deltaTime;
+                        return;
+                    }
+                    cooldownP1 = 0;
+                    transform.rotation = Quaternion.LookRotation(new Vector3(0f, 0f, 1f));
+                    movePoint.position += new Vector3(0f, 0f, 1f);
+                }
+                else if (movementInput.y < -0.9 && Physics.OverlapSphere(transform.position + new Vector3(0f, 0f, -1f), 0.01f).Length == 0
+                        && transform.position.z > 0)
+                {
+                    if (cooldownP1 < 0.6)
+                    {
+                        cooldownP1 += Time.deltaTime;
+                        return;
+                    }
+                    cooldownP1 = 0;
+                    transform.rotation = Quaternion.LookRotation(new Vector3(0f, 0f, -1f));
+                    movePoint.position += new Vector3(0f, 0f, -1f);
+                }
+                else if (movementInput.x > 0.9f && Physics.OverlapSphere(transform.position + new Vector3(1f, 0f, 0f), 0.01f).Length == 0
+                        && transform.position.x < mapXlen + mapXoffset - 1)
+                {
+                    if (cooldownP1 < 0.6)
+                    {
+                        cooldownP1 += Time.deltaTime;
+                        return;
+                    }
+                    cooldownP1 = 0;
+                    transform.rotation = Quaternion.LookRotation(new Vector3(1f, 0f, 0f));
+                    movePoint.position += new Vector3(1f, 0f, 0f);
+                }
+                else if (movementInput.x < -0.9f && Physics.OverlapSphere(transform.position + new Vector3(-1f, 0f, 0f), 0.01f).Length == 0
+                        && transform.position.x > mapXoffset)
+                {
+                    if (cooldownP1 < 0.6)
+                    {
+                        cooldownP1 += Time.deltaTime;
+                        return;
+                    }
+                    cooldownP1 = 0;
+                    transform.rotation = Quaternion.LookRotation(new Vector3(-1f, 0f, 0f));
+                    movePoint.position += new Vector3(-1f, 0f, 0f);
+                }
+            }
+        }
+        else
+        {
+            movePoint.position = new Vector3(movePoint.position.x, 1f, movePoint.position.z);
+            rocket = true;
+        }
     }
 
     bool IsGrabbing() // Checks if player is grabbing a box

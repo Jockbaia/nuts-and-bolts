@@ -27,30 +27,83 @@ public class HandleNumpadNav : MonoBehaviour
 
     float cooldown = 0f;
 
+    GameObject door;
+    private float minDist = 2f;
+    private float distance;
+    GameObject player;
+
+    public static bool destroyNumPad_1 = false;
+    public static bool destroyNumPad_2 = false;
+
+    public bool specialAction = false;
+
+
+
+
+    public void OnSpecialAction(InputAction.CallbackContext context)
+    {
+        specialAction = context.action.triggered;
+        Debug.Log("eccomi" + specialAction);
+    }
+
     private void Start()
     {
 
         pad = GameObject.Find(this.gameObject.name == "Player1" ? "PadCanvas_1" : "PadCanvas_2");
+        door = GameObject.Find(this.gameObject.name == "Player1" ? "P1Map/DoorP1" : "P2Map/DoorP2");
+        player = GameObject.Find(this.gameObject.name == "Player1" ? "Player1" : "Player2");
         correct = pad.GetComponent<PadManager>();
         pad.SetActive(false);
         correct.OnPassCorrect += Correct_OnPassCorrect;
+    }
 
+   
 
+    private void Update()
+    {
+        distance = Vector3.Distance(door.transform.position, player.transform.position);
+        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "DestroyPad" && distance < minDist)
+        {
+            if (!destroyNumPad_1)
+            {
+                if (this.gameObject.name == "Player1")
+                {
+                    destroyNumPad_1 = true;
+                    padOpen = true;
+                    pad.SetActive(padOpen);
+                    Debug.Log(destroyNumPad_1 + "..." + destroyNumPad_2);
+                }
+            }
+
+            if (!destroyNumPad_2)
+            {
+                if (this.gameObject.name == "Player2")
+                {
+                    destroyNumPad_2 = true;
+                    padOpen = true;
+                    pad.SetActive(padOpen);
+                }
+            }
+        }
     }
 
     private void Correct_OnPassCorrect(object sender, EventArgs e)
     {
+
+        //PadManager.FindObjectOfType<Animator>().enabled = false;
+        
         padOpen = false;
-        pad.SetActive(false);
+        pad.SetActive(padOpen);
         correct.OnPassCorrect -= Correct_OnPassCorrect;
 
     }
 
+    
+
     public void OnInteractNumpad(InputAction.CallbackContext context)
     {
         if (PlayerLogic.menuOpen) return;
-
-        if (false && context.action.triggered) // TODO: add logic to check if player in Numpad cell --> otherwise: false
+        if (context.action.triggered && distance < minDist) // TODO: add logic to check if player in Numpad cell --> otherwise: false
         {
             if (padOpen)
             {
