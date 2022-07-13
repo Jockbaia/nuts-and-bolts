@@ -14,8 +14,6 @@ public class HandleNumpadNav : MonoBehaviour
 
     private string[] DisHigh = { "1", "1" };
 
-    // Vector2 navPad = Vector2.zero;
-
     public bool padOpen = false;
 
     PadManager correct;
@@ -35,20 +33,17 @@ public class HandleNumpadNav : MonoBehaviour
     public static bool destroyNumPad_1 = false;
     public static bool destroyNumPad_2 = false;
 
-    public bool specialAction = false;
-
-
-
+    bool specialAction = false;
 
     public void OnSpecialAction(InputAction.CallbackContext context)
     {
+        if (PlayerLogic.menuOpen) return;
+        if (pad.activeSelf) return;
         specialAction = context.action.triggered;
-        Debug.Log("eccomi" + specialAction);
     }
 
     private void Start()
     {
-
         pad = GameObject.Find(this.gameObject.name == "Player1" ? "PadCanvas_1" : "PadCanvas_2");
         door = GameObject.Find(this.gameObject.name == "Player1" ? "P1Map/DoorP1" : "P2Map/DoorP2");
         player = GameObject.Find(this.gameObject.name == "Player1" ? "Player1" : "Player2");
@@ -57,53 +52,94 @@ public class HandleNumpadNav : MonoBehaviour
         correct.OnPassCorrect += Correct_OnPassCorrect;
     }
 
-   
-
     private void Update()
     {
         distance = Vector3.Distance(door.transform.position, player.transform.position);
-        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "DestroyPad" && distance < minDist)
+
+        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "DestroyPad" &&
+            distance <= minDist &&
+            specialAction)
         {
-            if (!destroyNumPad_1)
+            if (!destroyNumPad_1 && !correct.isOpen1)
             {
                 if (this.gameObject.name == "Player1")
                 {
                     destroyNumPad_1 = true;
-                    padOpen = true;
-                    pad.SetActive(padOpen);
-                    Debug.Log(destroyNumPad_1 + "..." + destroyNumPad_2);
+
+                    StartCoroutine(HackingSound());
+
+                    // Damage
+                    GetComponent<RobotPowers>()._components.Rarm -= 3;
+
+                    // Camera Shake
+                    ManageCoop.player1.camera.GetComponent<CameraFollow>().enabled = false;
+                    StartCoroutine(TargetFollower.Shake(ManageCoop.player1.camera, 0.15f, 0.4f));
+
+                    // Damage sound
+                    player.GetComponent<PlayerLogic>().audioSrc.PlayOneShot(player.GetComponent<PlayerLogic>().clipDamage);
+
+                    // Open Door
+                    correct.displayText.text = "OK";
+                    correct.animator.SetBool("isOpen", true);
+
+                    StartCoroutine(correct.StopDoor());
+
+                    correct.isOpen1 = true;
                 }
             }
 
-            if (!destroyNumPad_2)
+            if (!destroyNumPad_2 && !correct.isOpen2)
             {
                 if (this.gameObject.name == "Player2")
                 {
                     destroyNumPad_2 = true;
-                    padOpen = true;
-                    pad.SetActive(padOpen);
+
+                    StartCoroutine(HackingSound());
+
+                    // Damage
+                    GetComponent<RobotPowers>()._components.Rarm -= 3;
+
+                    // Camera Shake
+                    ManageCoop.player2.camera.GetComponent<CameraFollow>().enabled = false;
+                    StartCoroutine(TargetFollower.Shake(ManageCoop.player2.camera, 0.15f, 0.4f));
+
+                    // Damage sound
+                    player.GetComponent<PlayerLogic>().audioSrc.PlayOneShot(player.GetComponent<PlayerLogic>().clipDamage);
+
+                    // Open Door
+                    correct.displayText.text = "OK";
+                    correct.animator.SetBool("isOpen", true);
+
+                    StartCoroutine(correct.StopDoor());
+
+                    correct.isOpen2 = true;
                 }
             }
         }
     }
 
+    IEnumerator HackingSound()
+    {
+        var src = GetComponent<PlayerLogic>().audioSrc;
+        var clip = GetComponent<PlayerLogic>().clipDestroyNum;
+        src.PlayOneShot(clip);
+        yield return new WaitForSeconds(1.8f);
+    }
+
     private void Correct_OnPassCorrect(object sender, EventArgs e)
     {
-
-        //PadManager.FindObjectOfType<Animator>().enabled = false;
-        
         padOpen = false;
         pad.SetActive(padOpen);
         correct.OnPassCorrect -= Correct_OnPassCorrect;
 
+        correct.audioSrc.PlayOneShot(correct.clipOk);
     }
-
-    
 
     public void OnInteractNumpad(InputAction.CallbackContext context)
     {
         if (PlayerLogic.menuOpen) return;
-        if (context.action.triggered && distance < minDist) // TODO: add logic to check if player in Numpad cell --> otherwise: false
+
+        if (context.action.triggered && distance < minDist)
         {
             if (padOpen)
             {
@@ -129,10 +165,6 @@ public class HandleNumpadNav : MonoBehaviour
             return;
         }
         cooldown = 0;
-
-        //navPad = context.ReadValue<Vector2>();
-        // TODO: navigazione // W: (0, 1) A: (-1, 0) S: (0 -1) D: (1, 0)
-
 
         if (context.control.displayName == "w" || context.control.displayName == "i")
         {
@@ -204,8 +236,6 @@ public class HandleNumpadNav : MonoBehaviour
                 UpdateButtonHighlight(DisHigh);
             }
         }
-        //navPad = Vector2.zero;
-
     }
 
     public void OnEnterNum(InputAction.CallbackContext context)
@@ -225,8 +255,6 @@ public class HandleNumpadNav : MonoBehaviour
     {
         pad.transform.Find("pad").Find(array[0]).GetComponent<Button>().interactable = true;
         pad.transform.Find("pad").Find(array[1]).GetComponent<Button>().interactable = false;
+        correct.audioSrc.PlayOneShot(correct.clipNavigate);
     }
-
-
-
 }

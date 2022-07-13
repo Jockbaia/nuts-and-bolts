@@ -13,6 +13,8 @@ public class PlayerLogic : MonoBehaviour
     public AudioClip clipBoltObtained;
     public AudioClip clipMagnetic;
     public AudioClip clipActiveBtn;
+    public AudioClip clipDestroyNum;
+    public AudioClip clipRocket;
 
     // In-game Men? logic
     public static bool menuOpen = false;
@@ -33,12 +35,13 @@ public class PlayerLogic : MonoBehaviour
     private int mapXoffset = 0;
 
     //ROCKET
-    private Boolean rocket = true;
+    private bool rocket = true;
     private float fuelRocketPosition = 2f;
     private float cooldownP1 = 0f;
-    private Boolean restartRocket = true;
+    private bool restartRocket = true;
     private float reachMaxFuel = 10f;
     private float maxFuel = 10f;
+    private bool playRocket = false;
     public Slider slider;
 
 
@@ -224,32 +227,31 @@ public class PlayerLogic : MonoBehaviour
 
     void rocketUpdate()
     {
+        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() != "Rocket") return;
 
-        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "Rocket")
+        if (this.gameObject.name == "Player1")
         {
-            if (this.gameObject.name == "Player1") 
-            {
-                slider = GameObject.Find("PowerP1/Rocket/Slider").GetComponent<Slider>();
-            }
-            else
-            {
-                slider = GameObject.Find("PowerP2/Rocket/Slider").GetComponent<Slider>();
-            }
-            var x = 0f;
-
-            if (movePoint.position.y == 1)
-            {
-                x = (reachMaxFuel / 10);
-                slider.value = (float)x;
-            }
-            else
-            {
-                x = (fuelRocketPosition * 5 / 10);
-                slider.value = (float)x;
-            }
+            slider = GameObject.Find("PowerP1/Rocket/Slider").GetComponent<Slider>();
+        }
+        else
+        {
+            slider = GameObject.Find("PowerP2/Rocket/Slider").GetComponent<Slider>();
         }
 
-        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "Rocket" && specialAction)
+        float x;
+
+        if (movePoint.position.y == 1)
+        {
+            x = (reachMaxFuel / 10);
+            slider.value = (float)x;
+        }
+        else
+        {
+            x = (fuelRocketPosition * 5 / 10);
+            slider.value = (float)x;
+        }
+
+        if (specialAction)
         {
 
             if (fuelRocketPosition > 0f)
@@ -259,14 +261,31 @@ public class PlayerLogic : MonoBehaviour
             }
             else
             {
+                Collider[] coll = Physics.OverlapSphere(new Vector3(movePoint.position.x, 0.1f, movePoint.position.z), 0.01f);
+                if (coll.Length == 1 && (
+                    coll[0].name.StartsWith("TallBox") ||
+                    coll[0].name.StartsWith("MagneticB") ||
+                    coll[0].name.StartsWith("ExchB")
+                    ))
+                {
+                    movePoint.position -= transform.forward;
+                }
+
                 reachMaxFuel = 0f;
                 restartRocket = false;
                 movePoint.position = new Vector3(movePoint.position.x, 1f, movePoint.position.z);
                 rocket = false;
+                playRocket = false;
             }
 
             if (rocket && restartRocket)
             {
+                if (!playRocket)
+                {
+                    audioSrc.PlayOneShot(clipRocket);
+                    playRocket = true;
+                }
+
                 movePoint.position = new Vector3(movePoint.position.x, 3f, movePoint.position.z);
             }
             else if (restartRocket)
@@ -323,8 +342,20 @@ public class PlayerLogic : MonoBehaviour
         }
         else
         {
+            Collider[] coll = Physics.OverlapSphere(new Vector3(movePoint.position.x, 0.1f, movePoint.position.z), 0.01f);
+            if (coll.Length == 1 && (
+                coll[0].name.StartsWith("TallBox") ||
+                coll[0].name.StartsWith("MagneticB") ||
+                coll[0].name.StartsWith("ExchB")
+                ))
+            {
+                
+                movePoint.position -= transform.forward;
+            }
+
             movePoint.position = new Vector3(movePoint.position.x, 1f, movePoint.position.z);
             rocket = true;
+            playRocket = false;
         }
     }
 

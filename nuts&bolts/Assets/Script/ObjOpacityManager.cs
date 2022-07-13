@@ -10,6 +10,8 @@ public class ObjOpacityManager : MonoBehaviour
     List<Opacity> currentlyInTheWay;
     List<Opacity> alreadyTransparent;
 
+    float yDisplacement = 0.35f;
+
     private void Awake()
     {
         currentlyInTheWay = new List<Opacity>();
@@ -30,7 +32,7 @@ public class ObjOpacityManager : MonoBehaviour
 
         // PLAYER
         Vector3 cPos = playerCamera.transform.position;
-        Vector3 pPos = transform.position;
+        Vector3 pPos = transform.position + new Vector3(0f, yDisplacement, 0f);
 
         float cameraPlayerDistance = Vector3.Magnitude(cPos - pPos);
         Ray rayForward = new Ray(cPos, pPos - cPos);
@@ -55,7 +57,7 @@ public class ObjOpacityManager : MonoBehaviour
         {
             // -X
             cPos = playerCamera.transform.position;
-            pPos = transform.position + new Vector3(-1f, 0f, -1f);
+            pPos = transform.position + new Vector3(-1f, yDisplacement, -1f);
 
             cameraPlayerDistance = Vector3.Magnitude(cPos - pPos);
             rayForward = new Ray(cPos, pPos - cPos);
@@ -75,7 +77,7 @@ public class ObjOpacityManager : MonoBehaviour
             
             // +X
             cPos = playerCamera.transform.position;
-            pPos = transform.position + new Vector3(1f, 0f, -1f);
+            pPos = transform.position + new Vector3(1f, yDisplacement, -1f);
 
             cameraPlayerDistance = Vector3.Magnitude(cPos - pPos);
             rayForward = new Ray(cPos, pPos - cPos);
@@ -93,7 +95,6 @@ public class ObjOpacityManager : MonoBehaviour
                 }
             }
         }
-        
     }
 
     void MakeObjectsTransparent()

@@ -739,11 +739,14 @@ MonoBehaviour:
   clipBoltObtained: {fileID: 8300000, guid: 63209f1e42a5f954eab42f6f6648d29a, type: 3}
   clipMagnetic: {fileID: 8300000, guid: c947b6afbbed48d4881477d97ed2c291, type: 3}
   clipActiveBtn: {fileID: 8300000, guid: 36c41a4f0fe405d46aef33c49798ac57, type: 3}
+  clipDestroyNum: {fileID: 8300000, guid: 721f8cb43fd2065479f7024f9d6bfd19, type: 3}
+  clipRocket: {fileID: 8300000, guid: 619c5fcb7d29a2d4e846c066c0e34a7c, type: 3}
   moveSpeed: 5
   movementInput: {x: 0, y: 0}
   specialAction: 0
   interactBtn: 0
   movePoint: {fileID: 0}
+  slider: {fileID: 0}
 --- !u!114 &-6510698224084617436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -814,6 +817,18 @@ MonoBehaviour:
       - m_Target: {fileID: 6215920392470399304}
         m_TargetAssemblyTypeName: HandleNumpadNav, Assembly-CSharp
         m_MethodName: OnEnterNum
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6215920392470399304}
+        m_TargetAssemblyTypeName: HandleNumpadNav, Assembly-CSharp
+        m_MethodName: OnSpecialAction
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

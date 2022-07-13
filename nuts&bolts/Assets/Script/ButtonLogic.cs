@@ -18,8 +18,7 @@ public class ButtonLogic : MonoBehaviour
 
     void Update()
     {
-        if (player.transform.position.x == transform.position.x
-            && player.transform.position.z == transform.position.z)
+        if (IsPressed())
         {
             isActive = true;
 
@@ -35,5 +34,24 @@ public class ButtonLogic : MonoBehaviour
             isActive = false;
             playOnce = true;
         }
+    }
+
+    bool IsPressed()
+    {
+        if (player.transform.position.x == transform.position.x
+            && player.transform.position.z == transform.position.z
+            && player.transform.position.y <= 1f)
+        {
+            return true;
+        }
+
+        Collider[] coll = Physics.OverlapSphere(new Vector3(transform.position.x, 1f, transform.position.z), 0.01f);
+        if (coll.Length == 1 &&
+            (coll[0].name.StartsWith("TallBox") || coll[0].name.Equals("MagneticBox")))
+        {
+            return true;
+        }
+
+        return false;
     }
 }
