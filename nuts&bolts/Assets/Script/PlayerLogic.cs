@@ -100,6 +100,22 @@ public class PlayerLogic : MonoBehaviour
 
         specialAction = context.action.triggered;
 
+        // Animate push/pull
+        if (GetComponent<RobotPowers>().selectedPower == RobotPowers.PowerSelector.PushPull ||
+            GetComponent<RobotPowers>().selectedPower == RobotPowers.PowerSelector.PushPullHeavy)
+        {
+            if (specialAction)
+            {
+                transform.Find("Model/Arm_Left").localRotation = Quaternion.Euler(0, -70, 90);
+                transform.Find("Model/Arm_Right").localRotation = Quaternion.Euler(0, 70, -90);
+            }
+            else
+            {
+                transform.Find("Model/Arm_Left").localRotation = Quaternion.Euler(0, -70, 0);
+                transform.Find("Model/Arm_Right").localRotation = Quaternion.Euler(0, 70, 0);
+            }
+        }
+
     }
 
     public void OnInteractBtn(InputAction.CallbackContext context)

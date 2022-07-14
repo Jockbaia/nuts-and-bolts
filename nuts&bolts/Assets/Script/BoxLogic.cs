@@ -64,7 +64,9 @@ public class BoxLogic : MonoBehaviour
         {
             CheckCollisions();
 
-            if (playerLogic != null && playerLogic.specialAction)
+            if (playerLogic == null) return;
+            
+            if (playerLogic.specialAction)
             {
                 var selectedPower = playerLogic.GetComponent<RobotPowers>().selectedPower;
                 

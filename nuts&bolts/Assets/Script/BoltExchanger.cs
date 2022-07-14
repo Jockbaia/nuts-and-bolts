@@ -102,18 +102,28 @@ public class BoltExchanger : MonoBehaviour
 
     IEnumerator DropBolt(Transform parent)
     {
-        //Vector3 startPos = other.position;
-        Vector3 endPos = other.position + other.forward;
-        endPos.y = 0f;
+        float elapsedTime = 0;
+        float ratio = elapsedTime / duration;
 
-        GameObject bolt = Instantiate(boltPrefab, endPos, Quaternion.Euler(Vector3.zero));
-        bolt.transform.parent = parent;
+        Vector3 startPos = other.position;
+        startPos.y = 1.3f;
+        Vector3 endPos1 = other.position + other.forward;
+        endPos1.y = 0f;
+
+        GameObject bolt = Instantiate(boltPrefab, startPos, Quaternion.Euler(Vector3.zero));
         bolt.GetComponent<BoxCollider>().enabled = false;
 
-        //TODO: animation?
+        while (ratio < 1f)
+        {
+            elapsedTime += (Time.deltaTime * 2f);
+            ratio = elapsedTime / duration;
+            bolt.transform.position = Vector3.Lerp(startPos, endPos1, ratio);
+            bolt.transform.Rotate(0f, 4f, 0f);
+            yield return null;
+        }
 
-        bolt.transform.position = endPos;
-        bolt.GetComponent<BoxCollider>().enabled = true;
+        Destroy(bolt);
+        Instantiate(boltPrefab, endPos1, Quaternion.Euler(Vector3.zero));
         yield return new WaitForSeconds(1f);
         sending = false;
     }

@@ -6,6 +6,8 @@ public class BoltsManager : MonoBehaviour
 {
     void Update()
     {
+        if (!GetComponent<BoxCollider>().enabled) return;
+
         Collider[] coll = Physics.OverlapSphere(transform.position + new Vector3(0f, 0.5f, 0f), 0.01f);
         if (coll.Length > 1)
         {

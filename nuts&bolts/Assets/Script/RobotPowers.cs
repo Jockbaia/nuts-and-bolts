@@ -96,6 +96,8 @@ public class RobotPowers : MonoBehaviour
     {
         List<PowerSelector> keys = new List<PowerSelector>(powers.Keys);
 
+        ResetArms();
+
         for (int i = 0; i < keys.Count; i++)
         {
             powersIndex = (powersIndex + 1) % keys.Count;
@@ -117,9 +119,17 @@ public class RobotPowers : MonoBehaviour
                 {
                     selectedPower = keys[powersIndex];
                 }
+
+                
                 return;
             }
         }
+    }
+
+    void ResetArms()
+    {
+        transform.Find("Model/Arm_Right").localRotation = Quaternion.Euler(0, 70, 0);
+        transform.Find("Model/Arm_Left").localRotation = Quaternion.Euler(0, -70, 0);
     }
 
     private void initialize()

@@ -10,6 +10,7 @@ public class MagneticPower : MonoBehaviour
     float time = 0f;
 
     LayerMask mask;
+    Transform arm;
 
     void Start()
     {
@@ -17,7 +18,10 @@ public class MagneticPower : MonoBehaviour
         powers = transform.gameObject.GetComponent<RobotPowers>();
 
         mask = LayerMask.GetMask("Default", "IgnoreLaser");
+        arm = transform.Find("Model/Arm_Right");
     }
+
+    private Coroutine coroutine;
 
     void Update()
     {
@@ -59,7 +63,8 @@ public class MagneticPower : MonoBehaviour
                         }
                         time -= Time.deltaTime;
 
-
+                        // Animation
+                        arm.localRotation = Quaternion.Euler(0, 70, -90);
                     }
                 }
             }
@@ -67,6 +72,12 @@ public class MagneticPower : MonoBehaviour
         else
         {
             time = 0f;
+            // Animation
+
+            if (powers.selectedPower == RobotPowers.PowerSelector.Magnetic)
+            {
+                arm.localRotation = Quaternion.Euler(0, 70, 0);
+            }
         }
     }
 }

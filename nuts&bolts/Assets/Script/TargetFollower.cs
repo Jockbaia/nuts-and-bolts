@@ -246,6 +246,6 @@ public class TargetFollower : MonoBehaviour
         }
 
         Destroy(bolt);
-        Instantiate(prefab, endPos1, Quaternion.Euler(Vector3.zero));
+        //Instantiate(prefab, endPos1, Quaternion.Euler(Vector3.zero));
     }
 }
