@@ -12,6 +12,9 @@ public class ManageCoop : MonoBehaviour
     public Material p1Material;
     public Material p2Material;
 
+    public GameObject padCanvas1;
+    public GameObject padCanvas2;
+
     //private PlayerInputManager playerInputManager;
 
     [HideInInspector]
@@ -20,6 +23,8 @@ public class ManageCoop : MonoBehaviour
     public static PlayerInput player2;
 
     public GameObject playerPrefab;
+
+    bool loadingNext = false;
 
     private void Awake()
     {
@@ -52,5 +57,42 @@ public class ManageCoop : MonoBehaviour
 
         //TODO: error message in case there aren't at least 2 control devices available
         //TODO: in caso non ci siano 2 device di input -> WASD / IJKL
+    }
+
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        if (loadingNext) return;
+
+        bool door1Open = padCanvas1.GetComponent<PadManager>().displayText.text == "OK";
+        bool door2Open = padCanvas2.GetComponent<PadManager>().displayText.text == "OK";
+
+        if (door1Open && door2Open) // Check if stage is cleared
+        {
+            loadingNext = true;
+
+            var p1 = player1.GetComponent<RobotPowers>()._components;
+            var p2 = player2.GetComponent<RobotPowers>()._components;
+
+            SceneLoader._componentsP1.bolts = p1.bolts;
+            SceneLoader._componentsP1.Larm = p1.Larm;
+            SceneLoader._componentsP1.Rarm = p1.Rarm;
+            SceneLoader._componentsP1.view = p1.view;
+            SceneLoader._componentsP1.legs = p1.legs;
+            SceneLoader._componentsP1.rocket = p1.rocket;
+
+            SceneLoader._componentsP2.bolts = p2.bolts;
+            SceneLoader._componentsP2.Larm = p2.Larm;
+            SceneLoader._componentsP2.Rarm = p2.Rarm;
+            SceneLoader._componentsP2.view = p2.view;
+            SceneLoader._componentsP2.legs = p2.legs;
+            SceneLoader._componentsP2.rocket = p2.rocket;
+
+            GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadNextSceneWrap();
+        }
     }
 }

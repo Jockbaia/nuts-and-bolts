@@ -18,14 +18,14 @@ public class SceneLoader : MonoBehaviour
     {
         //TODO: Set them to zero when done debugging!
         _componentsP1.Larm = 5;
-        _componentsP1.Rarm = 1;
+        _componentsP1.Rarm = 4;
         _componentsP1.legs = 0;
         _componentsP1.view = 3;
         _componentsP1.rocket = 0;
         _componentsP1.bolts = 2;
 
         _componentsP2.Larm = 5;
-        _componentsP2.Rarm = 1;
+        _componentsP2.Rarm = 4;
         _componentsP2.legs = 0;
         _componentsP2.view = 3;
         _componentsP2.rocket = 0;
@@ -39,20 +39,20 @@ public class SceneLoader : MonoBehaviour
          DontDestroyOnLoad(loadingPanel.transform.parent);
     }
 
-    public void LoadNextSceneWrap()
+    public void LoadNextSceneWrap() //TODO: fix when finished debugging
     {
         if (currentScene == "Menu")
         {
-            currentScene = "SampleScene";//"Level" + currentLevel.ToString(); !!!!!
+            currentScene = "SampleScene";//"Level" + currentLevel.ToString();
             LoadSceneWrapper(currentScene);
         }
         else if (currentScene == "BeforeLevel")
         {
             currentLevel++;
-            currentScene = "Level" + currentLevel.ToString();
+            currentScene = "SampleScene";//"Level" + currentLevel.ToString();
             LoadSceneWrapper(currentScene);
         }
-        else if (currentScene.StartsWith("Level"))
+        else if (currentScene.StartsWith("SampleScene")) //"Level"
         {
             currentScene = "BeforeLevel";
             LoadSceneWrapper(currentScene);

@@ -762,7 +762,7 @@ public class BeforeLevelUI : MonoBehaviour
     {
         if (playerId == 1) // P1
         {
-            if (boltsP1 == 0)
+            if (boltsP1 <= 0)
             {
                 audiosrc.PlayOneShot(audioClipReject);
                 return;
@@ -770,7 +770,7 @@ public class BeforeLevelUI : MonoBehaviour
 
             if (bodyPart == 0)
             {
-                if (leftArmP1 == 3)
+                if (leftArmP1 >= 3)
                 {
                     audiosrc.PlayOneShot(audioClipReject);
                     return;
@@ -784,7 +784,7 @@ public class BeforeLevelUI : MonoBehaviour
             }
             else if (bodyPart == 1)
             {
-                if (rightArmP1 == 4)
+                if (rightArmP1 >= 4)
                 {
                     audiosrc.PlayOneShot(audioClipReject);
                     return;
@@ -798,7 +798,7 @@ public class BeforeLevelUI : MonoBehaviour
             }
             else if (bodyPart == 2)
             {
-                if (viewP1 == 3)
+                if (viewP1 >= 3)
                 {
                     audiosrc.PlayOneShot(audioClipReject);
                     return;
@@ -812,7 +812,7 @@ public class BeforeLevelUI : MonoBehaviour
             }
             else if (bodyPart == 3)
             {
-                if (legsP1 == 5)
+                if (legsP1 >= 5)
                 {
                     audiosrc.PlayOneShot(audioClipReject);
                     return;
@@ -826,7 +826,7 @@ public class BeforeLevelUI : MonoBehaviour
             }
             else if (bodyPart == 4)
             {
-                if (backP1 == 3)
+                if (backP1 >= 3)
                 {
                     audiosrc.PlayOneShot(audioClipReject);
                     return;
@@ -842,7 +842,7 @@ public class BeforeLevelUI : MonoBehaviour
         }
         else if (playerId == 2) // P2
         {
-            if (boltsP2 == 0)
+            if (boltsP2 <= 0)
             {
                 audiosrc.PlayOneShot(audioClipReject);
                 return;
@@ -850,7 +850,7 @@ public class BeforeLevelUI : MonoBehaviour
 
             if (bodyPart == 0)
             {
-                if (leftArmP2 == 3)
+                if (leftArmP2 >= 3)
                 {
                     audiosrc.PlayOneShot(audioClipReject);
                     return;
@@ -864,7 +864,7 @@ public class BeforeLevelUI : MonoBehaviour
             }
             else if (bodyPart == 1)
             {
-                if (rightArmP2 == 4)
+                if (rightArmP2 >= 4)
                 {
                     audiosrc.PlayOneShot(audioClipReject);
                     return;
@@ -878,7 +878,7 @@ public class BeforeLevelUI : MonoBehaviour
             }
             else if (bodyPart == 2)
             {
-                if (viewP2 == 3)
+                if (viewP2 >= 3)
                 {
                     audiosrc.PlayOneShot(audioClipReject);
                     return;
@@ -892,7 +892,7 @@ public class BeforeLevelUI : MonoBehaviour
             }
             else if (bodyPart == 3)
             {
-                if (legsP2 == 5)
+                if (legsP2 >= 5)
                 {
                     audiosrc.PlayOneShot(audioClipReject);
                     return;
@@ -906,7 +906,7 @@ public class BeforeLevelUI : MonoBehaviour
             }
             else if (bodyPart == 4)
             {
-                if (backP2 == 3)
+                if (backP2 >= 3)
                 {
                     audiosrc.PlayOneShot(audioClipReject);
                     return;

@@ -17,11 +17,11 @@ public class RobotPowers : MonoBehaviour
 
     public struct components
     {
-        public int Larm; // 0: push/pull, 1-2: extend, 3-4: push/pull heavier obj, 5: more extend 
-        public int Rarm; // 0: push/pull, 1-2: magnetic, 3-4: magnetic with heavier obj, 5: destroy numberpad (-2 Rarm)
-        public int view; // 0: miope, 1-2: normal, 3: x-ray 
-        public int legs; //0: normal, 1-2: up (not movements), 3-4: down with movements, 5: up and movements
-        public int rocket; //0,1,2: no, 3: yes
+        public int Larm;
+        public int Rarm;
+        public int view;
+        public int legs;
+        public int rocket;
         public int bolts;
 
         /* 8

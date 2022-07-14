@@ -58706,6 +58706,10 @@ MonoBehaviour:
   player2StartingPos: {x: 56, y: 1, z: 0}
   p1Material: {fileID: -1855041224827143692, guid: 2bffa7657920d44b486f7e9679418dde, type: 3}
   p2Material: {fileID: 1830358037348055522, guid: 33b137258f6954e928dc66270d395b0d, type: 3}
+  door1: {fileID: 655749282943829548}
+  door2: {fileID: 1697205086}
+  padCanvas1: {fileID: 1193787032}
+  padCanvas2: {fileID: 451520991}
   playerPrefab: {fileID: 7608206887762183670, guid: 0401623b6ec743e4296017bf0ab9d1a4, type: 3}
 --- !u!1 &1595348969
 GameObject:
@@ -62466,6 +62470,11 @@ PrefabInstance:
 --- !u!95 &1697205085 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 655749284393108314, guid: a3237d5d217d14807ae61217b3247dda, type: 3}
+  m_PrefabInstance: {fileID: 1697205084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1697205086 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 655749283543427859, guid: a3237d5d217d14807ae61217b3247dda, type: 3}
   m_PrefabInstance: {fileID: 1697205084}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1697511469
@@ -79233,6 +79242,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3237d5d217d14807ae61217b3247dda, type: 3}
+--- !u!1 &655749282943829548 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 655749283543427859, guid: a3237d5d217d14807ae61217b3247dda, type: 3}
+  m_PrefabInstance: {fileID: 655749282943829547}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &696210430265849641
 PrefabInstance:
   m_ObjectHideFlags: 0

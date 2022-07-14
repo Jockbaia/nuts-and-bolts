@@ -30,8 +30,8 @@ public class HandleNumpadNav : MonoBehaviour
     private float distance;
     GameObject player;
 
-    public static bool destroyNumPad_1 = false;
-    public static bool destroyNumPad_2 = false;
+    public bool destroyNumPad_1 = false;
+    public bool destroyNumPad_2 = false;
 
     bool specialAction = false;
 
