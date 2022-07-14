@@ -15,6 +15,7 @@ public class PlayerLogic : MonoBehaviour
     public AudioClip clipActiveBtn;
     public AudioClip clipDestroyNum;
     public AudioClip clipRocket;
+    public AudioClip clipExtend;
 
     // In-game Men? logic
     public static bool menuOpen = false;
@@ -44,6 +45,9 @@ public class PlayerLogic : MonoBehaviour
     private bool playRocket = false;
     public Slider slider;
 
+    //ARM
+    public Animator animator;
+    public bool isExtendingArm = false;
 
 
     private void Awake()
@@ -89,6 +93,7 @@ public class PlayerLogic : MonoBehaviour
     {
         if (menuOpen) return;
         if (this.GetComponent<HandleNumpadNav>().padOpen) return;
+        if (isExtendingArm) return;
 
         movementInput = context.ReadValue<Vector2>();
     }
@@ -97,6 +102,11 @@ public class PlayerLogic : MonoBehaviour
     {
         if (menuOpen) return;
         if (this.GetComponent<HandleNumpadNav>().padOpen) return;
+        if (isExtendingArm)
+        {
+            specialAction = false;
+            return;
+        }
 
         specialAction = context.action.triggered;
 
@@ -122,6 +132,7 @@ public class PlayerLogic : MonoBehaviour
     {
         if (menuOpen) return;
         if (this.GetComponent<HandleNumpadNav>().padOpen) return;
+        if (isExtendingArm) return;
 
         interactBtn = context.action.triggered;
     }
@@ -157,6 +168,8 @@ public class PlayerLogic : MonoBehaviour
         }
 
         rocketUpdate();
+
+        checkLeftArm();
 
         if (Vector3.Distance(movePoint.position, transform.position) == 0f)
         {
@@ -382,6 +395,39 @@ public class PlayerLogic : MonoBehaviour
             rocket = true;
             playRocket = false;
         }
+    }
+
+    void checkLeftArm()
+    {
+        if (movementInput.x != 0 || movementInput.y != 0) return;
+
+        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "ArmExtend" && specialAction && !isExtendingArm)
+        {
+            animator.enabled = true;
+            Collider[] collisions = Physics.OverlapSphere(
+                transform.position + transform.forward + Vector3.up, 0.49f,
+                LayerMask.GetMask("Default"));
+            if (collisions.Length > 0) return;
+
+            isExtendingArm = true;
+            animator.SetBool("startLeftArm", true);
+            transform.Find("Model/Arm_Left/Bottom").GetComponent<SphereCollider>().enabled = true;
+            StartCoroutine("StartLeftArm");
+            audioSrc.PlayOneShot(clipExtend);
+            specialAction = false;
+        }
+        else if (transform.GetComponent<RobotPowers>().selectedPower.ToString() != "ArmExtend")
+        {
+            animator.enabled = false;
+        }
+    }
+
+    public IEnumerator StartLeftArm()
+    {
+        yield return new WaitForSeconds(1.50f);
+        transform.Find("Model/Arm_Left/Bottom").GetComponent<SphereCollider>().enabled = false;
+        animator.SetBool("startLeftArm", false);
+        isExtendingArm = false;
     }
 
     bool IsGrabbing() // Checks if player is grabbing a box

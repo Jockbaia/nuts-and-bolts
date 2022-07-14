@@ -138,6 +138,7 @@ public class HandleNumpadNav : MonoBehaviour
     public void OnInteractNumpad(InputAction.CallbackContext context)
     {
         if (PlayerLogic.menuOpen) return;
+        if (GetComponent<PlayerLogic>().isExtendingArm) return;
 
         if (context.action.triggered && distance < minDist)
         {

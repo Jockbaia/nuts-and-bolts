@@ -50,6 +50,7 @@ public class RobotPowers : MonoBehaviour
     {
         if (PlayerLogic.menuOpen) return;
         if (this.GetComponent<HandleNumpadNav>().padOpen) return;
+        if (GetComponent<PlayerLogic>().isExtendingArm) return;
 
         if (context.action.triggered)
         {
