@@ -540,6 +540,7 @@ MonoBehaviour:
   speedTarget: 1
   laserOrigin: {fileID: 1896924421853425537}
   shotOrigin: {fileID: 1896924422652659848}
+  prefabBolt: {fileID: 9221251740109258773, guid: 7093f51b6eeee224faca577d88571264, type: 3}
 --- !u!1 &8154654401280074776
 GameObject:
   m_ObjectHideFlags: 0

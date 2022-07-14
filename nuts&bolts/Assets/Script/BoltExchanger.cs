@@ -23,6 +23,8 @@ public class BoltExchanger : MonoBehaviour
 
     void OnInteract()
     {
+        if (p1 == null || p2 == null) return;
+
         if (PlayerLogic.menuOpen) return;
 
         if (cooldown < duration)

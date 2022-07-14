@@ -498,29 +498,41 @@ public class BeforeLevelUI : MonoBehaviour
 
     void AllPlayersReady()
     {
-        //TODO: pass bolts state to next scene and transition to next level...
-        Debug.Log("All players are ready! TODO!!");
+        // Pass state to "LevelN" scene
+        SceneLoader._componentsP1.bolts = boltsP1;
+        SceneLoader._componentsP1.Larm = leftArmP1;
+        SceneLoader._componentsP1.Rarm = rightArmP1;
+        SceneLoader._componentsP1.view = viewP1;
+        SceneLoader._componentsP1.legs = legsP1;
+        SceneLoader._componentsP1.rocket = backP1;
+
+        SceneLoader._componentsP2.bolts = boltsP2;
+        SceneLoader._componentsP2.Larm = leftArmP2;
+        SceneLoader._componentsP2.Rarm = rightArmP2;
+        SceneLoader._componentsP2.view = viewP2;
+        SceneLoader._componentsP2.legs = legsP2;
+        SceneLoader._componentsP2.rocket = backP2;
+
+        GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadNextSceneWrap();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //TODO: obtain it from StateManager script (RobotPowers for P1 and P2)
-        Debug.Log("Bolts acquired! TODO!!");
-        boltsP1 = 5;
-        leftArmP1 = 2;
-        rightArmP1 = 1;
-        viewP1 = 0;
-        legsP1 = 4;
-        backP1 = 0;
+        // Obtain state from "LevelN" scene
+        boltsP1 = SceneLoader._componentsP1.bolts;
+        leftArmP1 = SceneLoader._componentsP1.Larm;
+        rightArmP1 = SceneLoader._componentsP1.Rarm;
+        viewP1 = SceneLoader._componentsP1.view;
+        legsP1 = SceneLoader._componentsP1.legs;
+        backP1 = SceneLoader._componentsP1.rocket;
 
-        boltsP2 = 3;
-        leftArmP2 = 0;
-        rightArmP2 = 2;
-        viewP2 = 3;
-        legsP2 = 5;
-        backP2 = 0;
-        ////
+        boltsP2 = SceneLoader._componentsP2.bolts;
+        leftArmP2 = SceneLoader._componentsP2.Larm;
+        rightArmP2 = SceneLoader._componentsP2.Rarm;
+        viewP2 = SceneLoader._componentsP2.view;
+        legsP2 = SceneLoader._componentsP2.legs;
+        backP2 = SceneLoader._componentsP2.rocket;
 
         ResetBolts();
         // Set First Highlighted button

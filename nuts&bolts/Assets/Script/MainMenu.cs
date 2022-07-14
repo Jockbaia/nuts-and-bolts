@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        sceneManager.GetComponent<SceneLoader>().LoadSceneWrapper("SampleScene");
+        sceneManager.GetComponent<SceneLoader>().LoadNextSceneWrap();
     }
 
     public void QuitGame()

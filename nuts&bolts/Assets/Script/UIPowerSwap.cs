@@ -23,6 +23,8 @@ public class UIPowerSwap : MonoBehaviour
 
     private void Update()
     {
+        if (GameObject.Find("Player1") == null || GameObject.Find("Player2") == null) return;
+
         int p1Bolts = GameObject.Find("Player1").GetComponent<RobotPowers>()._components.bolts;
         int p2Bolts = GameObject.Find("Player2").GetComponent<RobotPowers>()._components.bolts;
 

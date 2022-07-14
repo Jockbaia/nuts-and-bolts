@@ -11,6 +11,8 @@ public class TargetFollower : MonoBehaviour
     public float speedTarget;
     public Transform laserOrigin, shotOrigin;
 
+    public GameObject prefabBolt;
+
     private GameObject player;
     private bool hitit;
     private LineRenderer laserLine;
@@ -52,7 +54,6 @@ public class TargetFollower : MonoBehaviour
     {         
         rotateToTarget();
         checkIntersection();
-        checkGameOver();
     }
 
     private void rotateToTarget() //"this" view direction follow a target "Target"
@@ -93,25 +94,28 @@ public class TargetFollower : MonoBehaviour
        
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity) && hit.collider.tag == "Player" && !hitit)
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, LayerMask.GetMask("Default")))
         {
-            //Shot
-            shotLine.SetPosition(1, hit.point);
-            laserLine.SetPosition(1, hit.point);          
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
-            //Debug.Log("Hit");
-            loseBolt();
-            hitit = true;                    
-            StartCoroutine(ShootLaser());           
+            if (hit.collider.tag == "Player" && !hitit)
+            {
+                //Shot
+                shotLine.SetPosition(1, hit.point);
+                laserLine.SetPosition(1, hit.point);
+                //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
+
+                loseBolt();
+                hitit = true;
+                StartCoroutine(ShootLaser());
+            }
+            else if (hit.collider.tag != "Player")
+            {
+                //laserLine.SetPosition(1, Target.transform.position);
+                laserLine.SetPosition(1, hit.point);
+                //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+                //Debug.Log("No Hit");
+                hitit = false;
+            }
         }
-        else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity) && hit.collider.tag != "Player")
-        {
-            //laserLine.SetPosition(1, Target.transform.position);
-            laserLine.SetPosition(1, hit.point);
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
-            //Debug.Log("No Hit");
-            hitit = false;
-        }       
     }
 
     private void loseBolt() //the player loses a bolt
@@ -162,10 +166,14 @@ public class TargetFollower : MonoBehaviour
             ManageCoop.player2.camera.GetComponent<CameraFollow>().enabled = false;
             StartCoroutine(Shake(ManageCoop.player2.camera, 0.15f, 0.4f)); //!
         }
-        
+
+        // Spawn lost bolt
+        StartCoroutine(loseBoltAnimation(0.5f, player, prefabBolt));
 
         // Damage sound
         player.GetComponent<PlayerLogic>().audioSrc.PlayOneShot(player.GetComponent<PlayerLogic>().clipDamage);
+
+        checkGameOver();
     }
 
     private void checkGameOver()
@@ -174,8 +182,9 @@ public class TargetFollower : MonoBehaviour
             && player.GetComponent<RobotPowers>()._components.view == 0 && player.GetComponent<RobotPowers>()._components.legs == 0 
             && player.GetComponent<RobotPowers>()._components.rocket == 0)
         {
-            Debug.Log("GAME OVER");
-            Time.timeScale = 0;
+            //Debug.Log("GAME OVER");
+            GameObject.Find("SceneManager").GetComponent<SceneLoader>().ReloadCurrentScene();
+            Destroy(gameObject);
         }
     }
 
@@ -214,4 +223,29 @@ public class TargetFollower : MonoBehaviour
         cam.GetComponent<CameraFollow>().enabled = true;
     }
 
+    IEnumerator loseBoltAnimation(float duration, GameObject player, GameObject prefab)
+    {
+        float elapsedTime = 0;
+        float ratio = elapsedTime / duration;
+
+        Vector3 startPos = player.transform.position + new Vector3(0f, 2f, 0f);
+        startPos.x = Mathf.Floor(startPos.x);
+        startPos.z = Mathf.Floor(startPos.z);
+        Vector3 endPos1 = new Vector3(startPos.x, 0f, startPos.z);
+
+        GameObject bolt = Instantiate(prefab, startPos, Quaternion.Euler(Vector3.zero));
+        bolt.GetComponent<BoxCollider>().enabled = false;
+
+        while (ratio < 1f)
+        {
+            elapsedTime += Time.deltaTime;
+            ratio = elapsedTime / duration;
+            bolt.transform.position = Vector3.Lerp(startPos, endPos1, ratio);
+            bolt.transform.Rotate(0f, 4f, 0f);
+            yield return null;
+        }
+
+        Destroy(bolt);
+        Instantiate(prefab, endPos1, Quaternion.Euler(Vector3.zero));
+    }
 }

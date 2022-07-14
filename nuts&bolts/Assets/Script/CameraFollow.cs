@@ -16,6 +16,8 @@ public class CameraFollow : MonoBehaviour
     // LateUpdate is called after Update each frame
     void LateUpdate()
     {
+        if (player == null) return;
+
         transform.position = player.transform.position + offset;
     }
 }

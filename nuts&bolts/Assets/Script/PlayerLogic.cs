@@ -210,6 +210,15 @@ public class PlayerLogic : MonoBehaviour
         {
             return true;
         }
+        else if (colliders.Length > 1)
+        {
+            foreach (Collider coll in colliders)
+            {
+                if (!coll.gameObject.name.StartsWith("Bolt"))
+                    return false;
+            }
+            return true;
+        }
         return false;
     }
 

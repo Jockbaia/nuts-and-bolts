@@ -124,12 +124,24 @@ public class RobotPowers : MonoBehaviour
 
     private void initialize()
     {
-        _components.Larm = 5;
-        _components.Rarm = 4;
-        _components.legs = 0;
-        _components.view = 3;
-        _components.rocket = 3;
-        _components.bolts = 0;
+        if (gameObject.name == "Player1")
+        {
+            _components.Larm = SceneLoader._componentsP1.Larm;
+            _components.Rarm = SceneLoader._componentsP1.Rarm;
+            _components.view = SceneLoader._componentsP1.view;
+            _components.legs = SceneLoader._componentsP1.legs;
+            _components.rocket = SceneLoader._componentsP1.rocket;
+            _components.bolts = SceneLoader._componentsP1.bolts;
+        }
+        else
+        {
+            _components.Larm = SceneLoader._componentsP2.Larm;
+            _components.Rarm = SceneLoader._componentsP2.Rarm;
+            _components.view = SceneLoader._componentsP2.view;
+            _components.legs = SceneLoader._componentsP2.legs;
+            _components.rocket = SceneLoader._componentsP2.rocket;
+            _components.bolts = SceneLoader._componentsP2.bolts;
+        }
 
         powers.Add(PowerSelector.PushPull, true);
         powers.Add(PowerSelector.ArmExtend, _components.Larm > 0);     

@@ -9,10 +9,14 @@ public class MagneticPower : MonoBehaviour
 
     float time = 0f;
 
+    LayerMask mask;
+
     void Start()
     {
         player = transform.GetComponent<PlayerLogic>();
         powers = transform.gameObject.GetComponent<RobotPowers>();
+
+        mask = LayerMask.GetMask("Default", "IgnoreLaser");
     }
 
     void Update()
@@ -20,7 +24,7 @@ public class MagneticPower : MonoBehaviour
         if (player.specialAction && powers.selectedPower == RobotPowers.PowerSelector.Magnetic)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, mask))
             {
                 if (hit.collider.gameObject.GetComponent<MagneticMove>() != null)
                 {

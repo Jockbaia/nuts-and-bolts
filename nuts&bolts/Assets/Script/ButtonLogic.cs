@@ -18,6 +18,8 @@ public class ButtonLogic : MonoBehaviour
 
     void Update()
     {
+        if (player == null) return;
+
         if (IsPressed())
         {
             isActive = true;

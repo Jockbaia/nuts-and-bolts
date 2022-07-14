@@ -471,3 +471,4 @@ MonoBehaviour:
   Target: {fileID: 1633579537564288277}
   laserOrigin: {fileID: 1633579537706804091}
   shotOrigin: {fileID: 1633579536868695275}
+  prefabBolt: {fileID: 9221251740109258773, guid: 7093f51b6eeee224faca577d88571264, type: 3}
