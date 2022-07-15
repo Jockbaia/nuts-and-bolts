@@ -174,6 +174,9 @@ public class TargetFollower : MonoBehaviour
         player.GetComponent<PlayerLogic>().audioSrc.PlayOneShot(player.GetComponent<PlayerLogic>().clipDamage);
 
         checkGameOver();
+
+        player.GetComponent<Legs>().hit = true;
+
     }
 
     private void checkGameOver()
