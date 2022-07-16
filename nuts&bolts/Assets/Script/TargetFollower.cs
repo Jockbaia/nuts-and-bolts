@@ -155,16 +155,17 @@ public class TargetFollower : MonoBehaviour
             player.GetComponent<RobotPowers>()._components.Larm--;
         }
 
+        var manageCoop = GameObject.Find("PlayerManager").GetComponent<ManageCoop>();
         // Camera Shake
         if (player.name == "Player1")
         {
-            ManageCoop.player1.camera.GetComponent<CameraFollow>().enabled = false;
-            StartCoroutine(Shake(ManageCoop.player1.camera, 0.15f, 0.4f)); //!
+            manageCoop.player1.camera.GetComponent<CameraFollow>().enabled = false;
+            StartCoroutine(Shake(manageCoop.player1.camera, 0.15f, 0.4f)); //!
         }
         else
         {
-            ManageCoop.player2.camera.GetComponent<CameraFollow>().enabled = false;
-            StartCoroutine(Shake(ManageCoop.player2.camera, 0.15f, 0.4f)); //!
+            manageCoop.player2.camera.GetComponent<CameraFollow>().enabled = false;
+            StartCoroutine(Shake(manageCoop.player2.camera, 0.15f, 0.4f)); //!
         }
 
         // Spawn lost bolt

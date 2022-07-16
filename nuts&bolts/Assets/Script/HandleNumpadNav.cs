@@ -71,9 +71,10 @@ public class HandleNumpadNav : MonoBehaviour
                     // Damage
                     GetComponent<RobotPowers>()._components.Rarm -= 3;
 
+                    var manageCoop = GameObject.Find("PlayerManager").GetComponent<ManageCoop>();
                     // Camera Shake
-                    ManageCoop.player1.camera.GetComponent<CameraFollow>().enabled = false;
-                    StartCoroutine(TargetFollower.Shake(ManageCoop.player1.camera, 0.15f, 0.4f));
+                    manageCoop.player1.camera.GetComponent<CameraFollow>().enabled = false;
+                    StartCoroutine(TargetFollower.Shake(manageCoop.player1.camera, 0.15f, 0.4f));
 
                     // Damage sound
                     player.GetComponent<PlayerLogic>().audioSrc.PlayOneShot(player.GetComponent<PlayerLogic>().clipDamage);
@@ -99,9 +100,10 @@ public class HandleNumpadNav : MonoBehaviour
                     // Damage
                     GetComponent<RobotPowers>()._components.Rarm -= 3;
 
+                    var manageCoop = GameObject.Find("PlayerManager").GetComponent<ManageCoop>();
                     // Camera Shake
-                    ManageCoop.player2.camera.GetComponent<CameraFollow>().enabled = false;
-                    StartCoroutine(TargetFollower.Shake(ManageCoop.player2.camera, 0.15f, 0.4f));
+                    manageCoop.player2.camera.GetComponent<CameraFollow>().enabled = false;
+                    StartCoroutine(TargetFollower.Shake(manageCoop.player2.camera, 0.15f, 0.4f));
 
                     // Damage sound
                     player.GetComponent<PlayerLogic>().audioSrc.PlayOneShot(player.GetComponent<PlayerLogic>().clipDamage);

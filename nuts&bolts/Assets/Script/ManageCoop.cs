@@ -18,9 +18,9 @@ public class ManageCoop : MonoBehaviour
     //private PlayerInputManager playerInputManager;
 
     [HideInInspector]
-    public static PlayerInput player1;
+    public PlayerInput player1;
     [HideInInspector]
-    public static PlayerInput player2;
+    public PlayerInput player2;
 
     public GameObject playerPrefab;
 
@@ -57,11 +57,6 @@ public class ManageCoop : MonoBehaviour
 
         //TODO: error message in case there aren't at least 2 control devices available
         //TODO: in caso non ci siano 2 device di input -> WASD / IJKL
-    }
-
-    void Start()
-    {
-        
     }
 
     void Update()
