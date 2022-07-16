@@ -175,8 +175,7 @@ public class TargetFollower : MonoBehaviour
 
         checkGameOver();
 
-        player.GetComponent<Legs>().hit = true;
-
+        player.GetComponent<Legs>().TookDamage();
     }
 
     private void checkGameOver()

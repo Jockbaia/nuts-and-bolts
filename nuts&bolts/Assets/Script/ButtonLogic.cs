@@ -47,11 +47,12 @@ public class ButtonLogic : MonoBehaviour
             return true;
         }
 
-        Collider[] coll = Physics.OverlapSphere(new Vector3(transform.position.x, 1f, transform.position.z), 0.01f);
-        if (coll.Length == 1 &&
-            (coll[0].name.StartsWith("TallBox") || coll[0].name.Equals("MagneticBox")))
+        Collider[] coll = Physics.OverlapSphere(transform.position, 0.5f);
+        foreach (var c in coll)
         {
-            return true;
+            if (c.name == "Bottom") return true;
+            else if (c.name.StartsWith("TallBox")) return true;
+            else if (c.name == "MagneticBox") return true;
         }
 
         return false;

@@ -4,223 +4,125 @@ using UnityEngine;
 
 public class Legs : MonoBehaviour
 {
-    GameObject player;
-    GameObject model;
-    GameObject child;
+    enum LegPos { None, Up, Down }
 
-    public bool up = false;
-    public bool down = false;
-    public bool firstTime = true;
+    [HideInInspector]
+    public bool canMove = true;
 
-    public bool hit = false;
+    bool doItOnce = true;
 
-    private void Start()
+    LegPos state = LegPos.None;
+
+    Transform movePoint;
+    Transform legs;
+    Transform legsChild;
+
+    void Start()
     {
-        player = GameObject.Find(this.gameObject.name == "Player1" ? "Player1" : "Player2");       
+        movePoint = GetComponent<PlayerLogic>().movePoint;
+        legs = transform.Find("Model/Legs");
+        legsChild = legs.transform.Find("Bottom");
     }
 
-    private void Update()
+    void Update()
     {
-        CheckMovements();
-        DownLegs();
-        UpLegs();
-    }
-
-
-    private void CheckMovements()
-    {
-
-        if (hit)
+        bool specialAction = GetComponent<PlayerLogic>().specialAction;
+        
+        if (specialAction)
         {
-            hit = false;
-            if (up == true)
-            {               
-                model = this.transform.Find("Model").gameObject;
-                child = model.transform.Find("Legs").gameObject;
-                child = child.transform.Find("Bottom").gameObject;
-                StartCoroutine(zeroPosition(model, 0.2f, 0, child));
-            }
-            else if (down == true)
-            {                
-                model = this.transform.Find("Model").gameObject;
-                child = model.transform.Find("Legs").gameObject;
-                StartCoroutine(zeroPosition(model, 0.2f, 0, child));
-            }            
-        }
+            if (!doItOnce) return;
+            doItOnce = false;
 
-        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "UpDownMove" && transform.GetComponent<PlayerLogic>().specialAction)
-        {
-            
-            if (up == true)
+            string powerSelected = GetComponent<RobotPowers>().selectedPower.ToString();
+
+            if (powerSelected == "Up")
             {
-                //se premo shift scendo a normale
-                model = this.transform.Find("Model").gameObject;
-                child = model.transform.Find("Legs").gameObject;
-                child = child.transform.Find("Bottom").gameObject;
-                StartCoroutine(zeroPosition(model, 0.2f, 0, child));
-            }
-            else if (down == true)
-            {
-                //se premo shfit torno altezza normale
-                model = this.transform.Find("Model").gameObject;
-                child = model.transform.Find("Legs").gameObject;
-                StartCoroutine(zeroPosition(model, 0.2f, 0, child));
-            }
-            else if (down == false && up == false)
-            {
-                 
-                if (firstTime) //se premo shift vado up prima volta
+                if (state == LegPos.None)
                 {
-                    model = this.transform.Find("Model").gameObject;
-                    child = model.transform.Find("Legs").gameObject;
-                    child = child.transform.Find("Bottom").gameObject;
-                    StartCoroutine(legsUpDown(model, 0.2f, 0.18f, child, "up"));
-                    
+                    canMove = false;
+                    LegsUp();
                 }
-                else if (!firstTime) //se premo shift vado down seconda volta
+                else
                 {
-                    model = this.transform.Find("Model").gameObject;
-                    child = model.transform.Find("Legs").gameObject;
-                    StartCoroutine(legsUpDown(model, 0.2f, -0.2f, child, "down"));
-                }             
+                    LegsReset();
+                    canMove = true;
+                }
             }
-
-        }  
-
-        if(up && down) //can't be up and down same time
-        {
-            up = false;
-            down = false;
-        }
-
-        if ((up == false && down == false) || (transform.GetComponent<RobotPowers>()._components.legs > 4)) //ok, quando posso muovermi.
-        {
-            transform.GetComponent<PlayerLogic>().canMove = true;
+            else if (powerSelected == "Down")
+            {
+                if (state == LegPos.None)
+                {
+                    canMove = false;
+                    LegsDown();
+                }
+                else
+                {
+                    LegsReset();
+                    canMove = true;
+                }
+            }
+            else if (powerSelected == "UpDownMove")
+            {
+                if (state == LegPos.None)
+                {
+                    LegsUp();
+                }
+                else if (state == LegPos.Up)
+                {
+                    LegsDown();
+                }
+                else if (state == LegPos.Down)
+                {
+                    LegsReset();
+                }
+            }
         }
         else
         {
-            transform.GetComponent<PlayerLogic>().canMove = false;
+            doItOnce = true;
         }
-
     }
-    private void DownLegs()
+
+    public void TookDamage()
     {
-        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "Down" && transform.GetComponent<RobotPowers>()._components.legs > 2
-            && down == false && transform.GetComponent<PlayerLogic>().specialAction)
-        {        
-           
-            model = this.transform.Find("Model").gameObject;
-            child = model.transform.Find("Legs").gameObject;
-            StartCoroutine(legsUpDown(model, 0.2f, -0.2f, child, "down"));      
-                    
-        }
-        else if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "Down" && down == true 
-            && transform.GetComponent<PlayerLogic>().specialAction)
-        {
-            
-            model = this.transform.Find("Model").gameObject;
-            child = model.transform.Find("Legs").gameObject;
-            StartCoroutine(zeroPosition(model, 0.2f, 0, child));
-        }
-        else if (down == true && transform.GetComponent<RobotPowers>()._components.legs < 3)
-        {
-            model = this.transform.Find("Model").gameObject;
-            child = model.transform.Find("Legs").gameObject;
-            StartCoroutine(zeroPosition(model, 0.2f, 0, child));           
-        }
+        LegsReset();
+        canMove = true;
     }
 
-    private void UpLegs()
+    void LegsReset()
     {
-        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "Up" && transform.GetComponent<RobotPowers>()._components.legs > 0
-            && up == false && transform.GetComponent<PlayerLogic>().specialAction)
-        {         
-            model = this.transform.Find("Model").gameObject;
-            child = model.transform.Find("Legs").gameObject;
-            child = child.transform.Find("Bottom").gameObject;
-            StartCoroutine(legsUpDown(model, 0.2f, 0.18f, child, "up"));          
-            
-        }
-        else if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "Up" && up == true
-            && transform.GetComponent<PlayerLogic>().specialAction)
-        {
-            
-            model = this.transform.Find("Model").gameObject;
-            child = model.transform.Find("Legs").gameObject;
-            child = child.transform.Find("Bottom").gameObject;
-            StartCoroutine(zeroPosition(model, 0.2f, 0, child));                
-            
-        }
-        else if (up == true && transform.GetComponent<RobotPowers>()._components.legs < 1)
-        {
-            model = this.transform.Find("Model").gameObject;
-            child = model.transform.Find("Legs").gameObject;
-            child = child.transform.Find("Bottom").gameObject;
-            StartCoroutine(zeroPosition(model, 0.2f, 0, child));
-            
-        }
+        state = LegPos.None;
+        legsChild.GetComponent<CapsuleCollider>().enabled = false;
+
+        legsChild.transform.localPosition = Vector3.zero;
+        movePoint.position = new Vector3(movePoint.position.x, 1f, movePoint.position.z);
     }
-    
-    IEnumerator legsUpDown(GameObject animatedObj, float duration, float valueUD, GameObject child, string updown)
+
+    void LegsUp()
     {
-        float elapsedTime = 0;
-        float ratio = elapsedTime / duration;
-        Vector3 startPos = animatedObj.transform.position;
-        Vector3 endPos1 = animatedObj.transform.position + new Vector3(0f, valueUD, 0f);
-        Vector3 legsPos = child.transform.position;
+        state = LegPos.Up;
+        legsChild.GetComponent<CapsuleCollider>().enabled = true;
 
-
-        while (ratio < 1f)
-        {
-            elapsedTime += Time.deltaTime;
-            ratio = elapsedTime / duration;
-            animatedObj.transform.position = Vector3.Lerp(startPos, endPos1, ratio);
-            child.transform.position = legsPos;         
-            yield return null;
-        }
-
-        if (updown == "up")
-        {
-            up = true;
-        }else if (updown == "down")
-        {
-            down = true;
-        }
-
-        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "UpDownMove"  && updown == "up")
-        {
-            firstTime = false;
-        }
-        else if (transform.GetComponent<RobotPowers>().selectedPower.ToString() == "UpDownMove" && updown == "down")
-        {
-            firstTime = true;
-        }
+        legsChild.transform.position = new Vector3(transform.position.x, -0.25f, transform.position.z);
+        movePoint.position = new Vector3(movePoint.position.x, 1.25f, movePoint.position.z);
     }
 
-    IEnumerator zeroPosition(GameObject animatedObj, float duration, float Ypos, GameObject child)
+    void LegsDown()
     {
-        float elapsedTime = 0;
-        float ratio = elapsedTime / duration;
-        Vector3 startPos = animatedObj.transform.position;
-        Vector3 endPos1 = animatedObj.transform.position;
-        Vector3 legsPos = child.transform.position; 
-
-        endPos1.y = Ypos;
-
-        while (ratio < 1f)
+        Vector3 newPos = new Vector3(transform.position.x, 0f, transform.position.z);
+        if (state == LegPos.None)
         {
-            elapsedTime += Time.deltaTime;
-            ratio = elapsedTime / duration;
-            animatedObj.transform.position = Vector3.Lerp(startPos, endPos1, ratio);
-            child.transform.position = new Vector3(child.transform.position.x, legsPos.y, child.transform.position.z);
-            yield return null;
+            newPos.y = 0.5f;
         }
-      
-        up = false;
-        down = false;
+        else if (state == LegPos.Up)
+        {
+            newPos.y = 0.75f;
+        }
 
-        transform.GetComponent<PlayerLogic>().canMove = true;
+        state = LegPos.Down;
+        legsChild.GetComponent<CapsuleCollider>().enabled = false;
 
+        legsChild.transform.position = newPos;
+        movePoint.position = new Vector3(movePoint.position.x, 0.5f, movePoint.position.z);
     }
-
 }

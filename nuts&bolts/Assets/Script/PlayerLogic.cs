@@ -50,7 +50,7 @@ public class PlayerLogic : MonoBehaviour
     public bool isExtendingArm = false;
 
     //MOVE
-    public bool canMove = true;
+    //public bool canMove = true;
 
     private void Awake()
     {
@@ -93,7 +93,6 @@ public class PlayerLogic : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!canMove) return;
         if (menuOpen) return;
         if (this.GetComponent<HandleNumpadNav>().padOpen) return;
         if (isExtendingArm) return;
@@ -173,6 +172,11 @@ public class PlayerLogic : MonoBehaviour
         rocketUpdate();
 
         checkLeftArm();
+
+        if (menuOpen) return;
+        if (this.GetComponent<HandleNumpadNav>().padOpen) return;
+        if (isExtendingArm) return;
+        if (!GetComponent<Legs>().canMove) return;
 
         if (Vector3.Distance(movePoint.position, transform.position) == 0f)
         {
