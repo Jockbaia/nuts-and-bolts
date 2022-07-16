@@ -15,7 +15,8 @@ public class PlayerLogic : MonoBehaviour
     public AudioClip clipActiveBtn;
     public AudioClip clipDestroyNum;
     public AudioClip clipRocket;
-    public AudioClip clipExtend;
+    public AudioClip clipExtendArm;
+    public AudioClip clipExtendLegs;
 
     // In-game Men? logic
     public static bool menuOpen = false;
@@ -298,6 +299,7 @@ public class PlayerLogic : MonoBehaviour
 
         if (specialAction)
         {
+            GetComponent<Legs>().TookDamage();
 
             if (fuelRocketPosition > 0f)
             {
@@ -398,7 +400,20 @@ public class PlayerLogic : MonoBehaviour
                 movePoint.position -= transform.forward;
             }
 
-            movePoint.position = new Vector3(movePoint.position.x, 1f, movePoint.position.z);
+            var legState = GetComponent<Legs>().state;
+            if (legState == Legs.LegPos.None)
+            {
+                movePoint.position = new Vector3(movePoint.position.x, 1f, movePoint.position.z);
+            }
+            else if (legState == Legs.LegPos.Up)
+            {
+                movePoint.position = new Vector3(movePoint.position.x, 1f + Legs.upValue, movePoint.position.z);
+            }
+            else if (legState == Legs.LegPos.Down)
+            {
+                movePoint.position = new Vector3(movePoint.position.x, Legs.dwValue, movePoint.position.z);
+            }
+            
             rocket = true;
             playRocket = false;
         }
@@ -420,7 +435,7 @@ public class PlayerLogic : MonoBehaviour
             animator.SetBool("startLeftArm", true);
             transform.Find("Model/Arm_Left/Bottom").GetComponent<SphereCollider>().enabled = true;
             StartCoroutine("StartLeftArm");
-            audioSrc.PlayOneShot(clipExtend);
+            audioSrc.PlayOneShot(clipExtendArm);
             specialAction = false;
         }
         else if (transform.GetComponent<RobotPowers>().selectedPower.ToString() != "ArmExtend")

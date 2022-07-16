@@ -4,24 +4,34 @@ using UnityEngine;
 
 public class Legs : MonoBehaviour
 {
-    enum LegPos { None, Up, Down }
+    public enum LegPos { None, Up, Down }
 
     [HideInInspector]
     public bool canMove = true;
+    public LegPos state = LegPos.None;
+    public static float upValue = 0.25f;
+    public static float dwValue = 0.5f;
 
     bool doItOnce = true;
-
-    LegPos state = LegPos.None;
 
     Transform movePoint;
     Transform legs;
     Transform legsChild;
+
+    CapsuleCollider capsule;
+
+    AudioSource asrc;
+    AudioClip clip;
 
     void Start()
     {
         movePoint = GetComponent<PlayerLogic>().movePoint;
         legs = transform.Find("Model/Legs");
         legsChild = legs.transform.Find("Bottom");
+        capsule = GetComponent<CapsuleCollider>();
+
+        asrc = GetComponent<PlayerLogic>().audioSrc;
+        clip = GetComponent<PlayerLogic>().clipExtendLegs;
     }
 
     void Update()
@@ -37,6 +47,7 @@ public class Legs : MonoBehaviour
 
             if (powerSelected == "Up")
             {
+                asrc.PlayOneShot(clip);
                 if (state == LegPos.None)
                 {
                     canMove = false;
@@ -50,6 +61,7 @@ public class Legs : MonoBehaviour
             }
             else if (powerSelected == "Down")
             {
+                asrc.PlayOneShot(clip);
                 if (state == LegPos.None)
                 {
                     canMove = false;
@@ -63,6 +75,7 @@ public class Legs : MonoBehaviour
             }
             else if (powerSelected == "UpDownMove")
             {
+                asrc.PlayOneShot(clip);
                 if (state == LegPos.None)
                 {
                     LegsUp();
@@ -92,19 +105,23 @@ public class Legs : MonoBehaviour
     void LegsReset()
     {
         state = LegPos.None;
-        legsChild.GetComponent<CapsuleCollider>().enabled = false;
 
         legsChild.transform.localPosition = Vector3.zero;
         movePoint.position = new Vector3(movePoint.position.x, 1f, movePoint.position.z);
+
+        capsule.height = 2f;
+        capsule.center = Vector3.zero;
     }
 
     void LegsUp()
     {
         state = LegPos.Up;
-        legsChild.GetComponent<CapsuleCollider>().enabled = true;
 
-        legsChild.transform.position = new Vector3(transform.position.x, -0.25f, transform.position.z);
-        movePoint.position = new Vector3(movePoint.position.x, 1.25f, movePoint.position.z);
+        legsChild.transform.position = new Vector3(transform.position.x, -upValue, transform.position.z);
+        movePoint.position = new Vector3(movePoint.position.x, 1f + upValue, movePoint.position.z);
+
+        capsule.height = 2.25f;
+        capsule.center = new Vector3(0f, -0.25f, 0f);
     }
 
     void LegsDown()
@@ -112,17 +129,19 @@ public class Legs : MonoBehaviour
         Vector3 newPos = new Vector3(transform.position.x, 0f, transform.position.z);
         if (state == LegPos.None)
         {
-            newPos.y = 0.5f;
+            newPos.y = dwValue;
         }
         else if (state == LegPos.Up)
         {
-            newPos.y = 0.75f;
+            newPos.y = dwValue + upValue;
         }
 
         state = LegPos.Down;
-        legsChild.GetComponent<CapsuleCollider>().enabled = false;
 
         legsChild.transform.position = newPos;
-        movePoint.position = new Vector3(movePoint.position.x, 0.5f, movePoint.position.z);
+        movePoint.position = new Vector3(movePoint.position.x, dwValue, movePoint.position.z);
+
+        capsule.height = 1.5f;
+        capsule.center = new Vector3(0f, 0.25f, 0f);
     }
 }

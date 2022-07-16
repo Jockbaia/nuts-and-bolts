@@ -21,7 +21,7 @@ public class SceneLoader : MonoBehaviour
         _componentsP1.Rarm = 4;
         _componentsP1.legs = 5;
         _componentsP1.view = 3;
-        _componentsP1.rocket = 0;
+        _componentsP1.rocket = 3;
         _componentsP1.bolts = 2;
 
         _componentsP2.Larm = 5;

@@ -40,17 +40,10 @@ public class ButtonLogic : MonoBehaviour
 
     bool IsPressed()
     {
-        if (player.transform.position.x == transform.position.x
-            && player.transform.position.z == transform.position.z
-            && player.transform.position.y <= 1f)
-        {
-            return true;
-        }
-
-        Collider[] coll = Physics.OverlapSphere(transform.position, 0.5f);
+        Collider[] coll = Physics.OverlapSphere(transform.position, 0.4f);
         foreach (var c in coll)
         {
-            if (c.name == "Bottom") return true;
+            if (c.name.StartsWith("Player")) return true;
             else if (c.name.StartsWith("TallBox")) return true;
             else if (c.name == "MagneticBox") return true;
         }
