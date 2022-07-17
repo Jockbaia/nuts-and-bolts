@@ -56,6 +56,11 @@ public class SceneLoader : MonoBehaviour
             currentScene = "Tutorial3";
             LoadSceneWrapper(currentScene);
         }
+        else if (currentScene == "Tutorial3")
+        {
+            currentScene = "Tutorial4";
+            LoadSceneWrapper(currentScene);
+        }
 
         // ========= //
         else if (currentScene == "BeforeLevel")
