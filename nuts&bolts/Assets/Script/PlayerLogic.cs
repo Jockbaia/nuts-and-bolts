@@ -247,12 +247,24 @@ public class PlayerLogic : MonoBehaviour
         {
             return true;
         }
+        else if (colliders.Length == 1)
+        {
+            var coll = colliders[0];
+            if (coll.gameObject.name.StartsWith("Door") && GetComponent<HandleNumpadNav>().correct.displayText.text == "OK")
+            {
+                return true;
+            }
+        }
         else if (colliders.Length > 1)
         {
             foreach (Collider coll in colliders)
             {
-                if (!coll.gameObject.name.StartsWith("Bolt"))
-                    return false;
+                if (coll.gameObject.name.StartsWith("Door") && GetComponent<HandleNumpadNav>().correct.displayText.text == "OK")
+                {
+                    return true;
+                }
+
+                if (!coll.gameObject.name.StartsWith("Bolt")) return false;
             }
             return true;
         }

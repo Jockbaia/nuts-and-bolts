@@ -16,7 +16,7 @@ public class HandleNumpadNav : MonoBehaviour
 
     public bool padOpen = false;
 
-    PadManager correct;
+    public PadManager correct;
 
     GameObject pad;
     private int i = 0;
@@ -26,7 +26,7 @@ public class HandleNumpadNav : MonoBehaviour
     float cooldown = 0f;
 
     GameObject door;
-    private float minDist = 2f;
+    private float minDist = 1.5f;
     private float distance;
     GameObject player;
 
@@ -142,7 +142,7 @@ public class HandleNumpadNav : MonoBehaviour
         if (PlayerLogic.menuOpen) return;
         if (GetComponent<PlayerLogic>().isExtendingArm) return;
 
-        if (context.action.triggered && distance < minDist)
+        if (context.action.triggered && distance <= minDist)
         {
             if (padOpen)
             {

@@ -68,6 +68,13 @@ public class ManageCoop : MonoBehaviour
 
         if (door1Open && door2Open) // Check if stage is cleared
         {
+            bool onExit1_x = player1.transform.position.x == GameObject.Find("P1Map/DoorP1").transform.position.x;
+            bool onExit1_z = player1.transform.position.z == GameObject.Find("P1Map/DoorP1").transform.position.z;
+            bool onExit2_x = player2.transform.position.x == GameObject.Find("P2Map/DoorP2").transform.position.x;
+            bool onExit2_z = player2.transform.position.z == GameObject.Find("P2Map/DoorP2").transform.position.z;
+
+            if (!(onExit1_x && onExit1_z && onExit2_x && onExit2_z)) return;
+
             loadingNext = true;
 
             var p1 = player1.GetComponent<RobotPowers>()._components;
