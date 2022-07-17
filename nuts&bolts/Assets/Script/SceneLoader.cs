@@ -68,6 +68,19 @@ public class SceneLoader : MonoBehaviour
         }
         else if (currentScene == "Tutorial5")
         {
+            _componentsP1.Larm = 5; // Max 5
+            _componentsP1.Rarm = 4; // Max 4
+            _componentsP1.legs = 5; // Max 5
+            _componentsP1.view = 3; // Max 3
+            _componentsP1.rocket = 3; // Max 3
+            _componentsP1.bolts = 2;
+
+            _componentsP2.Larm = 5;
+            _componentsP2.Rarm = 4;
+            _componentsP2.legs = 5;
+            _componentsP2.view = 3;
+            _componentsP2.rocket = 3;
+            _componentsP2.bolts = 2;
             currentScene = "SampleScene";
             LoadSceneWrapper(currentScene);
         }
