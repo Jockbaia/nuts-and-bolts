@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 3ab195988bed8be47be3e67fbad0c24f
   - enabled: 1
+    path: Assets/Scenes/SkipTutorial.unity
+    guid: 2a6f1c082659c4872bddaae6c752d5ab
+  - enabled: 1
     path: Assets/Scenes/Tutorial1.unity
     guid: dd7cc533b5f4a49cb8b5ae9006e43e37
   - enabled: 1
@@ -23,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial5.unity
     guid: 56d3e431b8fdd42c7a3218da17db7f39
+  - enabled: 1
+    path: Assets/Scenes/Tutorial6.unity
+    guid: da297e7afc0f843569610ca20a34a280
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab

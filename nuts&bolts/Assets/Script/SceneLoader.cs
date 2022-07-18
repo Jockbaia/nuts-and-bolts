@@ -20,7 +20,7 @@ public class SceneLoader : MonoBehaviour
         _componentsP1.Larm = 0; // Max 5
         _componentsP1.Rarm = 0; // Max 4
         _componentsP1.legs = 0; // Max 5
-        _componentsP1.view = 0; // Max 3
+        _componentsP1.view = 3; // Max 3
         _componentsP1.rocket = 0; // Max 3
         _componentsP1.bolts = 0;
 
@@ -43,7 +43,13 @@ public class SceneLoader : MonoBehaviour
     {
         if (currentScene == "Menu")
         {
-            currentScene = "Tutorial1";//"Level" + currentLevel.ToString();
+            //currentScene = "SkipTutorial";//"Level" + currentLevel.ToString();
+            currentScene = "Tutorial6";//"Level" + currentLevel.ToString();
+            LoadSceneWrapper(currentScene);
+        }
+        else if (currentScene == "Tutorial0") // Play Tutorial
+        {
+            currentScene = "Tutorial1";
             LoadSceneWrapper(currentScene);
         }
         else if (currentScene == "Tutorial1")

@@ -122,7 +122,7 @@ MonoBehaviour:
   m_MinSize: {x: 709, y: 613}
   m_MaxSize: {x: 18004, y: 18063}
   vertical: 0
-  controlID: 78
+  controlID: 153
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_MinSize: {x: 433, y: 613}
   m_MaxSize: {x: 14003, y: 18063}
   vertical: 1
-  controlID: 79
+  controlID: 154
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_MinSize: {x: 433, y: 492}
   m_MaxSize: {x: 14003, y: 14042}
   vertical: 0
-  controlID: 80
+  controlID: 155
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_MinSize: {x: 231, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 81
+  controlID: 156
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -450,23 +450,23 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: e6a2feff62a3feff4ea5feff46a6feff54a6feff84a7feff2ea8feffcca8feff96a9feffa2a9feff9cabfeff52adfeffd2adfeffbeaffeffb6b0feffc4b0feff40b1feffeab1feff88b2feff3cb3feff50b3feff54cffeffc6d1feff30faffff4efbffff42550000
+      m_ExpandedIDs: 42bae0ff6abbe0ffa21fe1ff1a34e1ff7e3ae1ffe84ee1ff4c52e1ffbc66e1ffdcd5e1ff54eae1fff0ebe1ff5000e2ffe602e2ff6603e2ff7e06e2ff7e07e2ffa20ae2ffda0ce2ff860de2ff800ee2ff1211e2ff6a2ae2ffc82be2ff54aeffffbcd4ffff48ecffff08eefffff0eeffffe8f5ffffcaf7ffffb4f8ffff54f9ffff4efbffff00a700009c2d0100ec33010074ac0100d2d00200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Decal1
-        m_OriginalName: Decal1
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 23260
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 4
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 9}
+        m_ClientGUIView: {fileID: 0}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -512,22 +512,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/TextMesh Pro
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/TextMesh Pro
   m_LastFoldersGridSize: 16
   m_LastProjectPath: /Users/halcyon/Documents/CODING/nuts-and-bolts/nuts&bolts
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 724e0000
-    m_LastClickedID: 20082
-    m_ExpandedIDs: 00000000564e0000584e00005a4e000000ca9a3b
+    scrollPos: {x: 0, y: 287}
+    m_SelectedIDs: 7c4e0000
+    m_LastClickedID: 20092
+    m_ExpandedIDs: 00000000564e0000584e0000704e0000948d0300968d030000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -583,7 +583,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c6230000000000004a4e0000fa450000f84500009e1d0000
+    m_ExpandedInstanceIDs: c62300004a4e0000fa450000f84500009e1d0000f6340100000000005c620000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -599,7 +599,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 10}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -647,9 +647,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 3.3090374, y: 1.103095, z: 6.968}
+    m_Target: {x: 6.77518, y: -1.8537126, z: 8.568401}
     speed: 2
-    m_Value: {x: 3.3090374, y: 1.103095, z: 6.968}
+    m_Value: {x: 6.77518, y: -1.8537126, z: 8.568401}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -696,9 +696,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.38848466, y: 0.0036069828, z: -0.0014923239, w: -0.92142713}
+    m_Target: {x: -0.31675094, y: -0.0318499, z: 0.010669748, w: -0.94789433}
     speed: 2
-    m_Value: {x: -0.38849175, y: 0.0036070487, z: -0.0014923512, w: -0.92144394}
+    m_Value: {x: -0.31675678, y: -0.031850487, z: 0.010669946, w: -0.94791186}
   m_Size:
     m_Target: 7.678141
     speed: 2
