@@ -24,7 +24,7 @@ public class SceneLoader : MonoBehaviour
         _componentsP1.rocket = 0; // Max 3
         _componentsP1.bolts = 0;
 
-        _componentsP2.Larm = 0;
+        _componentsP2.Larm = 1;
         _componentsP2.Rarm = 0;
         _componentsP2.legs = 0;
         _componentsP2.view = 0;
@@ -43,8 +43,8 @@ public class SceneLoader : MonoBehaviour
     {
         if (currentScene == "Menu")
         {
-            //currentScene = "SkipTutorial";//"Level" + currentLevel.ToString();
-            currentScene = "Tutorial6";//"Level" + currentLevel.ToString();
+            //currentScene = "SkipTutorial";
+            currentScene = "Tutorial6";
             LoadSceneWrapper(currentScene);
         }
         else if (currentScene == "Tutorial0") // Play Tutorial
@@ -74,6 +74,16 @@ public class SceneLoader : MonoBehaviour
         }
         else if (currentScene == "Tutorial5")
         {
+            currentScene = "Tutorial6";
+            LoadSceneWrapper(currentScene);
+        }
+        else if (currentScene == "Tutorial6")
+        {
+            currentScene = "Tutorial7";
+            LoadSceneWrapper(currentScene);
+        }
+        else if (currentScene == "Tutorial7")
+        {
             _componentsP1.Larm = 5; // Max 5
             _componentsP1.Rarm = 4; // Max 4
             _componentsP1.legs = 5; // Max 5
@@ -99,6 +109,25 @@ public class SceneLoader : MonoBehaviour
             LoadSceneWrapper(currentScene);
         }
         else if (currentScene.StartsWith("SampleScene")) //"Level"
+        {
+            currentScene = "BeforeLevel";
+            LoadSceneWrapper(currentScene);
+        }
+
+        // ========= //
+        else if (currentScene == "Tutorial7") // Last Tutorial
+        {
+            currentLevel = 1;
+            currentScene = "Level" + currentLevel.ToString();
+            LoadSceneWrapper(currentScene);
+        }
+        else if (currentScene == "BeforeLevel")
+        {
+            currentLevel++;
+            currentScene = "Level" + currentLevel.ToString();
+            LoadSceneWrapper(currentScene);
+        }
+        else if (currentScene.StartsWith("Level"))
         {
             currentScene = "BeforeLevel";
             LoadSceneWrapper(currentScene);
