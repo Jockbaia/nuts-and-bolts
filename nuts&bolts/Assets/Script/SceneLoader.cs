@@ -15,10 +15,13 @@ public class SceneLoader : MonoBehaviour
     int currentLevel = 0;
 
     // Audio
-    AudioSource audioSrc;
+    [HideInInspector]
+    public AudioSource audioSrc;
     public AudioClip musicTutorial;
     public AudioClip musicPowerupUI;
-    public AudioClip musicLevel;
+    public AudioClip musicLevel1;
+    public AudioClip musicLevel2;
+    public AudioClip musicLevel3;
 
     void Awake()
     {
@@ -53,7 +56,6 @@ public class SceneLoader : MonoBehaviour
         if (currentScene == "Menu")
         {
             currentScene = "SkipTutorial";
-            //currentScene = "Tutorial7";
             LoadSceneWrapper(currentScene);
         }
         else if (currentScene == "Tutorial0") // Play Tutorial
@@ -128,7 +130,7 @@ public class SceneLoader : MonoBehaviour
             currentScene = "Level" + currentLevel.ToString();
             LoadSceneWrapper(currentScene);
 
-            audioSrc.clip = musicLevel;
+            audioSrc.clip = musicLevel1;
             audioSrc.Play();
         }
         else if (currentScene == "BeforeLevel")
@@ -139,7 +141,10 @@ public class SceneLoader : MonoBehaviour
             currentScene = "Level" + currentLevel.ToString();
             LoadSceneWrapper(currentScene);
 
-            audioSrc.clip = musicLevel;
+            if (currentLevel == 2)
+                audioSrc.clip = musicLevel2;
+            else if (currentLevel == 3)
+                audioSrc.clip = musicLevel3;
             audioSrc.Play();
         }
         else if (currentScene.StartsWith("Level"))

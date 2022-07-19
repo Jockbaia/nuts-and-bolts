@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 50943591}
   - component: {fileID: 50943590}
   m_Layer: 5
-  m_Name: Programmer
+  m_Name: Comp3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -884.4479, y: 210}
-  m_SizeDelta: {x: 285.6415, y: 50}
+  m_AnchoredPosition: {x: -471.2, y: 170}
+  m_SizeDelta: {x: 1000, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &50943590
 MonoBehaviour:
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Programmer : ...'
+  m_text: "Programmer & Sound Designer: \t\tLeonardo Iurada"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
   m_sharedMaterial: {fileID: -9037777154941730000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
@@ -1629,7 +1629,7 @@ GameObject:
   - component: {fileID: 865044254}
   - component: {fileID: 865044253}
   m_Layer: 5
-  m_Name: CommunityManager
+  m_Name: Comp5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1651,8 +1651,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -821.3436, y: 126}
-  m_SizeDelta: {x: 411.85, y: 50}
+  m_AnchoredPosition: {x: -471.2, y: 50}
+  m_SizeDelta: {x: 1000, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &865044253
 MonoBehaviour:
@@ -1674,7 +1674,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Community Manager : ...'
+  m_text: "3D Visual Artist: \t\t\t\tFrancesca Provera"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
   m_sharedMaterial: {fileID: -9037777154941730000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
@@ -2105,7 +2105,7 @@ GameObject:
   - component: {fileID: 1065897194}
   - component: {fileID: 1065897193}
   m_Layer: 5
-  m_Name: ArtistESoundTitle
+  m_Name: Comp4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2127,8 +2127,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -875.9964, y: 170}
-  m_SizeDelta: {x: 302.5445, y: 50}
+  m_AnchoredPosition: {x: -471.2, y: 110}
+  m_SizeDelta: {x: 1000, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1065897193
 MonoBehaviour:
@@ -2150,7 +2150,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Artist & Sound : ...'
+  m_text: "2D Visual Artist & Music: \t\t\tAntonio Macaluso"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
   m_sharedMaterial: {fileID: -9037777154941730000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
@@ -2239,7 +2239,7 @@ GameObject:
   - component: {fileID: 1077793409}
   - component: {fileID: 1077793408}
   m_Layer: 5
-  m_Name: ProducerTitle
+  m_Name: Comp1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2261,8 +2261,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -916, y: 293}
-  m_SizeDelta: {x: 222.5373, y: 50}
+  m_AnchoredPosition: {x: -471.2, y: 290}
+  m_SizeDelta: {x: 1000, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1077793408
 MonoBehaviour:
@@ -2284,7 +2284,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Producer : ...'
+  m_text: "Programmer & Technical Artist: \t\tSimone Anfuso"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
   m_sharedMaterial: {fileID: -9037777154941730000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
@@ -2695,7 +2695,7 @@ GameObject:
   - component: {fileID: 1212353831}
   - component: {fileID: 1212353830}
   m_Layer: 5
-  m_Name: GameDesignerTitle
+  m_Name: Comp2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2717,8 +2717,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -856.2763, y: 250}
-  m_SizeDelta: {x: 341.9847, y: 50}
+  m_AnchoredPosition: {x: -471.2, y: 230}
+  m_SizeDelta: {x: 1000, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1212353830
 MonoBehaviour:
@@ -2740,7 +2740,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game Designer : ...'
+  m_text: "Programmer: \t\t\t\t\tLucio Rocco Inglese"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
   m_sharedMaterial: {fileID: -9037777154941730000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
@@ -3823,7 +3823,9 @@ MonoBehaviour:
   currentScene: Menu
   musicTutorial: {fileID: 8300000, guid: 3b3b618cb5d1e4c9aaf5fc8b3670669e, type: 3}
   musicPowerupUI: {fileID: 8300000, guid: c96733a854fb64c0fb28772b731d5e35, type: 3}
-  musicLevel: {fileID: 8300000, guid: 3b3b618cb5d1e4c9aaf5fc8b3670669e, type: 3}
+  musicLevel1: {fileID: 8300000, guid: d810064b7d99342c991617028bbcf26a, type: 3}
+  musicLevel2: {fileID: 8300000, guid: 4dff8d0075cf846ba8bea4445e691cbc, type: 3}
+  musicLevel3: {fileID: 8300000, guid: adfc8ac4beb564fc1a54e722fe9f93b1, type: 3}
 --- !u!4 &2031045222
 Transform:
   m_ObjectHideFlags: 0

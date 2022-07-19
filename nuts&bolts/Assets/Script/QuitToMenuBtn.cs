@@ -10,5 +10,7 @@ public class QuitToMenuBtn : MonoBehaviour
         PlayerLogic.menuOpen = false;
         GameObject.Find("SceneManager").GetComponent<SceneLoader>().currentScene = "Menu";
         GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadSceneWrapper("Menu");
+        GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.Stop();
+        GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.volume = 0.3f;
     }
 }
