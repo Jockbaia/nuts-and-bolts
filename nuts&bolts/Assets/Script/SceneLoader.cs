@@ -14,11 +14,17 @@ public class SceneLoader : MonoBehaviour
     public string currentScene;
     int currentLevel = 0;
 
+    // Audio
+    AudioSource audioSrc;
+    public AudioClip musicTutorial;
+    public AudioClip musicPowerupUI;
+    public AudioClip musicLevel;
+
     void Awake()
     {
         //TODO: Set them to zero when done debugging!
         _componentsP1.Larm = 0; // Max 5
-        _componentsP1.Rarm = 1; // Max 4
+        _componentsP1.Rarm = 0; // Max 4
         _componentsP1.legs = 0; // Max 5
         _componentsP1.view = 0; // Max 3
         _componentsP1.rocket = 0; // Max 3
@@ -28,7 +34,7 @@ public class SceneLoader : MonoBehaviour
         _componentsP2.Rarm = 0;
         _componentsP2.legs = 0;
         _componentsP2.view = 0;
-        _componentsP2.rocket = 3;
+        _componentsP2.rocket = 0;
         _componentsP2.bolts = 0;
     }
 
@@ -37,20 +43,28 @@ public class SceneLoader : MonoBehaviour
     {
          DontDestroyOnLoad(gameObject);
          DontDestroyOnLoad(loadingPanel.transform.parent);
+
+        audioSrc = GetComponent<AudioSource>();
+        audioSrc.loop = true;
     }
 
     public void LoadNextSceneWrap() //TODO: fix when finished debugging
     {
         if (currentScene == "Menu")
         {
-            //currentScene = "SkipTutorial";
-            currentScene = "Tutorial7";
+            currentScene = "SkipTutorial";
+            //currentScene = "Tutorial7";
             LoadSceneWrapper(currentScene);
         }
         else if (currentScene == "Tutorial0") // Play Tutorial
         {
+            audioSrc.Stop();
+
             currentScene = "Tutorial1";
             LoadSceneWrapper(currentScene);
+
+            audioSrc.clip = musicTutorial;
+            audioSrc.Play();
         }
         else if (currentScene == "Tutorial1")
         {
@@ -69,13 +83,23 @@ public class SceneLoader : MonoBehaviour
         }
         else if (currentScene == "Tutorial4")
         {
+            audioSrc.Stop();
+
             currentScene = "Tutorial5";
             LoadSceneWrapper(currentScene);
+
+            audioSrc.clip = musicPowerupUI;
+            audioSrc.Play();
         }
         else if (currentScene == "Tutorial5")
         {
+            audioSrc.Stop();
+
             currentScene = "Tutorial6";
             LoadSceneWrapper(currentScene);
+
+            audioSrc.clip = musicTutorial;
+            audioSrc.Play();
         }
         else if (currentScene == "Tutorial6")
         {
@@ -97,6 +121,8 @@ public class SceneLoader : MonoBehaviour
         }
         else if (currentScene == "Tutorial7")
         {
+            audioSrc.Stop();
+
             _componentsP1.Larm = 5; // Max 5
             _componentsP1.Rarm = 4; // Max 4
             _componentsP1.legs = 5; // Max 5
@@ -112,6 +138,9 @@ public class SceneLoader : MonoBehaviour
             _componentsP2.bolts = 2;
             currentScene = "SampleScene";
             LoadSceneWrapper(currentScene);
+
+            audioSrc.clip = musicLevel;
+            audioSrc.Play();
         }
 
         // ========= //
