@@ -2905,7 +2905,6 @@ GameObject:
   - component: {fileID: 1282899395}
   - component: {fileID: 1282899394}
   - component: {fileID: 1282899398}
-  - component: {fileID: 1282899399}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3092,16 +3091,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!165 &1282899399
-AudioHighPassFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282899393}
-  m_Enabled: 0
-  m_CutoffFrequency: 300
-  m_HighpassResonanceQ: 1
 --- !u!1 &1290520459
 GameObject:
   m_ObjectHideFlags: 0
@@ -3821,6 +3810,7 @@ MonoBehaviour:
   loadingPanel: {fileID: 64530279}
   canvasGroup: {fileID: 64530283}
   currentScene: Menu
+  audioSrc: {fileID: 0}
   musicTutorial: {fileID: 8300000, guid: 3b3b618cb5d1e4c9aaf5fc8b3670669e, type: 3}
   musicPowerupUI: {fileID: 8300000, guid: c96733a854fb64c0fb28772b731d5e35, type: 3}
   musicLevel1: {fileID: 8300000, guid: d810064b7d99342c991617028bbcf26a, type: 3}

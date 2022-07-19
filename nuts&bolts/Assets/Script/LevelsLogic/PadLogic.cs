@@ -30,7 +30,7 @@ public class PadLogic : MonoBehaviour
     public Transform decal8;
     public Transform decal5;
 
-    void Start()
+    void Awake()
     {
         foreach (var c in pin1.ToCharArray())
         {
@@ -82,11 +82,11 @@ public class PadLogic : MonoBehaviour
         {
             foreach(Transform child in pad1)
             {
-                child.GetComponent<Renderer>().material.SetColor("_Color", grey.color);
+                child.GetComponent<Renderer>().material.SetColor("_BaseColor", grey.color);
             }
             foreach(Transform child in pad2)
             {
-                child.GetComponent<Renderer>().material.SetColor("_Color", grey.color);
+                child.GetComponent<Renderer>().material.SetColor("_BaseColor", grey.color);
             }
             highlighted = false;
         }
@@ -96,15 +96,15 @@ public class PadLogic : MonoBehaviour
             {
                 if (pin1.Contains(child.name))
                 {
-                    child.GetComponent<Renderer>().material.SetColor("_Color", blue.color);
+                    child.GetComponent<Renderer>().material.SetColor("_BaseColor", blue.color);
                 }
                 else if (pin2.Contains(child.name))
                 {
-                    child.GetComponent<Renderer>().material.SetColor("_Color", yellow.color);
+                    child.GetComponent<Renderer>().material.SetColor("_BaseColor", yellow.color);
                 }
                 else
                 {
-                    child.GetComponent<Renderer>().material.SetColor("_Color", blue.color);
+                    child.GetComponent<Renderer>().material.SetColor("_BaseColor", blue.color);
                 }
             }
 
@@ -112,15 +112,15 @@ public class PadLogic : MonoBehaviour
             {
                 if (pin1.Contains(child.name))
                 {
-                    child.GetComponent<Renderer>().material.SetColor("_Color", blue.color);
+                    child.GetComponent<Renderer>().material.SetColor("_BaseColor", blue.color);
                 }
                 else if (pin2.Contains(child.name))
                 {
-                    child.GetComponent<Renderer>().material.SetColor("_Color", yellow.color);
+                    child.GetComponent<Renderer>().material.SetColor("_BaseColor", yellow.color);
                 }
                 else
                 {
-                    child.GetComponent<Renderer>().material.SetColor("_Color", yellow.color);
+                    child.GetComponent<Renderer>().material.SetColor("_BaseColor", yellow.color);
                 }
             }
 
