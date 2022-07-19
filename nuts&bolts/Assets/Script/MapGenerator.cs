@@ -56,6 +56,9 @@ public class MapGenerator : MonoBehaviour
                 {
                     Vector3 tallboxPosition = new Vector3(x + XOffset, 1, z);
                     Transform newTallbox = Instantiate(tallboxPrefab, tallboxPosition, Quaternion.Euler(Vector3.zero)) as Transform;
+
+                    newTallbox.Rotate(new Vector3(0f, Mathf.Floor(UnityEngine.Random.Range(0, 4)) * 90f, 0f));
+
                     newTallbox.parent = mapHolder;
                     // Scripts
                     newTallbox.gameObject.AddComponent<BoxLogic>();

@@ -119,60 +119,38 @@ public class SceneLoader : MonoBehaviour
             currentScene = "Tutorial7";
             LoadSceneWrapper(currentScene);
         }
-        else if (currentScene == "Tutorial7")
+        // ========= //
+        else if (currentScene == "Tutorial7" || currentScene == "Level0") // Last Tutorial
         {
             audioSrc.Stop();
 
-            _componentsP1.Larm = 5; // Max 5
-            _componentsP1.Rarm = 4; // Max 4
-            _componentsP1.legs = 5; // Max 5
-            _componentsP1.view = 3; // Max 3
-            _componentsP1.rocket = 3; // Max 3
-            _componentsP1.bolts = 2;
-
-            _componentsP2.Larm = 5;
-            _componentsP2.Rarm = 4;
-            _componentsP2.legs = 5;
-            _componentsP2.view = 3;
-            _componentsP2.rocket = 3;
-            _componentsP2.bolts = 2;
-            currentScene = "SampleScene";
+            currentLevel = 1;
+            currentScene = "Level" + currentLevel.ToString();
             LoadSceneWrapper(currentScene);
 
             audioSrc.clip = musicLevel;
             audioSrc.Play();
         }
-
-        // ========= //
         else if (currentScene == "BeforeLevel")
         {
-            currentLevel++;
-            currentScene = "SampleScene";//"Level" + currentLevel.ToString();
-            LoadSceneWrapper(currentScene);
-        }
-        else if (currentScene.StartsWith("SampleScene")) //"Level"
-        {
-            currentScene = "BeforeLevel";
-            LoadSceneWrapper(currentScene);
-        }
+            audioSrc.Stop();
 
-        // ========= //
-        else if (currentScene == "Tutorial7") // Last Tutorial
-        {
-            currentLevel = 1;
-            currentScene = "Level" + currentLevel.ToString();
-            LoadSceneWrapper(currentScene);
-        }
-        else if (currentScene == "BeforeLevel")
-        {
             currentLevel++;
             currentScene = "Level" + currentLevel.ToString();
             LoadSceneWrapper(currentScene);
+
+            audioSrc.clip = musicLevel;
+            audioSrc.Play();
         }
         else if (currentScene.StartsWith("Level"))
         {
+            audioSrc.Stop();
+
             currentScene = "BeforeLevel";
             LoadSceneWrapper(currentScene);
+
+            audioSrc.clip = musicPowerupUI;
+            audioSrc.Play();
         }
     }
 

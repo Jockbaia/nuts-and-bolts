@@ -5,6 +5,7 @@ using UnityEngine;
 public class ButtonLogic : MonoBehaviour
 {
     public bool isActive = false;
+    public bool canBoxActivate = true;
 
     GameObject player;
 
@@ -44,8 +45,8 @@ public class ButtonLogic : MonoBehaviour
         foreach (var c in coll)
         {
             if (c.name.StartsWith("Player")) return true;
-            else if (c.name.StartsWith("TallBox")) return true;
-            else if (c.name == "MagneticBox") return true;
+            else if (c.name.StartsWith("TallBox") && canBoxActivate) return true;
+            else if (c.name == "MagneticBox" && canBoxActivate) return true;
         }
 
         return false;
