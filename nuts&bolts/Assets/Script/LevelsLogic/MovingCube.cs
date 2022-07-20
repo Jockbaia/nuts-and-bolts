@@ -82,6 +82,8 @@ public class MovingCube : MonoBehaviour
             else if (c.name.StartsWith("Obstacle")) return false;
         }
 
+        if ((transform.position.z + position.z) < 0) return false;
+
         return true;
     }
 }

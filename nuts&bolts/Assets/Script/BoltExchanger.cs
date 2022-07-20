@@ -21,6 +21,9 @@ public class BoltExchanger : MonoBehaviour
     static bool sending = false;
     private float elapsed;
 
+    [HideInInspector]
+    public bool sent;
+
     void OnInteract()
     {
         if (p1 == null || p2 == null) return;
@@ -47,6 +50,8 @@ public class BoltExchanger : MonoBehaviour
 
                 Transform parent = GameObject.Find("P2Map").transform.Find("Generated Map");
                 StartCoroutine(DropBolt(parent));
+
+                sent = true;
             }
             else
             {
@@ -67,6 +72,8 @@ public class BoltExchanger : MonoBehaviour
 
                 Transform parent = GameObject.Find("P1Map").transform.Find("Generated Map");
                 StartCoroutine(DropBolt(parent));
+
+                sent = true;
             }
             else
             {
