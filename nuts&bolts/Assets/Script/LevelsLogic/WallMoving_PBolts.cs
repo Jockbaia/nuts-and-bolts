@@ -29,24 +29,28 @@ public class WallMoving_PBolts : MonoBehaviour
                 transform.Translate(new Vector3(0, -100f, 0));
             }
         }
-        else if (CanReset(bolts1, bolts2))
+        else
         {
             doItOnce = true;
+
+            var p1MP = GameObject.Find("Player1").GetComponent<PlayerLogic>().movePoint.transform;
+            var p2MP = GameObject.Find("Player2").GetComponent<PlayerLogic>().movePoint.transform;
+            var p1 = GameObject.Find("Player1").transform;
+            var p2 = GameObject.Find("Player2").transform;
+
+            if (p1.position.z <= 7 && p2.position.z >= 7)
+            {
+                p2.position = new Vector3(p2.position.x, p2.position.y, 0f);
+                p2MP.position = new Vector3(p2MP.position.x, p2MP.position.y, 0f);
+            }
+
+            if (p1.position.z >= 7 && p2.position.z <= 7)
+            { 
+                p1.position = new Vector3(p1.position.x, p1.position.y, 0f);
+                p1MP.position = new Vector3(p1MP.position.x, p1MP.position.y, 0f);
+            }
+
             transform.position = initialPos;
         }
-    }
-
-    bool CanReset(int bolts1, int bolts2)
-    {
-        if (bolts1 != p1Amount || bolts2 != p2Amount)
-        {
-            var p1Z = GameObject.Find("Player1").transform.position.z;
-            var p2Z = GameObject.Find("Player2").transform.position.z;
-
-            if (p1Z < 7 && p2Z > 7) return false;
-            if (p1Z > 7 && p2Z < 7) return false;
-        }
-
-        return true;
     }
 }
