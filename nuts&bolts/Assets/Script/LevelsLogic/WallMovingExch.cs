@@ -14,7 +14,7 @@ public class WallMovingExch : MonoBehaviour
         if (!active && IsEngaged())
         {
             active = true;
-            transform.Translate(new Vector3(0, -4.01f, 0));
+            transform.Translate(new Vector3(0, -100f, 0));
         }
     }
 

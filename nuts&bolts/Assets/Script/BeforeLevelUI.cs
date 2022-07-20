@@ -537,6 +537,25 @@ public class BeforeLevelUI : MonoBehaviour
         ResetBolts();
         // Set First Highlighted button
         UpdateButtonHighlight();
+
+        UpdateHintText();
+    }
+
+    void UpdateHintText()
+    {
+        if (NavIdxP1.y == 0 && NavIdxP1.x < 5)
+            transform.Find("P1/highlight").GetComponent<TMP_Text>().text = "Press [LSHIFT] to upgrade";
+        else if (NavIdxP1.x == 5)
+            transform.Find("P1/highlight").GetComponent<TMP_Text>().text = "Press [LSHIFT] to confirm";
+        else
+            transform.Find("P1/highlight").GetComponent<TMP_Text>().text = "Press [LSHIFT] to show description";
+
+        if (NavIdxP2.y == 0 && NavIdxP2.x < 5)
+            transform.Find("P2/highlight").GetComponent<TMP_Text>().text = "Press [RSHIFT] to upgrade";
+        else if (NavIdxP2.x == 5)
+            transform.Find("P2/highlight").GetComponent<TMP_Text>().text = "Press [RSHIFT] to confirm";
+        else
+            transform.Find("P2/highlight").GetComponent<TMP_Text>().text = "Press [RSHIFT] to show description";
     }
 
     void UpdateButtonHighlight()
@@ -582,6 +601,8 @@ public class BeforeLevelUI : MonoBehaviour
         SetHintMarker(P2_UI, "Legs", 2, NavIdxP2.x == 3 && NavIdxP2.y == 2);
         SetHintMarker(P2_UI, "Legs", 3, NavIdxP2.x == 3 && NavIdxP2.y == 3);
         SetHintMarker(P2_UI, "Back", 1, NavIdxP2.x == 4 && NavIdxP2.y == 1);
+
+        UpdateHintText();
     }
 
     void SetButtonHighlight(Transform player, string bodyPart, bool highlighted)

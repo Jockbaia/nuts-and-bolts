@@ -21,7 +21,7 @@ public class WallMoving : MonoBehaviour
             if (doItOnce)
             {
                 doItOnce = false;
-                transform.Translate(new Vector3(0, -4.01f, 0));
+                transform.Translate(new Vector3(0, -100f, 0));
             }
         }
         else
