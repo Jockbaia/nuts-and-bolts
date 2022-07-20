@@ -53,16 +53,11 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadNextSceneWrap() //TODO: fix when finished debugging
     {
-        if (currentScene == "Menu")
-        {
-            currentScene = "SkipTutorial"; //SkipTutorial
-            LoadSceneWrapper(currentScene);
-        }
-        else if (currentScene == "Tutorial0") // Play Tutorial
+        if (currentScene == "Menu") // Play Tutorial
         {
             audioSrc.Stop();
 
-            currentScene = "Tutorial1";
+            currentScene = "Tutorial1"; // "Tutorial1"
             LoadSceneWrapper(currentScene);
 
             audioSrc.clip = musicTutorial;
