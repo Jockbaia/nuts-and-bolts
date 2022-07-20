@@ -26,7 +26,7 @@ public class SceneLoader : MonoBehaviour
     void Awake()
     {
         //TODO: Set them to zero when done debugging!
-        _componentsP1.Larm = 0; // Max 5
+        _componentsP1.Larm = 0; // Max 3
         _componentsP1.Rarm = 0; // Max 4
         _componentsP1.legs = 0; // Max 5
         _componentsP1.view = 0; // Max 3
@@ -105,7 +105,7 @@ public class SceneLoader : MonoBehaviour
         }
         else if (currentScene == "Tutorial6")
         {
-            _componentsP1.Larm = 0; // Max 5
+            _componentsP1.Larm = 0; // Max 3
             _componentsP1.Rarm = 1; // Max 4
             _componentsP1.legs = 0; // Max 5
             _componentsP1.view = 0; // Max 3
@@ -124,18 +124,18 @@ public class SceneLoader : MonoBehaviour
         // ========= //
         else if (currentScene == "Tutorial7" || currentScene == "Level0") // Last Tutorial
         {
-            _componentsP1.Larm = 0; // Max 5
+            _componentsP1.Larm = 0; // Max 3
             _componentsP1.Rarm = 0; // Max 4
             _componentsP1.legs = 0; // Max 5
-            _componentsP1.view = 0; // Max 3
-            _componentsP1.rocket = 0; // Max 3
+            _componentsP1.view = 1; // Max 3
+            _componentsP1.rocket = 1; // Max 3
             _componentsP1.bolts = 0;
 
             _componentsP2.Larm = 0;
             _componentsP2.Rarm = 0;
             _componentsP2.legs = 0;
-            _componentsP2.view = 0;
-            _componentsP2.rocket = 0;
+            _componentsP2.view = 1;
+            _componentsP2.rocket = 1;
             _componentsP2.bolts = 0;
 
             audioSrc.Stop();

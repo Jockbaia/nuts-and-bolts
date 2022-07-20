@@ -83,7 +83,7 @@ public class RobotPowers : MonoBehaviour
     public void checkPowers()
     {
         powers[PowerSelector.ArmExtend] = _components.Larm > 0;       
-        powers[PowerSelector.PushPullHeavy] = _components.Larm > 4;       
+        powers[PowerSelector.PushPullHeavy] = _components.Larm > 2;       
         powers[PowerSelector.Magnetic] = _components.Rarm > 0;
         powers[PowerSelector.DestroyPad] = _components.Rarm > 3;
         powers[PowerSelector.Xray] = _components.view > 2;
@@ -156,7 +156,7 @@ public class RobotPowers : MonoBehaviour
 
         powers.Add(PowerSelector.PushPull, true);
         powers.Add(PowerSelector.ArmExtend, _components.Larm > 0);     
-        powers.Add(PowerSelector.PushPullHeavy, _components.Larm > 4);     
+        powers.Add(PowerSelector.PushPullHeavy, _components.Larm > 2);     
         powers.Add(PowerSelector.Magnetic, _components.Rarm > 0);     
         powers.Add(PowerSelector.DestroyPad, _components.Rarm > 3);     
         powers.Add(PowerSelector.Xray, _components.view > 2);
