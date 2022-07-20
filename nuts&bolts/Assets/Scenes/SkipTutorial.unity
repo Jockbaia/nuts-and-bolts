@@ -962,7 +962,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Is this the first time you're playing?
+  m_text: Do you want to play the tutorial?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
   m_sharedMaterial: {fileID: -9037777154941730000, guid: 7e945cb9c5148f041a2fe410df6b22d6, type: 2}
