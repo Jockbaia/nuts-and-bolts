@@ -288,6 +288,8 @@ public class PlayerLogic : MonoBehaviour
         else if (colliders.Length == 1)
         {
             var coll = colliders[0];
+            if (coll.gameObject.name == "doorTop") return false;
+
             if (coll.gameObject.name.StartsWith("Door") && GetComponent<HandleNumpadNav>().correct.displayText.text == "OK")
             {
                 return true;
@@ -297,6 +299,8 @@ public class PlayerLogic : MonoBehaviour
         {
             foreach (Collider coll in colliders)
             {
+                if (coll.gameObject.name == "doorTop") return false;
+
                 if (coll.gameObject.name.StartsWith("Door") && GetComponent<HandleNumpadNav>().correct.displayText.text == "OK")
                 {
                     return true;
@@ -331,6 +335,7 @@ public class PlayerLogic : MonoBehaviour
             }
             return;
         }
+
         if (this.gameObject.name == "Player1")
         {
             slider = GameObject.Find("PowerP1/Rocket/Slider").GetComponent<Slider>();
@@ -357,6 +362,21 @@ public class PlayerLogic : MonoBehaviour
         {
             GetComponent<Legs>().TookDamage();
 
+            // Check collision with door
+            string doorName = gameObject.name == "Player1" ? "P1Map/DoorP1" : "P2Map/DoorP2";
+            var door = GameObject.Find(doorName);
+            if (door != null)
+            {
+                if (door.transform.position.y >= 0)
+                {
+                    if (door.transform.position.x == transform.position.x && door.transform.position.z == transform.position.z)
+                    {
+                        return;
+                    }
+                }
+            }
+            //
+
             if (fuelRocketPosition > 0f)
             {
                 fuelRocketPosition -= Time.deltaTime;
@@ -368,7 +388,8 @@ public class PlayerLogic : MonoBehaviour
                 if (coll.Length == 1 && (
                     coll[0].name.StartsWith("TallBox") ||
                     coll[0].name.StartsWith("MagneticB") ||
-                    coll[0].name.StartsWith("ExchB")
+                    coll[0].name.StartsWith("ExchB") ||
+                    coll[0].name.StartsWith("Wall") //!
                     ))
                 {
                     movePoint.position -= transform.forward;

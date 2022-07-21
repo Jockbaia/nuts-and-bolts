@@ -72,8 +72,9 @@ public class ManageCoop : MonoBehaviour
 
             GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.Stop();
             GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.loop = false;
+
             AudioClip clip = GameObject.Find("SceneManager").GetComponent<SceneLoader>().clipLightsOut;
-            GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.PlayOneShot(clip); // Power down
+            GameObject.Find("UICanvas").GetComponent<AudioSource>().PlayOneShot(clip); // Power down
 
             yield return new WaitForSeconds(1f);
             GameObject.Find("DangerLight").GetComponent<Light>().intensity = 50;
