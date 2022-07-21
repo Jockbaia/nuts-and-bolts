@@ -26,6 +26,9 @@ public class ManageCoop : MonoBehaviour
 
     bool loadingNext = false;
 
+    public bool isLastLevel = false;
+    bool doneLastLevel = false;
+
     private void Awake()
     {
         //playerInputManager = gameObject.GetComponent<PlayerInputManager>();
@@ -62,6 +65,40 @@ public class ManageCoop : MonoBehaviour
     void Update()
     {
         if (loadingNext) return;
+
+        if (isLastLevel) // Used to end last level
+        {
+            if (doneLastLevel) return;
+
+            if (player1.transform.position.x > 27)
+            {
+                GameObject.Find("WallMovingP1").transform.position = new Vector3(27, 2, 2);
+                var laserP1 = GameObject.Find("LaserP1");
+                if (laserP1 != null) laserP1.SetActive(false);
+            }
+
+            if (player2.transform.position.x < 33)
+            {
+                GameObject.Find("WallMovingP2").transform.position = new Vector3(33, 2, 2);
+                var laserP2 = GameObject.Find("LaserP2");
+                if (laserP2 != null) laserP2.SetActive(false);
+            }
+
+            if (player1.transform.position.x > 27 && player2.transform.position.x < 33)
+            { // END GAME
+                doneLastLevel = true;
+
+                StartCoroutine(TargetFollower.Shake(player1.camera, 0.15f, 0.4f)); //!
+                StartCoroutine(TargetFollower.Shake(player2.camera, 0.15f, 0.4f)); //!
+
+                GameObject.Find("Light2").SetActive(false);
+                GameObject.Find("DangerLight").GetComponent<Light>().intensity = 50;
+
+                GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadNextSceneWrap();
+            }
+
+            return;
+        }
 
         bool door1Open = padCanvas1.GetComponent<PadManager>().displayText.text == "OK";
         bool door2Open = padCanvas2.GetComponent<PadManager>().displayText.text == "OK";

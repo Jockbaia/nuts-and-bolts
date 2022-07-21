@@ -53,7 +53,12 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadNextSceneWrap() //TODO: fix when finished debugging
     {
-        if (currentScene == "Menu") // Play Tutorial
+        if (currentScene == "Level3") // Restart from Menu
+        {
+            currentScene = "Menu";
+            LoadSceneWrapper(currentScene);
+        }
+        else if (currentScene == "Menu")
         {
             audioSrc.Stop();
 

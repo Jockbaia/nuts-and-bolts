@@ -513,7 +513,7 @@ public class PlayerLogic : MonoBehaviour
         string mapName;
 
         // Since P1Map and P2Map have 50 Xoffset
-        if (transform.position.x < 25) // Belongs to P1Map
+        if (gameObject.name == "Player1") // Belongs to P1Map
         {
             mapName = "P1Map";
         }

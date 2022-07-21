@@ -10,7 +10,7 @@ public class Opacity : MonoBehaviour
     private void Start()
     {
         MakeSolid();
-        if (Vector3.Distance(solidObj.transform.position, GameObject.Find("Player1").transform.position) 
+        /*if (Vector3.Distance(solidObj.transform.position, GameObject.Find("Player1").transform.position) 
             <
             Vector3.Distance(solidObj.transform.position, GameObject.Find("Player2").transform.position))
         {
@@ -19,7 +19,9 @@ public class Opacity : MonoBehaviour
         else
         {
             transparentObj.transform.parent = GameObject.Find("P2Map").transform.Find("Generated Map");
-        }
+        }*/
+
+        transparentObj.transform.parent = solidObj.transform.parent;
     }
 
     public void MakeTransparent()

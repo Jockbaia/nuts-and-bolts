@@ -61,6 +61,8 @@ public class Laser : MonoBehaviour
         {
             if (hit.collider.tag == "Player" && !hitit)
             {
+                player = hit.collider.gameObject;
+
                 //Shot
                 shotLine.SetPosition(1, hit.point);
                 laserLine.SetPosition(1, hit.point);
