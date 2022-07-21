@@ -190,7 +190,7 @@ public class PlayerLogic : MonoBehaviour
         }
 
         // BUGFIX for boxes
-        if (!IsBoxProximity())
+        if (GetComponent<RobotPowers>().selectedPower.ToString().StartsWith("Push") &&  !IsBoxProximity())
         {
             if (gameObject.name == "Player1" && Keyboard.current.leftShiftKey.isPressed)
             {
