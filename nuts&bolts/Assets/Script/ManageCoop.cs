@@ -52,7 +52,7 @@ public class ManageCoop : MonoBehaviour
         p2Larm.GetComponent<Renderer>().materials[0].color = p2Material.color;
         p2Larm.Find("Bottom").GetComponent<Renderer>().materials[0].color = p2Material.color;
         Transform p2Rarm = p2Model.Find("Arm_Right");
-        p2Rarm.GetComponent<Renderer>().materials[0].color = p2Material.color;
+        p2Rarm.GetComponent<Renderer>().materials[1].color = p2Material.color;
         p2Rarm.Find("Bottom").GetComponent<Renderer>().materials[0].color = p2Material.color;
         Transform p2Legs = p2Model.Find("Legs");
         p2Legs.GetComponent<Renderer>().materials[0].color = p2Material.color;

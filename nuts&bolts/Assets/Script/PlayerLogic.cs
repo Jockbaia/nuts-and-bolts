@@ -111,6 +111,15 @@ public class PlayerLogic : MonoBehaviour
             return;
         }
 
+        // BUGFIX for boxes
+        if (GetComponent<RobotPowers>().selectedPower.ToString().StartsWith("Push") &&
+            !IsBoxProximity() &&
+            Vector3.Distance(transform.position, movePoint.position) > 0f)
+        {
+            return;
+        }
+        //
+
         specialAction = context.action.triggered;
 
         // Animate push/pull
@@ -129,6 +138,16 @@ public class PlayerLogic : MonoBehaviour
             }
         }
 
+    }
+    
+    bool IsBoxProximity() // BUGFIX for boxes
+    {
+        Collider[] colls = Physics.OverlapSphere(transform.position + transform.forward, 0.3f);
+        foreach (var c in colls)
+        {
+            if (c.name.StartsWith("TallBox")) return true;
+        }
+        return false;
     }
 
     public void OnInteractBtn(InputAction.CallbackContext context)
@@ -169,6 +188,25 @@ public class PlayerLogic : MonoBehaviour
                 restartRocket = true;
             }
         }
+
+        // BUGFIX for boxes
+        if (!IsBoxProximity())
+        {
+            if (gameObject.name == "Player1" && Keyboard.current.leftShiftKey.isPressed)
+            {
+                specialAction = false;
+            }
+            else if (gameObject.name == "Player2" && Keyboard.current.rightShiftKey.isPressed)
+            {
+                specialAction = false;
+            }
+        }
+        if (GetComponent<RobotPowers>().selectedPower.ToString().StartsWith("Push") && !specialAction)
+        {
+            transform.Find("Model/Arm_Left").localRotation = Quaternion.Euler(0, -70, 0);
+            transform.Find("Model/Arm_Right").localRotation = Quaternion.Euler(0, 70, 0);
+        }
+        //
 
         rocketUpdate();
 

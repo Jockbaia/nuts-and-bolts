@@ -325,7 +325,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hold RShift
+  m_text: 'Hold RShift
+
+    while near box'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cc147be058e924858a36270646c93a6f, type: 2}
   m_sharedMaterial: {fileID: -3974528355786059749, guid: cc147be058e924858a36270646c93a6f, type: 2}
@@ -3603,7 +3605,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hold LShift
+  m_text: 'Hold LShift
+
+    while near box'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cc147be058e924858a36270646c93a6f, type: 2}
   m_sharedMaterial: {fileID: -3974528355786059749, guid: cc147be058e924858a36270646c93a6f, type: 2}

@@ -6,10 +6,31 @@ public class MovingLaser : MonoBehaviour
 {
     public Transform movePoint;
 
+    public int startingX;
+    public int endingX;
+
     public float moveSpeed = 5f;
 
-    int z = 4;
-    bool goingDown = true;
+    int x;
+    bool goingLeft;
+
+    void Start() // Moves sideways [-X, +X]
+    {
+        transform.position = new Vector3(startingX, transform.position.y, transform.position.z);
+
+        if (startingX > endingX)
+        {
+            goingLeft = true;
+        }
+        else
+        {
+            goingLeft = false;
+        }
+
+        x = startingX;
+
+        movePoint.position = transform.position;
+    }
 
     void Update()
     {
@@ -17,19 +38,19 @@ public class MovingLaser : MonoBehaviour
 
         if (Vector3.Distance(transform.position, movePoint.position) < 0.01f)
         {
-            if (goingDown)
+            if (goingLeft)
             {
-                z--;
-                if (z == 0) goingDown = false;
+                x--;
+                if (x == endingX || x == startingX) goingLeft = false;
 
-                movePoint.position = new Vector3(movePoint.position.x, movePoint.position.y, z);
+                movePoint.position = new Vector3(x, movePoint.position.y, movePoint.position.z);
             }
             else
             {
-                z++;
-                if (z == 4) goingDown = true;
+                x++;
+                if (x == endingX || x == startingX) goingLeft = true;
 
-                movePoint.position = new Vector3(movePoint.position.x, movePoint.position.y, z);
+                movePoint.position = new Vector3(x, movePoint.position.y, movePoint.position.z);
             }
         }
     }

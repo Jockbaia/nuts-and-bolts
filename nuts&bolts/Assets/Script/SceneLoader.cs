@@ -22,6 +22,7 @@ public class SceneLoader : MonoBehaviour
     public AudioClip musicLevel1;
     public AudioClip musicLevel2;
     public AudioClip musicLevel3;
+    public AudioClip musicMenu;
 
     void Awake()
     {
@@ -49,14 +50,22 @@ public class SceneLoader : MonoBehaviour
 
         audioSrc = GetComponent<AudioSource>();
         audioSrc.loop = true;
+
+        audioSrc.clip = musicMenu;
+        audioSrc.Play();
     }
 
     public void LoadNextSceneWrap() //TODO: fix when finished debugging
     {
         if (currentScene == "Level3") // Restart from Menu
         {
+            audioSrc.Stop();
+
             currentScene = "Menu";
             LoadSceneWrapper(currentScene);
+
+            audioSrc.clip = musicMenu;
+            audioSrc.Play();
         }
         else if (currentScene == "Menu")
         {
