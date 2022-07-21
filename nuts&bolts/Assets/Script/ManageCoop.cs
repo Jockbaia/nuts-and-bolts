@@ -64,19 +64,19 @@ public class ManageCoop : MonoBehaviour
 
     IEnumerator LightsOut(bool loadNext)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.8f);
+
         if (loadNext)
         {
             GameObject.Find("Light2").SetActive(false);
 
             GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.Stop();
             GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.loop = false;
-            //GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.PlayOneShot(); // Power down
+            AudioClip clip = GameObject.Find("SceneManager").GetComponent<SceneLoader>().clipLightsOut;
+            GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.PlayOneShot(clip); // Power down
 
             yield return new WaitForSeconds(1f);
             GameObject.Find("DangerLight").GetComponent<Light>().intensity = 50;
-
-            //GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.PlayOneShot(); // Alarm / Glitch
         }
         else
         {

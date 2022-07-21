@@ -23,6 +23,7 @@ public class SceneLoader : MonoBehaviour
     public AudioClip musicLevel2;
     public AudioClip musicLevel3;
     public AudioClip musicMenu;
+    public AudioClip clipLightsOut;
 
     void Awake()
     {

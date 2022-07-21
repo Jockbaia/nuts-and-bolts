@@ -4042,6 +4042,7 @@ MonoBehaviour:
   musicLevel2: {fileID: 8300000, guid: 4dff8d0075cf846ba8bea4445e691cbc, type: 3}
   musicLevel3: {fileID: 8300000, guid: adfc8ac4beb564fc1a54e722fe9f93b1, type: 3}
   musicMenu: {fileID: 8300000, guid: 0c77584e4e7bb462493b80c0ee774354, type: 3}
+  clipLightsOut: {fileID: 8300000, guid: 7465005034d3d47d1b34bceab630e547, type: 3}
 --- !u!4 &2031045222
 Transform:
   m_ObjectHideFlags: 0
