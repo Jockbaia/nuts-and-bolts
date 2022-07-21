@@ -285,8 +285,14 @@ public class PlayerLogic : MonoBehaviour
 
     void rocketUpdate()
     {
-        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() != "Rocket") return;
-
+        if (transform.GetComponent<RobotPowers>().selectedPower.ToString() != "Rocket")
+        {
+            if (GetComponent<Legs>().state == Legs.LegPos.None)
+            {
+                movePoint.position = new Vector3(movePoint.position.x, 1f, movePoint.position.z);
+            }
+            return;
+        }
         if (this.gameObject.name == "Player1")
         {
             slider = GameObject.Find("PowerP1/Rocket/Slider").GetComponent<Slider>();
