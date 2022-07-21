@@ -45,8 +45,8 @@ public class SceneLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         DontDestroyOnLoad(gameObject);
-         DontDestroyOnLoad(loadingPanel.transform.parent);
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(loadingPanel.transform.parent);
 
         audioSrc = GetComponent<AudioSource>();
         audioSrc.loop = true;
@@ -57,17 +57,39 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadNextSceneWrap() //TODO: fix when finished debugging
     {
-        if (currentScene == "Level3") // Restart from Menu
+        if (currentScene == "Level3") // Load To Be Continued
         {
             audioSrc.Stop();
 
-            currentScene = "Menu";
+            currentScene = "ToBeContinued";
+            LoadSceneWrapper(currentScene);
+        }
+        else if (currentScene == "ToBeContinued") // Restart from Menu
+        {
+            audioSrc.Stop();
+            audioSrc.loop = true;
+
+            _componentsP1.Larm = 0; // Max 3
+            _componentsP1.Rarm = 0; // Max 4
+            _componentsP1.legs = 0; // Max 5
+            _componentsP1.view = 0; // Max 3
+            _componentsP1.rocket = 0; // Max 3
+            _componentsP1.bolts = 0;
+
+            _componentsP2.Larm = 0;
+            _componentsP2.Rarm = 0;
+            _componentsP2.legs = 0;
+            _componentsP2.view = 0;
+            _componentsP2.rocket = 0;
+            _componentsP2.bolts = 0;
+
+            currentScene = "Menu2";
             LoadSceneWrapper(currentScene);
 
             audioSrc.clip = musicMenu;
             audioSrc.Play();
         }
-        else if (currentScene == "Menu")
+        else if (currentScene.StartsWith("Menu"))
         {
             audioSrc.Stop();
 

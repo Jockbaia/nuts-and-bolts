@@ -62,6 +62,58 @@ public class ManageCoop : MonoBehaviour
         //TODO: in caso non ci siano 2 device di input -> WASD / IJKL
     }
 
+    IEnumerator LightsOut(bool loadNext)
+    {
+        yield return new WaitForSeconds(1.5f);
+        if (loadNext)
+        {
+            GameObject.Find("Light2").SetActive(false);
+
+            GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.Stop();
+            GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.loop = false;
+            //GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.PlayOneShot(); // Power down
+
+            yield return new WaitForSeconds(1f);
+            GameObject.Find("DangerLight").GetComponent<Light>().intensity = 50;
+
+            //GameObject.Find("SceneManager").GetComponent<SceneLoader>().audioSrc.PlayOneShot(); // Alarm / Glitch
+        }
+        else
+        {
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    IEnumerator Shake(Camera cam, float duration, float magnitude, bool loadNext=false)
+    {
+        yield return StartCoroutine(LightsOut(loadNext));
+
+        Vector3 originalPos = cam.transform.position;
+        cam.GetComponent<CameraFollow>().enabled = false;
+
+        float elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+            float x = originalPos.x + UnityEngine.Random.Range(-1f, 1f) * magnitude;
+            float y = UnityEngine.Random.Range(-1f, 1f) * magnitude;
+
+            cam.transform.position = new Vector3(x, originalPos.y, originalPos.z);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        cam.transform.position = originalPos;
+        cam.GetComponent<CameraFollow>().enabled = true;
+
+        if (loadNext)
+        {
+            GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadNextSceneWrap();
+        }
+    }
+
     void Update()
     {
         if (loadingNext) return;
@@ -75,6 +127,8 @@ public class ManageCoop : MonoBehaviour
                 GameObject.Find("WallMovingP1").transform.position = new Vector3(27, 2, 2);
                 var laserP1 = GameObject.Find("LaserP1");
                 if (laserP1 != null) laserP1.SetActive(false);
+                var laserP1low = GameObject.Find("LaserP1low");
+                if (laserP1low != null) laserP1low.SetActive(false);
             }
 
             if (player2.transform.position.x < 33)
@@ -82,19 +136,16 @@ public class ManageCoop : MonoBehaviour
                 GameObject.Find("WallMovingP2").transform.position = new Vector3(33, 2, 2);
                 var laserP2 = GameObject.Find("LaserP2");
                 if (laserP2 != null) laserP2.SetActive(false);
+                var laserP2low = GameObject.Find("LaserP2low");
+                if (laserP2low != null) laserP2low.SetActive(false);
             }
 
             if (player1.transform.position.x > 27 && player2.transform.position.x < 33)
             { // END GAME
                 doneLastLevel = true;
 
-                StartCoroutine(TargetFollower.Shake(player1.camera, 0.15f, 0.4f)); //!
-                StartCoroutine(TargetFollower.Shake(player2.camera, 0.15f, 0.4f)); //!
-
-                GameObject.Find("Light2").SetActive(false);
-                GameObject.Find("DangerLight").GetComponent<Light>().intensity = 50;
-
-                GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadNextSceneWrap();
+                StartCoroutine(Shake(player1.camera, 3f, 0.4f)); //!
+                StartCoroutine(Shake(player2.camera, 3f, 0.4f, true)); //!
             }
 
             return;

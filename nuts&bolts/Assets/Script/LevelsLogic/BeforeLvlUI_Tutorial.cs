@@ -569,6 +569,7 @@ public class BeforeLvlUI_Tutorial : MonoBehaviour
         GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadNextSceneWrap();
     }
 
+    GameObject boltsHint;
     // Start is called before the first frame update
     void Start()
     {
@@ -592,6 +593,20 @@ public class BeforeLvlUI_Tutorial : MonoBehaviour
         UpdateButtonHighlight();
 
         UpdateHintText();
+
+        boltsHint = transform.Find("boltsHint").gameObject;
+    }
+
+    void Update()
+    {
+        if (boltsP1 > 0 || boltsP2 > 0)
+        {
+            boltsHint.SetActive(true);
+        }
+        else
+        {
+            boltsHint.SetActive(false);
+        }
     }
 
     void UpdateHintText()

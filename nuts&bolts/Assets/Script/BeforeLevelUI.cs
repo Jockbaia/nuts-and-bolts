@@ -23,8 +23,8 @@ public class BeforeLevelUI : MonoBehaviour
     int rightArmP1;
     int viewP1;
     int legsP1;
-    int backP1;    
-    
+    int backP1;
+
     int boltsP2;
     int leftArmP2;
     int rightArmP2;
@@ -516,6 +516,7 @@ public class BeforeLevelUI : MonoBehaviour
         GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadNextSceneWrap();
     }
 
+    GameObject boltsHint;
     // Start is called before the first frame update
     void Start()
     {
@@ -539,6 +540,20 @@ public class BeforeLevelUI : MonoBehaviour
         UpdateButtonHighlight();
 
         UpdateHintText();
+
+        boltsHint = transform.Find("boltsHint").gameObject;
+    }
+
+    void Update()
+    {
+        if (boltsP1 > 0 || boltsP2 > 0)
+        {
+            boltsHint.SetActive(true);
+        }
+        else
+        {
+            boltsHint.SetActive(false);
+        }
     }
 
     void UpdateHintText()
