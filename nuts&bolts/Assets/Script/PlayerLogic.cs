@@ -145,7 +145,7 @@ public class PlayerLogic : MonoBehaviour
         Collider[] colls = Physics.OverlapSphere(transform.position + transform.forward, 0.3f);
         foreach (var c in colls)
         {
-            if (c.name.StartsWith("TallBox")) return true;
+            if (c.name.StartsWith("TallBox") && GetComponent<Legs>().canPush == true) return true;
         }
         return false;
     }

@@ -11,8 +11,9 @@ public class Legs : MonoBehaviour
     public LegPos state = LegPos.None;
     public static float upValue = 0.25f;
     public static float dwValue = 0.5f;
+    public bool canPush = true;
 
-    bool doItOnce = true;
+    bool doItOnce = true;    
 
     Transform movePoint;
     Transform legs;
@@ -38,6 +39,17 @@ public class Legs : MonoBehaviour
     {
         bool specialAction = GetComponent<PlayerLogic>().specialAction;
         
+        //FIX PUSHPULL BOXES
+        if (state != LegPos.None && GetComponent<RobotPowers>()._components.legs < 5)
+        {
+            canPush = false;
+        }
+        else
+        {
+            canPush = true;
+        }
+
+
         if (specialAction)
         {
             if (!doItOnce) return;
