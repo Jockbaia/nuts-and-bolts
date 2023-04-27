@@ -8,9 +8,9 @@
 
 ## About
 
-The advancements in technology are growing exponentially, increasing the waste of still functional devices. In a future that has taken this to an extreme, what would happen if those machines started developing feelings? We have a two player co-op multi-level puzzle game featuring a layered story, unique set of mechanics, clever puzzles and Lego-like art style. Just like Wall-E, live the story of a friendship from the screen of your PC.
+In a not too far away future some factories have replaced all human employees with machines. After all, robots are faster, more efficient and way cheaper than any person could ever be. However, with the increase of the demand, robots' prices reached such lows that factories found that replacing a faulty or less efficient robot is much more convenient than getting it repaired. It's in this world that two little robots struck up an unusual friendship that led them to a one way trip to a warehouse for faulty machines. Although physically separated, they must embark on a journey through strangely interconnected rooms in the hope of escaping the facility and being able to play together once more. "Nuts and Bolts" offers a two player co-op multi-level puzzle game featuring a layered story, unique set of mechanics, clever puzzles and Lego-like art style. Just like Wall-E, live the story of a friendship from the screen of your PC.
 
-*PREPARE FOR A PUZZLING ESCAPE!*
+**Project made for the Game Design course at Politecnico di Torino**
 
 ## Game trailer
 
