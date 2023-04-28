@@ -3,7 +3,7 @@
 </p>
 
 [![Made with Unity](https://img.shields.io/badge/Made%20with-Unity-57b9d3.svg?style=flat&logo=unity)](https://unity3d.com)
-[![Made with Unity](https://img.shields.io/badge/Trailer-Youtube-red)](https://www.youtube.com/watch?v=5Y52tkRJ7Ws)
+[![Trailer Youtube](https://img.shields.io/badge/Trailer-Youtube-red)](https://www.youtube.com/watch?v=5Y52tkRJ7Ws)
 
 
 ## About
@@ -15,7 +15,7 @@ In a not too far away future some factories have replaced all human employees wi
 ## Game trailer
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=5Y52tkRJ7Ws"><img style="width:600px" src="https://i.imgur.com/r6KulFc.png?raw=true" alt="N&B logo"/></a>
+  <a href="https://www.youtube.com/watch?v=5Y52tkRJ7Ws"><img style="width:600px" target="_blank" src="https://i.imgur.com/r6KulFc.png?raw=true" alt="N&B logo"/></a>
 </p>
 
 
