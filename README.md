@@ -15,7 +15,7 @@ In a not too far away future some factories have replaced all human employees wi
 ## Game trailer
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=5Y52tkRJ7Ws"><img style="width:600px" target="_blank" src="https://i.imgur.com/r6KulFc.png?raw=true" alt="N&B logo"/></a>
+  <a target="_blank" href="https://www.youtube.com/watch?v=5Y52tkRJ7Ws"><img style="width:600px" src="https://i.imgur.com/r6KulFc.png?raw=true" alt="N&B logo"/></a>
 </p>
 
 
